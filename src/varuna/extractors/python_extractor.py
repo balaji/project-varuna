@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import List, Set
+from typing import ClassVar
+
 import tree_sitter_python as tspython
-from tree_sitter import Language as TSLanguage, Parser
+from tree_sitter import Language as TSLanguage
+from tree_sitter import Parser
 
 from varuna.extractors.base import (
     BaseASTExtractor,
@@ -23,16 +25,26 @@ from varuna.models.graph_schema import (
     RouteEndpoint,
 )
 
-HTTP_VERBS: Set[str] = {"get", "post", "put", "delete", "patch", "options", "head", "route", "api_route"}
-CLI_DECORATORS: Set[str] = {"command", "group"}
-WORKER_DECORATORS: Set[str] = {"task", "shared_task", "job"}
+HTTP_VERBS: set[str] = {
+    "get",
+    "post",
+    "put",
+    "delete",
+    "patch",
+    "options",
+    "head",
+    "route",
+    "api_route",
+}
+CLI_DECORATORS: set[str] = {"command", "group"}
+WORKER_DECORATORS: set[str] = {"task", "shared_task", "job"}
 
 
 class PythonASTExtractor(BaseASTExtractor):
     """Extracts imports, classes, functions, call sites, HTTP routes, and CLI entrypoints from Python files."""
 
-    language = Language.PYTHON
-    extensions = {".py"}
+    language: ClassVar[Language] = Language.PYTHON
+    extensions: ClassVar[set[str]] = {".py"}
 
     def __init__(self) -> None:
         self._ts_lang = TSLanguage(tspython.language())
@@ -79,12 +91,16 @@ class PythonASTExtractor(BaseASTExtractor):
                     elif child.type == "aliased_import":
                         name_node = child.child_by_field_name("name")
                         if name_node:
-                            node_model.raw_imports.append(node_text(name_node, source_bytes).strip())
+                            node_model.raw_imports.append(
+                                node_text(name_node, source_bytes).strip()
+                            )
 
             elif ntype == "import_from_statement":
                 # e.g., from varuna.models.graph_schema import CodeNode, AnalysisResult
                 module_name_node = ts_node.child_by_field_name("module_name")
-                base_mod = node_text(module_name_node, source_bytes).strip() if module_name_node else ""
+                base_mod = (
+                    node_text(module_name_node, source_bytes).strip() if module_name_node else ""
+                )
                 if base_mod:
                     node_model.raw_imports.append(base_mod)
                 # Also record imported symbol names to strengthen coupling weights and resolve submodules

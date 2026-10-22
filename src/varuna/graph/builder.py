@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 import re
-from typing import Dict, List, Optional, Set, Tuple
+from pathlib import Path
+
 import networkx as nx
 
 from varuna.extractors.infra_scanner import KNOWN_EXTERNAL_DEPENDENCIES
@@ -13,11 +13,11 @@ from varuna.graph.centrality import analyze_centrality_and_topology
 from varuna.graph.clustering import discover_c3_components
 from varuna.graph.drift import analyze_architecture_drift
 from varuna.models.graph_schema import (
+    EDGE_BASE_WEIGHTS,
     C3Component,
     CodeNode,
     DependencyEdge,
     DriftIssue,
-    EDGE_BASE_WEIGHTS,
     EdgeKind,
     ExternalBoundary,
     Language,
@@ -31,7 +31,7 @@ class GraphBuilder:
     def __init__(
         self,
         repo_root: Path,
-        openapi_path: Optional[Path] = None,
+        openapi_path: Path | None = None,
         include_tests: bool = False,
     ) -> None:
         self.repo_root = repo_root.resolve()
@@ -41,12 +41,12 @@ class GraphBuilder:
 
     def build(
         self,
-    ) -> Tuple[
+    ) -> tuple[
         nx.DiGraph,
-        Dict[str, CodeNode],
-        List[DependencyEdge],
-        Dict[str, ExternalBoundary],
-        List[RouteEndpoint],
+        dict[str, CodeNode],
+        list[DependencyEdge],
+        dict[str, ExternalBoundary],
+        list[RouteEndpoint],
     ]:
         nodes, external_boundaries, unmatched_routes = self.registry.extract_all(
             repo_root=self.repo_root,
@@ -83,18 +83,18 @@ class GraphBuilder:
 
     def analyze_graph(
         self, resolution: float = 1.0
-    ) -> Tuple[
+    ) -> tuple[
         nx.DiGraph,
-        Dict[str, CodeNode],
-        List[DependencyEdge],
-        Dict[str, ExternalBoundary],
-        List[RouteEndpoint],
-        List[str],
-        List[str],
-        List[C3Component],
+        dict[str, CodeNode],
+        list[DependencyEdge],
+        dict[str, ExternalBoundary],
+        list[RouteEndpoint],
+        list[str],
+        list[str],
+        list[C3Component],
         float,
         float,
-        List[DriftIssue],
+        list[DriftIssue],
     ]:
         """Run full NetworkX graph construction, centrality pruning, Louvain clustering, and drift analysis."""
         graph, nodes, edges, external_boundaries, unmatched_routes = self.build()
@@ -123,16 +123,16 @@ class GraphBuilder:
 
     def _resolve_edges(
         self,
-        nodes: Dict[str, CodeNode],
-        external_boundaries: Dict[str, ExternalBoundary],
-    ) -> List[DependencyEdge]:
-        suffix_to_id: Dict[str, str] = {}
-        symbol_to_ids: Dict[str, List[str]] = {}
-        stem_to_id: Dict[str, str] = {}
+        nodes: dict[str, CodeNode],
+        external_boundaries: dict[str, ExternalBoundary],
+    ) -> list[DependencyEdge]:
+        suffix_to_id: dict[str, str] = {}
+        symbol_to_ids: dict[str, list[str]] = {}
+        stem_to_id: dict[str, str] = {}
 
         sorted_nodes = sorted(
             nodes.items(),
-            key=lambda item: (0 if item[1].relative_path.endswith("__init__.py") else 1),
+            key=lambda item: 0 if item[1].relative_path.endswith("__init__.py") else 1,
         )
 
         for node_id, node in sorted_nodes:
@@ -150,7 +150,7 @@ class GraphBuilder:
                     short_sym = sym.split("::")[-1]
                     symbol_to_ids.setdefault(short_sym, []).append(node_id)
 
-        pair_edges: Dict[Tuple[str, str, EdgeKind], DependencyEdge] = {}
+        pair_edges: dict[tuple[str, str, EdgeKind], DependencyEdge] = {}
 
         def add_edge(src: str, dst: str, kind: EdgeKind, sym: str = "") -> None:
             if not dst or src == dst or dst not in nodes:
@@ -173,7 +173,7 @@ class GraphBuilder:
                     pair_edges[key].symbols.append(sym)
 
         for src_id, node in nodes.items():
-            imported_targets: Set[str] = set()
+            imported_targets: set[str] = set()
 
             for raw_imp in node.raw_imports:
                 target_id = self._resolve_import_string(src_id, node, raw_imp, suffix_to_id)
@@ -227,8 +227,8 @@ class GraphBuilder:
         src_id: str,
         node: CodeNode,
         raw_imp: str,
-        suffix_to_id: Dict[str, str],
-    ) -> Optional[str]:
+        suffix_to_id: dict[str, str],
+    ) -> str | None:
         cleaned = raw_imp.strip()
         if not cleaned:
             return None
@@ -237,7 +237,7 @@ class GraphBuilder:
             if node.language in (Language.TYPESCRIPT, Language.RUBY):
                 src_dir = Path(node.relative_path).parent
                 resolved_rel = (src_dir / cleaned).as_posix()
-                norm_parts: List[str] = []
+                norm_parts: list[str] = []
                 for p in resolved_rel.split("/"):
                     if p in ("", "."):
                         continue
@@ -274,7 +274,7 @@ class GraphBuilder:
         self,
         src_id: str,
         raw_imp: str,
-        external_boundaries: Dict[str, ExternalBoundary],
+        external_boundaries: dict[str, ExternalBoundary],
     ) -> None:
         root_pkg = raw_imp.split(".")[0].split("/")[0].lower().replace("_", "-")
         if root_pkg.startswith("tree-sitter"):

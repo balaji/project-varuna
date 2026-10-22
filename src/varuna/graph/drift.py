@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections import Counter
-from typing import Dict, List, Tuple
+
 import networkx as nx
 
 from varuna.models.graph_schema import C3Component, CodeNode, DriftIssue
@@ -11,9 +11,9 @@ from varuna.models.graph_schema import C3Component, CodeNode, DriftIssue
 
 def analyze_architecture_drift(
     graph: nx.DiGraph,
-    nodes: Dict[str, CodeNode],
-    components: List[C3Component],
-) -> Tuple[float, List[DriftIssue]]:
+    nodes: dict[str, CodeNode],
+    components: list[C3Component],
+) -> tuple[float, list[DriftIssue]]:
     """
     Evaluate how closely the codebase's physical directory structure aligns with the
     behavioral Louvain communities discovered from actual call/import coupling.
@@ -23,7 +23,7 @@ def analyze_architecture_drift(
     if not nodes or not components:
         return 1.0, []
 
-    issues: List[DriftIssue] = []
+    issues: list[DriftIssue] = []
 
     # 1. Compute cluster homogeneity (what fraction of nodes in each Louvain component belong to its dominant folder)
     aligned_nodes = 0
@@ -60,7 +60,7 @@ def analyze_architecture_drift(
                 )
 
     # 2. Check if a single directory namespace got splintered across multiple Louvain communities
-    ns_to_comps: Dict[str, List[str]] = {}
+    ns_to_comps: dict[str, list[str]] = {}
     for comp in components:
         for nid in comp.node_ids:
             ns = nodes[nid].directory_namespace

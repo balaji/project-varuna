@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
-from typing import Optional
+
 import typer
 from rich.console import Console
 from rich.panel import Panel
@@ -14,9 +13,6 @@ from varuna.emitters.likec4_emitter import emit_likec4_dsl
 from varuna.emitters.report_emitter import emit_markdown_report
 from varuna.enrichment.llm_agent import enrich_components_with_llm
 from varuna.graph.builder import GraphBuilder
-from varuna.graph.centrality import analyze_centrality_and_topology
-from varuna.graph.clustering import discover_c3_components
-from varuna.graph.drift import analyze_architecture_drift
 from varuna.models.graph_schema import AnalysisResult
 
 app = typer.Typer(
@@ -29,7 +25,7 @@ console = Console()
 
 def run_analysis(
     repo_path: Path,
-    openapi_path: Optional[Path] = None,
+    openapi_path: Path | None = None,
     resolution: float = 1.0,
     use_llm: bool = False,
     include_tests: bool = False,
@@ -38,14 +34,14 @@ def run_analysis(
     repo_root = repo_path.resolve()
     project_name = repo_root.name
 
-    # Stage 1–3: AST + Optional OpenAPI + Infra scan -> NetworkX DiGraph -> Centrality -> Louvain -> Drift
+    # Stage 1-3: AST + Optional OpenAPI + Infra scan -> NetworkX DiGraph -> Centrality -> Louvain -> Drift
     builder = GraphBuilder(
         repo_root=repo_root,
         openapi_path=openapi_path,
         include_tests=include_tests,
     )
     (
-        graph,
+        _graph,
         nodes,
         edges,
         external_boundaries,
@@ -62,8 +58,8 @@ def run_analysis(
     enrich_components_with_llm(components, nodes, use_llm=use_llm)
 
     languages_detected = sorted(
-        list({n.language for n in nodes.values()}),
-        key=lambda l: l.value,
+        {n.language for n in nodes.values()},
+        key=lambda lang: lang.value,
     )
 
     return AnalysisResult(
@@ -98,7 +94,7 @@ def analyze_command(
         "-o",
         help="Directory where LikeC4 (.c4) and Markdown modularity reports will be written.",
     ),
-    openapi_path: Optional[Path] = typer.Option(
+    openapi_path: Path | None = typer.Option(
         None,
         "--openapi",
         help="Optional path to an OpenAPI/Swagger (.yaml/.json) specification.",
@@ -167,10 +163,10 @@ def inspect_command(
 
 def _print_console_summary(
     result: AnalysisResult,
-    c4_file: Optional[Path],
-    report_file: Optional[Path],
+    c4_file: Path | None,
+    report_file: Path | None,
 ) -> None:
-    langs = ", ".join(l.value.title() for l in result.languages_detected) or "None"
+    langs = ", ".join(lang.value.title() for lang in result.languages_detected) or "None"
     console.print(
         Panel.fit(
             f"[bold cyan]Project Varuna[/bold cyan] — C4 Architecture & Network Science Summary for [bold]{result.project_name}[/bold]\n"
@@ -211,9 +207,12 @@ def _print_console_summary(
     comp_table.add_column("Depends On (C3)", style="yellow")
 
     for comp in result.components:
-        deps_str = ", ".join(
-            f"{dst} (w={w:.1f})" for dst, w in sorted(comp.outbound_component_deps.items())
-        ) or "—"
+        deps_str = (
+            ", ".join(
+                f"{dst} (w={w:.1f})" for dst, w in sorted(comp.outbound_component_deps.items())
+            )
+            or "—"
+        )
         comp_table.add_row(
             comp.id,
             comp.name,

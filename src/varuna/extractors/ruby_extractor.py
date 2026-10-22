@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import List, Set
+from typing import ClassVar
+
 import tree_sitter_ruby as tsruby
-from tree_sitter import Language as TSLanguage, Parser
+from tree_sitter import Language as TSLanguage
+from tree_sitter import Parser
 
 from varuna.extractors.base import (
     BaseASTExtractor,
@@ -23,7 +25,7 @@ from varuna.models.graph_schema import (
     RouteEndpoint,
 )
 
-RUBY_BUILTIN_CONSTANTS: Set[str] = {
+RUBY_BUILTIN_CONSTANTS: set[str] = {
     "String",
     "Integer",
     "Float",
@@ -66,8 +68,8 @@ class RubyASTExtractor(BaseASTExtractor):
     - Rails `config/routes.rb` HTTP route definitions & Sidekiq workers
     """
 
-    language = Language.RUBY
-    extensions: Set[str] = {".rb", ".rake"}
+    language: ClassVar[Language] = Language.RUBY
+    extensions: ClassVar[set[str]] = {".rb", ".rake"}
 
     def __init__(self) -> None:
         self._ts_lang = TSLanguage(tsruby.language())
@@ -93,8 +95,7 @@ class RubyASTExtractor(BaseASTExtractor):
             lines_of_code=loc,
         )
 
-        scope_stack: List[str] = []
-        defined_constants: Set[str] = set()
+        defined_constants: set[str] = set()
         is_routes_file = rel_posix.endswith("routes.rb")
 
         for ts_node in walk_tree(root):
@@ -139,7 +140,7 @@ class RubyASTExtractor(BaseASTExtractor):
                     node_model.exported_symbols.append(m_name)
 
             elif ntype in ("scope_resolution", "constant"):
-                const_ref = node_text(ts_node, source_bytes).strip().lstrip("::")
+                const_ref = node_text(ts_node, source_bytes).strip().removeprefix("::")
                 base_const = const_ref.split("::")[0]
                 if (
                     const_ref
@@ -191,7 +192,10 @@ class RubyASTExtractor(BaseASTExtractor):
             return
 
         # 3. ActiveRecord associations: belongs_to :account, has_many :invoices
-        if method_name in ("belongs_to", "has_many", "has_one", "has_and_belongs_to_many") and args_text:
+        if (
+            method_name in ("belongs_to", "has_many", "has_one", "has_and_belongs_to_many")
+            and args_text
+        ):
             sym_match = re.search(r":([a-zA-Z0-9_]+)", args_text)
             if sym_match:
                 assoc_target = sym_match.group(1)

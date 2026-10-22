@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from pathlib import Path
-from typing import Dict, Iterable, List, Optional, Set, Tuple
 
 from varuna.extractors.base import BaseASTExtractor
 from varuna.extractors.infra_scanner import scan_infrastructure_and_manifests
@@ -17,7 +17,7 @@ from varuna.extractors.ruby_extractor import RubyASTExtractor
 from varuna.extractors.ts_extractor import TypeScriptASTExtractor
 from varuna.models.graph_schema import CodeNode, ExternalBoundary, RouteEndpoint
 
-DEFAULT_EXCLUDED_DIRS: Set[str] = {
+DEFAULT_EXCLUDED_DIRS: set[str] = {
     ".git",
     ".hg",
     ".svn",
@@ -46,7 +46,7 @@ class ExtractorRegistry:
 
     def __init__(self, include_tests: bool = False) -> None:
         self.include_tests = include_tests
-        self.extractors: List[BaseASTExtractor] = [
+        self.extractors: list[BaseASTExtractor] = [
             PythonASTExtractor(),
             TypeScriptASTExtractor(),
             RubyASTExtractor(),
@@ -55,9 +55,9 @@ class ExtractorRegistry:
     def extract_all(
         self,
         repo_root: Path,
-        openapi_path: Optional[Path] = None,
-    ) -> Tuple[Dict[str, CodeNode], Dict[str, ExternalBoundary], List[RouteEndpoint]]:
-        nodes: Dict[str, CodeNode] = {}
+        openapi_path: Path | None = None,
+    ) -> tuple[dict[str, CodeNode], dict[str, ExternalBoundary], list[RouteEndpoint]]:
+        nodes: dict[str, CodeNode] = {}
 
         for file_path in self._iter_source_files(repo_root):
             for extractor in self.extractors:
@@ -83,7 +83,9 @@ class ExtractorRegistry:
             if not path.is_file():
                 continue
             rel_parts = path.relative_to(repo_root).parts
-            if any(part in DEFAULT_EXCLUDED_DIRS or part.startswith(".") for part in rel_parts[:-1]):
+            if any(
+                part in DEFAULT_EXCLUDED_DIRS or part.startswith(".") for part in rel_parts[:-1]
+            ):
                 continue
             if not self.include_tests:
                 if any(

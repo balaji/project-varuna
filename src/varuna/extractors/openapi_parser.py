@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
-from typing import Dict, List, Optional
+
 import yaml
 
 from varuna.extractors.base import sanitize_boundary_id
@@ -25,7 +25,7 @@ CANDIDATE_SPEC_NAMES = (
 HTTP_METHODS = {"get", "post", "put", "delete", "patch", "options", "head"}
 
 
-def discover_openapi_spec(repo_root: Path) -> Optional[Path]:
+def discover_openapi_spec(repo_root: Path) -> Path | None:
     """Auto-discover an OpenAPI/Swagger spec in common repository locations if one exists."""
     for rel in CANDIDATE_SPEC_NAMES:
         candidate = repo_root / rel
@@ -34,16 +34,13 @@ def discover_openapi_spec(repo_root: Path) -> Optional[Path]:
     return None
 
 
-def parse_openapi_spec(spec_path: Path) -> List[RouteEndpoint]:
+def parse_openapi_spec(spec_path: Path) -> list[RouteEndpoint]:
     """Parse an OpenAPI 3.x or Swagger 2.0 specification into RouteEndpoint objects."""
     if not spec_path or not spec_path.is_file():
         return []
 
     raw_text = spec_path.read_text(encoding="utf-8", errors="replace")
-    if spec_path.suffix.lower() == ".json":
-        data = json.loads(raw_text)
-    else:
-        data = yaml.safe_load(raw_text)
+    data = json.loads(raw_text) if spec_path.suffix.lower() == ".json" else yaml.safe_load(raw_text)
 
     if not isinstance(data, dict):
         return []
@@ -52,7 +49,7 @@ def parse_openapi_spec(spec_path: Path) -> List[RouteEndpoint]:
     if not isinstance(paths_obj, dict):
         return []
 
-    endpoints: List[RouteEndpoint] = []
+    endpoints: list[RouteEndpoint] = []
     for route_path, methods_map in paths_obj.items():
         if not isinstance(methods_map, dict):
             continue
@@ -76,8 +73,8 @@ def parse_openapi_spec(spec_path: Path) -> List[RouteEndpoint]:
 
 
 def merge_openapi_into_nodes(
-    spec_routes: List[RouteEndpoint], nodes: Dict[str, CodeNode]
-) -> List[RouteEndpoint]:
+    spec_routes: list[RouteEndpoint], nodes: dict[str, CodeNode]
+) -> list[RouteEndpoint]:
     """
     Overlay OpenAPI route metadata (tags, summaries, operationIds) onto AST-discovered code nodes.
     Returns any unmatched OpenAPI routes.
@@ -85,7 +82,7 @@ def merge_openapi_into_nodes(
     if not spec_routes:
         return []
 
-    unmatched: List[RouteEndpoint] = []
+    unmatched: list[RouteEndpoint] = []
     for spec_ep in spec_routes:
         matched = False
         norm_spec_path = _normalize_route_path(spec_ep.path)
