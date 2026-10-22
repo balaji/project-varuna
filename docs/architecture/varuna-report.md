@@ -7,8 +7,8 @@ Generated automatically by **Project Varuna** (AST + Centrality Pruning + Louvai
 | Metric | Value |
 | :--- | :--- |
 | **Languages Detected** | Python |
-| **Source Modules Analyzed (C4)** | 17 (2,963 LOC) |
-| **Internal Dependency Edges** | 112 |
+| **Source Modules Analyzed (C4)** | 17 (3,118 LOC) |
+| **Internal Dependency Edges** | 106 |
 | **Discovered C3 Components (Louvain)** | 6 |
 | **Cross-Cutting Utility Sinks Pruned** | 1 |
 | **Topological / AST Entrypoints** | 1 |
@@ -34,14 +34,14 @@ flowchart TD
     Actor --> comp_cli
     comp_cli -->|"7.2"| comp_emitters
     comp_cli -->|"3.6"| comp_enrichment
-    comp_cli -->|"11.7"| comp_graph
+    comp_cli -->|"4.6"| comp_graph
     comp_cli -->|"3.6"| comp_models
     comp_extractors -->|"46.2"| comp_models
     comp_extractors -.-> ext_tree_sitter_ast_runtime
     comp_graph -->|"6.0"| comp_extractors
     comp_graph -->|"24.4"| comp_models
     comp_graph -.-> ext_networkx_graph_runtime
-    comp_emitters -->|"7.0"| comp_models
+    comp_emitters -->|"6.2"| comp_models
     comp_enrichment -->|"6.2"| comp_models
     comp_enrichment -.-> ext_external_http_llm_apis
 ```
@@ -78,7 +78,7 @@ Modules with high cross-namespace fan-in and zero/minimal internal outbound coup
 | `src.varuna.cli` | `cli_command` | `cli:analyze` | CLI command handler `analyze_command` |
 | `src.varuna.cli` | `cli_command` | `cli:inspect` | CLI command handler `inspect_command` |
 | `src.varuna.cli` | `cli_command` | `python -m src.varuna.cli` | Main module execution block |
-| `src.varuna.cli` | `topological_source` | `root:cli` | Topological source node (in_degree=0, out_degree=8) |
+| `src.varuna.cli` | `topological_source` | `root:cli` | Topological source node (in_degree=0, out_degree=5) |
 
 ---
 
