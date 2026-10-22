@@ -203,9 +203,7 @@ def analyze_command(
         c4_file = emit_likec4_dsl(result, output_dir / "architecture.c4")
 
     if engine in (OutputEngine.STRUCTURIZR, OutputEngine.BOTH):
-        logger.info(
-            "[Stage 5/5] Emitting Structurizr DSL to %s...", output_dir / "workspace.dsl"
-        )
+        logger.info("[Stage 5/5] Emitting Structurizr DSL to %s...", output_dir / "workspace.dsl")
         structurizr_file = emit_structurizr_dsl(result, output_dir / "workspace.dsl")
 
     logger.info(
@@ -324,7 +322,7 @@ def _print_console_summary(
             )
         if structurizr_file:
             artifact_lines.append(
-                f"  • Structurizr UI:  [dim]docker run -it --rm -p 8080:8080 -v \"{structurizr_file.parent.resolve().as_posix()}:/usr/local/structurizr\" structurizr/stucturizr local[/dim]"
+                f'  • Structurizr UI:  [dim]docker run -it --rm -p 8080:8080 -v "{structurizr_file.parent.resolve().as_posix()}:/usr/local/structurizr" structurizr/stucturizr local[/dim]'
             )
         console.print("\n".join(artifact_lines))
 

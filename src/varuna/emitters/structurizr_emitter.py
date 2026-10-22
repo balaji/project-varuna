@@ -75,9 +75,7 @@ def generate_structurizr_string(result: AnalysisResult) -> str:
             node = result.nodes.get(nid)
             if not node:
                 continue
-            mod_summary = (
-                f"{node.relative_path} (in={node.in_degree}, out={node.out_degree}, PR={node.pagerank:.3f})"
-            )
+            mod_summary = f"{node.relative_path} (in={node.in_degree}, out={node.out_degree}, PR={node.pagerank:.3f})"
             lines.append(f'            "c4.module.{_esc(node.name)}" "{_esc(mod_summary)}"')
         lines.extend(
             [

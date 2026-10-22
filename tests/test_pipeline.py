@@ -95,9 +95,7 @@ def test_cli_output_engines(tmp_path: Path) -> None:
 
     # Both engine -> both files
     out_both = tmp_path / "both_out"
-    res_both = runner.invoke(
-        app, ["analyze", str(REPO_ROOT), "-o", str(out_both), "-e", "both"]
-    )
+    res_both = runner.invoke(app, ["analyze", str(REPO_ROOT), "-o", str(out_both), "-e", "both"])
     assert res_both.exit_code == 0
     assert (out_both / "architecture.c4").exists()
     assert (out_both / "workspace.dsl").exists()
