@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import re
 from collections import Counter
 from itertools import combinations
@@ -14,6 +15,8 @@ from varuna.models.graph_schema import (
     CodeNode,
     ExternalBoundary,
 )
+
+logger = logging.getLogger(__name__)
 
 SIBLING_STRUCTURAL_PRIOR_WEIGHT: float = 1.25
 
@@ -61,6 +64,14 @@ def discover_c3_components(
 
     isolated_star_nodes = sink_set | set(composition_roots)
     active_node_ids = [nid for nid in graph.nodes if nid not in isolated_star_nodes]
+
+    logger.info(
+        "[Stage 3/5] Preparing Louvain clustering (resolution=%.2f): %d active modules (%d utility sinks and %d composition roots isolated).",
+        resolution,
+        len(active_node_ids),
+        len(sink_set),
+        len(composition_roots),
+    )
 
     if not active_node_ids:
         return [], 0.0
@@ -211,6 +222,20 @@ def discover_c3_components(
                     comp.external_boundary_ids.append(b_id)
                 if comp.id not in boundary.referenced_by_components:
                     boundary.referenced_by_components.append(comp.id)
+
+        logger.debug(
+            "  Assembled C3 component '%s' (%d modules, cohesion=%.0f%%, outbound_deps=%d)",
+            comp.id,
+            len(comp.node_ids),
+            comp.internal_cohesion * 100,
+            len(comp.outbound_component_deps),
+        )
+
+    logger.info(
+        "[Stage 3/5] Louvain clustering complete: discovered %d C3 components (Modularity Q=%.4f).",
+        len(components),
+        mod_score,
+    )
 
     return components, round(mod_score, 4)
 

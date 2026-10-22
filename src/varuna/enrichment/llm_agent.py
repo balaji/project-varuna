@@ -3,12 +3,15 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 
 import httpx
 
 from varuna.enrichment.heuristic_namer import enrich_components_heuristically
 from varuna.models.graph_schema import C3Component, CodeNode
+
+logger = logging.getLogger(__name__)
 
 
 def enrich_components_with_llm(
@@ -23,10 +26,17 @@ def enrich_components_with_llm(
 
     Returns True if LLM synthesis succeeded, False if heuristic fallback was used.
     """
+    logger.info(
+        "[Stage 4/5] Running deterministic heuristic naming for %d C3 components...",
+        len(components),
+    )
     # Always run heuristic namer first so every field has a solid baseline
     enrich_components_heuristically(components, nodes)
 
     if not use_llm:
+        logger.info(
+            "[Stage 4/5] LLM enrichment disabled (--no-llm); using heuristic component names."
+        )
         return False
 
     gemini_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
@@ -34,6 +44,9 @@ def enrich_components_with_llm(
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
 
     if not (gemini_key or openai_key or anthropic_key):
+        logger.info(
+            "[Stage 4/5] No LLM API key found in environment; falling back to heuristic component names."
+        )
         return False
 
     # Build a compact JSON digest (<250 tokens per component) — never send raw source files
@@ -65,10 +78,15 @@ def enrich_components_with_llm(
 
     try:
         if gemini_key:
+            logger.info("[Stage 4/5] Invoking Gemini LLM agent for semantic component synthesis...")
             response_mapping = _call_gemini(gemini_key, prompt)
         elif openai_key:
+            logger.info("[Stage 4/5] Invoking OpenAI LLM agent for semantic component synthesis...")
             response_mapping = _call_openai(openai_key, prompt)
         else:
+            logger.info(
+                "[Stage 4/5] Invoking Anthropic LLM agent for semantic component synthesis..."
+            )
             response_mapping = _call_anthropic(anthropic_key or "", prompt)
 
         for comp in components:
@@ -79,8 +97,12 @@ def enrich_components_with_llm(
                         comp.name = str(item["name"]).strip()
                     if item.get("description"):
                         comp.description = str(item["description"]).strip()
+        logger.info("[Stage 4/5] LLM component synthesis completed successfully.")
         return True
-    except Exception:
+    except Exception as exc:
+        logger.debug(
+            "[Stage 4/5] LLM synthesis failed (%s); retaining heuristic component names.", exc
+        )
         return False
 
 

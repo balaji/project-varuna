@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import logging
 import re
 from pathlib import Path
 
@@ -23,6 +24,8 @@ from varuna.models.graph_schema import (
     Language,
     RouteEndpoint,
 )
+
+logger = logging.getLogger(__name__)
 
 
 class GraphBuilder:
@@ -53,6 +56,9 @@ class GraphBuilder:
             openapi_path=self.openapi_path,
         )
 
+        logger.info(
+            "[Stage 2/5] Resolving cross-module dependency edges across %d modules...", len(nodes)
+        )
         edges = self._resolve_edges(nodes, external_boundaries)
 
         graph = nx.DiGraph()
@@ -78,6 +84,13 @@ class GraphBuilder:
                         kinds={edge.kind.value},
                         symbols=set(edge.symbols),
                     )
+
+        logger.info(
+            "[Stage 2/5] Built NetworkX DiGraph: %d nodes, %d directed edges (from %d raw dependency relationships).",
+            graph.number_of_nodes(),
+            graph.number_of_edges(),
+            len(edges),
+        )
 
         return graph, nodes, edges, external_boundaries, unmatched_routes
 

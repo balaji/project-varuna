@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import logging
 from pathlib import Path
 
 import typer
 from rich.console import Console
+from rich.logging import RichHandler
 from rich.panel import Panel
 from rich.table import Table
 
@@ -21,6 +23,29 @@ app = typer.Typer(
     add_completion=False,
 )
 console = Console()
+logger = logging.getLogger(__name__)
+
+
+def _configure_logging(verbose: bool) -> None:
+    """Configure terminal logging for the `varuna` namespace based on the verbose flag."""
+    varuna_logger = logging.getLogger("varuna")
+    varuna_logger.handlers.clear()
+    varuna_logger.propagate = False
+
+    if verbose:
+        handler = RichHandler(
+            console=console,
+            show_time=False,
+            show_path=False,
+            markup=True,
+            rich_tracebacks=True,
+        )
+        handler.setFormatter(logging.Formatter("%(message)s"))
+        varuna_logger.addHandler(handler)
+        varuna_logger.setLevel(logging.DEBUG)
+    else:
+        varuna_logger.addHandler(logging.NullHandler())
+        varuna_logger.setLevel(logging.WARNING)
 
 
 def run_analysis(
@@ -29,10 +54,22 @@ def run_analysis(
     resolution: float = 1.0,
     use_llm: bool = False,
     include_tests: bool = False,
+    verbose: bool = False,
 ) -> AnalysisResult:
     """Execute the full Project Varuna 5-stage analysis pipeline on a repository."""
+    _configure_logging(verbose=verbose)
+
     repo_root = repo_path.resolve()
     project_name = repo_root.name
+
+    logger.info(
+        "Starting Project Varuna analysis for '%s' at %s (resolution=%.2f, llm=%s, include_tests=%s)",
+        project_name,
+        repo_root,
+        resolution,
+        use_llm,
+        include_tests,
+    )
 
     # Stage 1-3: AST + Optional OpenAPI + Infra scan -> NetworkX DiGraph -> Centrality -> Louvain -> Drift
     builder = GraphBuilder(
@@ -60,6 +97,16 @@ def run_analysis(
     languages_detected = sorted(
         {n.language for n in nodes.values()},
         key=lambda lang: lang.value,
+    )
+
+    logger.info(
+        "Analysis pipeline finished for '%s': %d modules, %d edges, %d C3 components (Q=%.4f, alignment=%.1f%%).",
+        project_name,
+        len(nodes),
+        len(edges),
+        len(components),
+        modularity_score,
+        alignment_score * 100,
     )
 
     return AnalysisResult(
@@ -120,6 +167,12 @@ def analyze_command(
         "--json/--no-json",
         help="Also emit the raw graph & metrics as `varuna-graph.json`.",
     ),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        "-v",
+        help="Enable verbose terminal logging of all analysis pipeline steps.",
+    ),
 ) -> None:
     """Analyze a repository and generate LikeC4 (.c4) diagrams and an Architecture Drift report."""
     result = run_analysis(
@@ -128,13 +181,19 @@ def analyze_command(
         resolution=resolution,
         use_llm=llm,
         include_tests=include_tests,
+        verbose=verbose,
     )
 
+    logger.info("[Stage 5/5] Emitting LikeC4 DSL to %s...", output_dir / "architecture.c4")
     c4_file = emit_likec4_dsl(result, output_dir / "architecture.c4")
+    logger.info(
+        "[Stage 5/5] Emitting Markdown drift report to %s...", output_dir / "varuna-report.md"
+    )
     report_file = emit_markdown_report(result, output_dir / "varuna-report.md")
 
     if emit_json:
         json_file = output_dir / "varuna-graph.json"
+        logger.info("[Stage 5/5] Writing raw graph JSON to %s...", json_file)
         json_file.write_text(result.model_dump_json(indent=2), encoding="utf-8")
 
     _print_console_summary(result, c4_file, report_file)
@@ -155,9 +214,15 @@ def inspect_command(
         "-r",
         help="Louvain community resolution parameter.",
     ),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        "-v",
+        help="Enable verbose terminal logging of all analysis pipeline steps.",
+    ),
 ) -> None:
     """Inspect a repository's centrality sinks, entrypoints, and Louvain C3 clusters in the terminal."""
-    result = run_analysis(repo_path=repo_path, resolution=resolution)
+    result = run_analysis(repo_path=repo_path, resolution=resolution, verbose=verbose)
     _print_console_summary(result, None, None)
 
 
