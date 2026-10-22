@@ -4,7 +4,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from varuna.cli import run_analysis
+from typer.testing import CliRunner
+
+from varuna.cli import app, run_analysis
 from varuna.emitters.likec4_emitter import generate_likec4_string
 from varuna.emitters.report_emitter import generate_markdown_report_string
 from varuna.extractors.ruby_extractor import RubyASTExtractor
@@ -59,6 +61,25 @@ def test_dogfood_self_analysis() -> None:
     md_report = generate_markdown_report_string(result)
     assert "Newman-Girvan Modularity" in md_report
     assert "src.varuna.models.graph_schema" in md_report
+
+
+def test_verbose_logging_flag_in_terminal() -> None:
+    """Verify analysis step logs appear in terminal output only when `--verbose` / `-v` is enabled."""
+    runner = CliRunner()
+
+    quiet_res = runner.invoke(app, ["inspect", str(REPO_ROOT)])
+    assert quiet_res.exit_code == 0
+    assert "[Stage 1/5]" not in quiet_res.output
+    assert "[Stage 2/5]" not in quiet_res.output
+    assert "[Stage 3/5]" not in quiet_res.output
+    assert "[Stage 4/5]" not in quiet_res.output
+
+    verbose_res = runner.invoke(app, ["inspect", str(REPO_ROOT), "--verbose"])
+    assert verbose_res.exit_code == 0
+    assert "[Stage 1/5]" in verbose_res.output
+    assert "[Stage 2/5]" in verbose_res.output
+    assert "[Stage 3/5]" in verbose_res.output
+    assert "[Stage 4/5]" in verbose_res.output
 
 
 def test_ruby_zeitwerk_and_routes_extractor(tmp_path: Path) -> None:

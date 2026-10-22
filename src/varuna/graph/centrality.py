@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+import logging
+
 import networkx as nx
 
 from varuna.models.graph_schema import CodeNode, EntrypointInfo, EntrypointKind
+
+logger = logging.getLogger(__name__)
 
 
 def analyze_centrality_and_topology(
@@ -21,6 +25,9 @@ def analyze_centrality_and_topology(
     if len(graph) == 0:
         return [], []
 
+    logger.info(
+        "[Stage 3/5] Computing network centrality metrics (In-Degree, PageRank, HITS Hubs & Authorities)..."
+    )
     in_deg_cent = nx.in_degree_centrality(graph)
     try:
         pagerank_scores = nx.pagerank(graph, weight="weight")
@@ -65,8 +72,18 @@ def analyze_centrality_and_topology(
                         detail=f"Topological source node (in_degree=0, out_degree={out_d})",
                     )
                 )
+            logger.debug(
+                "  Topological entrypoint discovered: '%s' (in_degree=0, out_degree=%d)",
+                node_id,
+                out_d,
+            )
         elif node.entrypoints and node_id not in topological_entrypoints:
             topological_entrypoints.append(node_id)
+            logger.debug(
+                "  AST entrypoint registered: '%s' (%d entrypoint(s))",
+                node_id,
+                len(node.entrypoints),
+            )
 
         # Cross-Cutting Utility / Schema Sink Detection:
         # Check how many distinct directory namespaces import this node
@@ -91,5 +108,16 @@ def analyze_centrality_and_topology(
                 f"{len(caller_namespaces) + 1} namespaces (out_degree={out_d}, PageRank={node.pagerank:.3f})"
             )
             utility_sinks.append(node_id)
+            logger.debug(
+                "  Pruned cross-cutting utility sink: '%s' — %s",
+                node_id,
+                node.utility_reason,
+            )
+
+    logger.info(
+        "[Stage 3/5] Centrality & topology complete: %d utility sink(s) pruned, %d entrypoint module(s) identified.",
+        len(utility_sinks),
+        len(topological_entrypoints),
+    )
 
     return sorted(utility_sinks), sorted(topological_entrypoints)

@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import logging
 from collections import Counter
 
 import networkx as nx
 
 from varuna.models.graph_schema import C3Component, CodeNode, DriftIssue
+
+logger = logging.getLogger(__name__)
 
 
 def analyze_architecture_drift(
@@ -23,6 +26,9 @@ def analyze_architecture_drift(
     if not nodes or not components:
         return 1.0, []
 
+    logger.info(
+        "[Stage 3/5] Analyzing architecture drift between physical directory namespaces and Louvain clusters..."
+    )
     issues: list[DriftIssue] = []
 
     # 1. Compute cluster homogeneity (what fraction of nodes in each Louvain component belong to its dominant folder)
@@ -109,4 +115,9 @@ def analyze_architecture_drift(
             )
 
     alignment = round(aligned_nodes / float(total_active_nodes), 4) if total_active_nodes else 1.0
+    logger.info(
+        "[Stage 3/5] Drift analysis complete: folder alignment=%.1f%%, %d drift issue(s) found.",
+        alignment * 100,
+        len(issues),
+    )
     return alignment, issues

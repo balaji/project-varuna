@@ -7,7 +7,7 @@ Generated automatically by **Project Varuna** (AST + Centrality Pruning + Louvai
 | Metric | Value |
 | :--- | :--- |
 | **Languages Detected** | Python |
-| **Source Modules Analyzed (C4)** | 17 (3,118 LOC) |
+| **Source Modules Analyzed (C4)** | 17 (3,330 LOC) |
 | **Internal Dependency Edges** | 106 |
 | **Discovered C3 Components (Louvain)** | 6 |
 | **Cross-Cutting Utility Sinks Pruned** | 1 |
