@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List
 
 from varuna.models.graph_schema import AnalysisResult
 
@@ -17,10 +16,10 @@ def emit_markdown_report(result: AnalysisResult, output_path: Path) -> Path:
 
 
 def generate_markdown_report_string(result: AnalysisResult) -> str:
-    langs = ", ".join(l.value.title() for l in result.languages_detected) or "None"
+    langs = ", ".join(lang.value.title() for lang in result.languages_detected) or "None"
     total_loc = sum(n.lines_of_code for n in result.nodes.values())
 
-    lines: List[str] = [
+    lines: list[str] = [
         f"# Architecture & Modularity Report: `{result.project_name}`",
         "",
         "Generated automatically by **Project Varuna** (AST + Centrality Pruning + Louvain Community Detection).",
@@ -49,9 +48,7 @@ def generate_markdown_report_string(result: AnalysisResult) -> str:
 
     for comp in result.components:
         mod_count = len(comp.node_ids)
-        lines.append(
-            f'    {comp.id}["{comp.name}<br/>({comp.technology} · {mod_count} modules)"]'
-        )
+        lines.append(f'    {comp.id}["{comp.name}<br/>({comp.technology} · {mod_count} modules)"]')
 
     for b_id, boundary in result.external_boundaries.items():
         lines.append(f'    ext_{b_id}[("{boundary.name}<br/>({boundary.technology})")]')
@@ -78,7 +75,9 @@ def generate_markdown_report_string(result: AnalysisResult) -> str:
     )
 
     for comp in result.components:
-        mod_list = ", ".join(f"`{result.nodes[nid].name}`" for nid in comp.node_ids if nid in result.nodes)
+        mod_list = ", ".join(
+            f"`{result.nodes[nid].name}`" for nid in comp.node_ids if nid in result.nodes
+        )
         lines.append(
             f"| `{comp.id}` | **{comp.name}** | {comp.technology} | {len(comp.node_ids)} ({mod_list}) | "
             f"`{comp.internal_cohesion:.0%}` | `{comp.dominant_namespace}` | {comp.description} |"
@@ -127,9 +126,7 @@ def generate_markdown_report_string(result: AnalysisResult) -> str:
     for ep_mod_id in result.topological_entrypoints:
         node = result.nodes[ep_mod_id]
         for ep in node.entrypoints:
-            lines.append(
-                f"| `{node.id}` | `{ep.kind.value}` | `{ep.name}` | {ep.detail} |"
-            )
+            lines.append(f"| `{node.id}` | `{ep.kind.value}` | `{ep.name}` | {ep.detail} |")
 
     lines.extend(
         [

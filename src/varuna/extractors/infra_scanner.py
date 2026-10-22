@@ -5,57 +5,177 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
-from typing import Dict, Tuple
+
 import yaml
 
 from varuna.extractors.base import sanitize_boundary_id
 from varuna.models.graph_schema import ExternalBoundary, NodeKind
 
 # Known packages and docker images mapped to (Boundary Name, NodeKind, Technology, Description)
-KNOWN_EXTERNAL_DEPENDENCIES: Dict[str, Tuple[str, NodeKind, str, str]] = {
+KNOWN_EXTERNAL_DEPENDENCIES: dict[str, tuple[str, NodeKind, str, str]] = {
     # Databases & Caches (C2 Datastores)
-    "psycopg": ("PostgreSQL Database", NodeKind.DATABASE, "PostgreSQL", "Primary relational database"),
-    "psycopg2": ("PostgreSQL Database", NodeKind.DATABASE, "PostgreSQL", "Primary relational database"),
-    "asyncpg": ("PostgreSQL Database", NodeKind.DATABASE, "PostgreSQL", "Async PostgreSQL database"),
+    "psycopg": (
+        "PostgreSQL Database",
+        NodeKind.DATABASE,
+        "PostgreSQL",
+        "Primary relational database",
+    ),
+    "psycopg2": (
+        "PostgreSQL Database",
+        NodeKind.DATABASE,
+        "PostgreSQL",
+        "Primary relational database",
+    ),
+    "asyncpg": (
+        "PostgreSQL Database",
+        NodeKind.DATABASE,
+        "PostgreSQL",
+        "Async PostgreSQL database",
+    ),
     "pg": ("PostgreSQL Database", NodeKind.DATABASE, "PostgreSQL", "PostgreSQL database"),
-    "sqlalchemy": ("Relational Database", NodeKind.DATABASE, "SQL / SQLAlchemy", "Relational database persistence"),
-    "prisma": ("Relational Database", NodeKind.DATABASE, "Prisma ORM", "Application relational database"),
-    "typeorm": ("Relational Database", NodeKind.DATABASE, "TypeORM", "Application relational database"),
+    "sqlalchemy": (
+        "Relational Database",
+        NodeKind.DATABASE,
+        "SQL / SQLAlchemy",
+        "Relational database persistence",
+    ),
+    "prisma": (
+        "Relational Database",
+        NodeKind.DATABASE,
+        "Prisma ORM",
+        "Application relational database",
+    ),
+    "typeorm": (
+        "Relational Database",
+        NodeKind.DATABASE,
+        "TypeORM",
+        "Application relational database",
+    ),
     "mongoose": ("MongoDB Atlas / Cluster", NodeKind.DATABASE, "MongoDB", "Document store"),
     "pymongo": ("MongoDB Atlas / Cluster", NodeKind.DATABASE, "MongoDB", "Document store"),
     "redis": ("Redis Cache / Store", NodeKind.DATABASE, "Redis", "In-memory cache and state store"),
-    "ioredis": ("Redis Cache / Store", NodeKind.DATABASE, "Redis", "In-memory cache and state store"),
+    "ioredis": (
+        "Redis Cache / Store",
+        NodeKind.DATABASE,
+        "Redis",
+        "In-memory cache and state store",
+    ),
     # Message Queues & Brokers (C2 Queues)
-    "celery": ("Task Broker Queue", NodeKind.QUEUE, "Celery / Redis / AMQP", "Asynchronous job queue"),
-    "sidekiq": ("Sidekiq Job Queue", NodeKind.QUEUE, "Sidekiq / Redis", "Background job processing queue"),
-    "bullmq": ("BullMQ Job Queue", NodeKind.QUEUE, "BullMQ / Redis", "Distributed Node.js job queue"),
+    "celery": (
+        "Task Broker Queue",
+        NodeKind.QUEUE,
+        "Celery / Redis / AMQP",
+        "Asynchronous job queue",
+    ),
+    "sidekiq": (
+        "Sidekiq Job Queue",
+        NodeKind.QUEUE,
+        "Sidekiq / Redis",
+        "Background job processing queue",
+    ),
+    "bullmq": (
+        "BullMQ Job Queue",
+        NodeKind.QUEUE,
+        "BullMQ / Redis",
+        "Distributed Node.js job queue",
+    ),
     "kafka-python": ("Kafka Event Bus", NodeKind.QUEUE, "Apache Kafka", "Event streaming platform"),
     "kafkajs": ("Kafka Event Bus", NodeKind.QUEUE, "Apache Kafka", "Event streaming platform"),
     "pika": ("RabbitMQ Broker", NodeKind.QUEUE, "RabbitMQ", "AMQP message broker"),
     # External SaaS & AI Systems (C1 External Systems)
-    "stripe": ("Stripe Billing API", NodeKind.EXTERNAL_SYSTEM, "REST / Stripe SDK", "Payment processing & billing"),
-    "boto3": ("AWS Cloud Services", NodeKind.EXTERNAL_SYSTEM, "AWS SDK", "Cloud storage and infrastructure APIs"),
-    "@aws-sdk": ("AWS Cloud Services", NodeKind.EXTERNAL_SYSTEM, "AWS SDK", "Cloud storage and infrastructure APIs"),
-    "aws-sdk": ("AWS Cloud Services", NodeKind.EXTERNAL_SYSTEM, "AWS SDK", "Cloud storage and infrastructure APIs"),
-    "openai": ("LLM Inference API", NodeKind.EXTERNAL_SYSTEM, "OpenAI / LLM API", "Semantic synthesis & AI completions"),
-    "anthropic": ("LLM Inference API", NodeKind.EXTERNAL_SYSTEM, "Anthropic API", "Semantic synthesis & AI completions"),
-    "google-genai": ("LLM Inference API", NodeKind.EXTERNAL_SYSTEM, "Google Gemini API", "Semantic synthesis & AI completions"),
-    "httpx": ("External HTTP / LLM APIs", NodeKind.EXTERNAL_SYSTEM, "HTTPS / REST", "External API & LLM gateway client"),
-    "sendgrid": ("SendGrid Email API", NodeKind.EXTERNAL_SYSTEM, "SendGrid", "Transactional email delivery"),
-    "twilio": ("Twilio Messaging API", NodeKind.EXTERNAL_SYSTEM, "Twilio", "SMS and communications gateway"),
-    "sentry-sdk": ("Sentry Telemetry", NodeKind.EXTERNAL_SYSTEM, "Sentry", "Error monitoring and observability"),
+    "stripe": (
+        "Stripe Billing API",
+        NodeKind.EXTERNAL_SYSTEM,
+        "REST / Stripe SDK",
+        "Payment processing & billing",
+    ),
+    "boto3": (
+        "AWS Cloud Services",
+        NodeKind.EXTERNAL_SYSTEM,
+        "AWS SDK",
+        "Cloud storage and infrastructure APIs",
+    ),
+    "@aws-sdk": (
+        "AWS Cloud Services",
+        NodeKind.EXTERNAL_SYSTEM,
+        "AWS SDK",
+        "Cloud storage and infrastructure APIs",
+    ),
+    "aws-sdk": (
+        "AWS Cloud Services",
+        NodeKind.EXTERNAL_SYSTEM,
+        "AWS SDK",
+        "Cloud storage and infrastructure APIs",
+    ),
+    "openai": (
+        "LLM Inference API",
+        NodeKind.EXTERNAL_SYSTEM,
+        "OpenAI / LLM API",
+        "Semantic synthesis & AI completions",
+    ),
+    "anthropic": (
+        "LLM Inference API",
+        NodeKind.EXTERNAL_SYSTEM,
+        "Anthropic API",
+        "Semantic synthesis & AI completions",
+    ),
+    "google-genai": (
+        "LLM Inference API",
+        NodeKind.EXTERNAL_SYSTEM,
+        "Google Gemini API",
+        "Semantic synthesis & AI completions",
+    ),
+    "httpx": (
+        "External HTTP / LLM APIs",
+        NodeKind.EXTERNAL_SYSTEM,
+        "HTTPS / REST",
+        "External API & LLM gateway client",
+    ),
+    "sendgrid": (
+        "SendGrid Email API",
+        NodeKind.EXTERNAL_SYSTEM,
+        "SendGrid",
+        "Transactional email delivery",
+    ),
+    "twilio": (
+        "Twilio Messaging API",
+        NodeKind.EXTERNAL_SYSTEM,
+        "Twilio",
+        "SMS and communications gateway",
+    ),
+    "sentry-sdk": (
+        "Sentry Telemetry",
+        NodeKind.EXTERNAL_SYSTEM,
+        "Sentry",
+        "Error monitoring and observability",
+    ),
     # Core Embedded Engines (for developer/CLI tools like Varuna itself)
-    "tree-sitter": ("Tree-sitter AST Runtime", NodeKind.EXTERNAL_SYSTEM, "Native C / Tree-sitter", "Multi-language incremental AST parser"),
-    "networkx": ("NetworkX Graph Runtime", NodeKind.EXTERNAL_SYSTEM, "NetworkX / SciPy", "Graph topology & Louvain community engine"),
+    "tree-sitter": (
+        "Tree-sitter AST Runtime",
+        NodeKind.EXTERNAL_SYSTEM,
+        "Native C / Tree-sitter",
+        "Multi-language incremental AST parser",
+    ),
+    "networkx": (
+        "NetworkX Graph Runtime",
+        NodeKind.EXTERNAL_SYSTEM,
+        "NetworkX / SciPy",
+        "Graph topology & Louvain community engine",
+    ),
 }
 
 
-def scan_infrastructure_and_manifests(repo_root: Path) -> Dict[str, ExternalBoundary]:
+def scan_infrastructure_and_manifests(repo_root: Path) -> dict[str, ExternalBoundary]:
     """Scan docker-compose.yml, pyproject.toml, package.json, and Gemfile for C1/C2 boundaries."""
-    boundaries: Dict[str, ExternalBoundary] = {}
+    boundaries: dict[str, ExternalBoundary] = {}
 
     # 1. Scan docker-compose.yml / compose.yaml
-    for compose_name in ("docker-compose.yml", "docker-compose.yaml", "compose.yml", "compose.yaml"):
+    for compose_name in (
+        "docker-compose.yml",
+        "docker-compose.yaml",
+        "compose.yml",
+        "compose.yaml",
+    ):
         compose_path = repo_root / compose_name
         if compose_path.is_file():
             _parse_docker_compose(compose_path, boundaries)
@@ -76,7 +196,9 @@ def scan_infrastructure_and_manifests(repo_root: Path) -> Dict[str, ExternalBoun
     if pkg_json.is_file():
         try:
             data = json.loads(pkg_json.read_text(encoding="utf-8", errors="replace"))
-            deps = list(data.get("dependencies", {}).keys()) + list(data.get("devDependencies", {}).keys())
+            deps = list(data.get("dependencies", {}).keys()) + list(
+                data.get("devDependencies", {}).keys()
+            )
             _match_known_packages("\n".join(deps).lower(), boundaries)
         except Exception:
             pass
@@ -90,7 +212,7 @@ def scan_infrastructure_and_manifests(repo_root: Path) -> Dict[str, ExternalBoun
     return boundaries
 
 
-def _match_known_packages(manifest_text: str, boundaries: Dict[str, ExternalBoundary]) -> None:
+def _match_known_packages(manifest_text: str, boundaries: dict[str, ExternalBoundary]) -> None:
     for pkg_key, (name, kind, tech, desc) in KNOWN_EXTERNAL_DEPENDENCIES.items():
         pattern = rf"(?<![a-z0-9_]){re.escape(pkg_key)}(?![a-z0-9_])"
         if re.search(pattern, manifest_text):
@@ -105,7 +227,7 @@ def _match_known_packages(manifest_text: str, boundaries: Dict[str, ExternalBoun
                 )
 
 
-def _parse_docker_compose(compose_path: Path, boundaries: Dict[str, ExternalBoundary]) -> None:
+def _parse_docker_compose(compose_path: Path, boundaries: dict[str, ExternalBoundary]) -> None:
     try:
         data = yaml.safe_load(compose_path.read_text(encoding="utf-8", errors="replace"))
     except Exception:
@@ -120,7 +242,9 @@ def _parse_docker_compose(compose_path: Path, boundaries: Dict[str, ExternalBoun
         if not isinstance(svc_cfg, dict):
             continue
         image = str(svc_cfg.get("image", "")).lower()
-        if any(db in image for db in ("postgres", "mysql", "mariadb", "mongo", "redis", "clickhouse")):
+        if any(
+            db in image for db in ("postgres", "mysql", "mariadb", "mongo", "redis", "clickhouse")
+        ):
             b_id = _safe_id(f"db_{svc_name}")
             boundaries[b_id] = ExternalBoundary(
                 id=b_id,

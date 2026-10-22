@@ -11,7 +11,6 @@ from varuna.extractors.ruby_extractor import RubyASTExtractor
 from varuna.extractors.ts_extractor import TypeScriptASTExtractor
 from varuna.models.graph_schema import EntrypointKind, Language
 
-
 REPO_ROOT = Path(__file__).resolve().parent.parent
 
 

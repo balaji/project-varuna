@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Set, Tuple
 import networkx as nx
 
 from varuna.models.graph_schema import CodeNode, EntrypointInfo, EntrypointKind
@@ -10,8 +9,8 @@ from varuna.models.graph_schema import CodeNode, EntrypointInfo, EntrypointKind
 
 def analyze_centrality_and_topology(
     graph: nx.DiGraph,
-    nodes: Dict[str, CodeNode],
-) -> Tuple[List[str], List[str]]:
+    nodes: dict[str, CodeNode],
+) -> tuple[list[str], list[str]]:
     """
     Compute network centrality metrics on the dependency graph and classify:
     1. Topological Entrypoints (Tier 2 fallback: root source nodes with in-degree == 0 and out-degree > 0)
@@ -34,8 +33,8 @@ def analyze_centrality_and_topology(
         hubs = {n: 0.0 for n in graph.nodes}
         authorities = {n: 0.0 for n in graph.nodes}
 
-    utility_sinks: List[str] = []
-    topological_entrypoints: List[str] = []
+    utility_sinks: list[str] = []
+    topological_entrypoints: list[str] = []
 
     for node_id in graph.nodes:
         node = nodes[node_id]
@@ -72,7 +71,7 @@ def analyze_centrality_and_topology(
         # Cross-Cutting Utility / Schema Sink Detection:
         # Check how many distinct directory namespaces import this node
         caller_ids = list(graph.predecessors(node_id))
-        caller_namespaces: Set[str] = {
+        caller_namespaces: set[str] = {
             nodes[cid].directory_namespace
             for cid in caller_ids
             if cid in nodes and nodes[cid].directory_namespace != node.directory_namespace

@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-from collections import Counter
 import re
-from typing import Dict, List
+from collections import Counter
 
 from varuna.models.graph_schema import C3Component, CodeNode
 
@@ -30,7 +29,7 @@ STOP_TOKENS = {
     "test",
 }
 
-KNOWN_DOMAIN_LABELS: Dict[str, str] = {
+KNOWN_DOMAIN_LABELS: dict[str, str] = {
     "extractors": "AST & Spec Extractors",
     "graph": "Network Science & Graph Engine",
     "enrichment": "Semantic Enrichment & Naming",
@@ -48,8 +47,8 @@ KNOWN_DOMAIN_LABELS: Dict[str, str] = {
 
 
 def enrich_components_heuristically(
-    components: List[C3Component],
-    nodes: Dict[str, CodeNode],
+    components: list[C3Component],
+    nodes: dict[str, CodeNode],
 ) -> None:
     """
     Populate human-friendly architectural titles, technologies, and descriptions for each
@@ -118,7 +117,7 @@ def enrich_components_heuristically(
             comp.description = f"Louvain component grouping {len(member_nodes)} tightly coupled modules ({mod_names})."
 
 
-def _extract_top_domain_tokens(member_nodes: List[CodeNode], dom_ns: str) -> List[str]:
+def _extract_top_domain_tokens(member_nodes: list[CodeNode], dom_ns: str) -> list[str]:
     counts: Counter = Counter()
     for node in member_nodes:
         for sym in node.classes + node.functions + [node.name]:

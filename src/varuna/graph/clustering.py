@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
+import re
 from collections import Counter
 from itertools import combinations
-import re
-from typing import Dict, List, Set, Tuple
+
 import networkx as nx
 from networkx.algorithms.community import louvain_communities, modularity
 
@@ -20,12 +20,12 @@ SIBLING_STRUCTURAL_PRIOR_WEIGHT: float = 1.25
 
 def discover_c3_components(
     graph: nx.DiGraph,
-    nodes: Dict[str, CodeNode],
-    external_boundaries: Dict[str, ExternalBoundary],
-    utility_sinks: List[str],
+    nodes: dict[str, CodeNode],
+    external_boundaries: dict[str, ExternalBoundary],
+    utility_sinks: list[str],
     resolution: float = 1.0,
     seed: int = 42,
-) -> Tuple[List[C3Component], float]:
+) -> tuple[list[C3Component], float]:
     """
     Discover C3 components using Louvain community detection on the centrality-pruned graph.
 
@@ -38,12 +38,12 @@ def discover_c3_components(
     4. Compute Newman-Girvan Modularity Q and assemble `C3Component` objects (plus a dedicated
        foundational component for cross-cutting schema/utility sinks).
     """
-    sink_set: Set[str] = set(utility_sinks)
+    sink_set: set[str] = set(utility_sinks)
 
     # Also identify top-level Composition Root Orchestrators (in_degree == 0 that fan out to >= 3 namespaces)
     # In an undirected projection, composition roots act like reverse utility sinks (star hubs) that bridge
     # otherwise independent subsystems. Isolating them preserves clean domain boundaries.
-    composition_roots: List[str] = []
+    composition_roots: list[str] = []
     for nid in graph.nodes:
         if nid in sink_set:
             continue
@@ -52,7 +52,9 @@ def discover_c3_components(
             out_namespaces = {
                 nodes[dst].directory_namespace
                 for _, dst in graph.out_edges(nid)
-                if dst in nodes and dst not in sink_set and nodes[dst].directory_namespace != node.directory_namespace
+                if dst in nodes
+                and dst not in sink_set
+                and nodes[dst].directory_namespace != node.directory_namespace
             }
             if len(out_namespaces) >= 3:
                 composition_roots.append(nid)
@@ -78,13 +80,13 @@ def discover_c3_components(
             undirected.add_edge(u, v, weight=w)
 
     # Add lightweight sibling structural prior within the same non-root directory namespace
-    by_namespace: Dict[str, List[str]] = {}
+    by_namespace: dict[str, list[str]] = {}
     for nid in active_node_ids:
         ns = nodes[nid].directory_namespace
         if ns and ns != "root":
             by_namespace.setdefault(ns, []).append(nid)
 
-    for ns, member_ids in by_namespace.items():
+    for member_ids in by_namespace.values():
         if len(member_ids) <= 1:
             continue
         for u, v in combinations(member_ids, 2):
@@ -115,14 +117,18 @@ def discover_c3_components(
         key=lambda c: (-len(c), c[0]),
     )
 
-    components: List[C3Component] = []
-    node_to_comp_id: Dict[str, str] = {}
-    used_comp_ids: Set[str] = set()
+    components: list[C3Component] = []
+    node_to_comp_id: dict[str, str] = {}
+    used_comp_ids: set[str] = set()
 
     # Package Composition Root Orchestrators first (top of C3 hierarchy)
     if composition_roots:
         root_ns_counts = Counter(nodes[nid].directory_namespace for nid in composition_roots)
-        dom_root_ns = nodes[composition_roots[0]].name if len(composition_roots) == 1 else root_ns_counts.most_common(1)[0][0]
+        dom_root_ns = (
+            nodes[composition_roots[0]].name
+            if len(composition_roots) == 1
+            else root_ns_counts.most_common(1)[0][0]
+        )
         root_comp_id = _make_comp_id(dom_root_ns or "cli", 0, used_comp_ids)
         used_comp_ids.add(root_comp_id)
         for nid in composition_roots:
@@ -187,7 +193,7 @@ def discover_c3_components(
 
     # Populate inter-component dependencies and external boundary links
     for comp in components:
-        outbound_weights: Dict[str, float] = {}
+        outbound_weights: dict[str, float] = {}
         for src_id in comp.node_ids:
             for _, dst_id, edge_data in graph.out_edges(src_id, data=True):
                 dst_comp_id = node_to_comp_id.get(dst_id)
@@ -212,19 +218,19 @@ def discover_c3_components(
 def _build_component_from_members(
     comp_id: str,
     community_index: int,
-    member_ids: List[str],
+    member_ids: list[str],
     dominant_ns: str,
     ns_counts: Counter,
     graph: nx.DiGraph,
-    nodes: Dict[str, CodeNode],
-    sink_set: Set[str],
+    nodes: dict[str, CodeNode],
+    sink_set: set[str],
 ) -> C3Component:
     languages = Counter(nodes[nid].language.value for nid in member_ids)
     top_lang = languages.most_common(1)[0][0].title() if languages else "Python"
 
     routes = []
     entrypoints = []
-    used_sinks: Set[str] = set()
+    used_sinks: set[str] = set()
 
     internal_edges = 0
     total_edges = 0
@@ -261,7 +267,7 @@ def _build_component_from_members(
     )
 
 
-def _make_comp_id(dominant_ns: str, idx: int, used: Set[str]) -> str:
+def _make_comp_id(dominant_ns: str, idx: int, used: set[str]) -> str:
     clean = re.sub(r"[^a-z0-9_]+", "_", dominant_ns.lower()).strip("_") or f"group_{idx}"
     candidate = f"comp_{clean}"
     if candidate not in used:

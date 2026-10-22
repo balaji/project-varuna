@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import Set
+from typing import ClassVar
+
 import tree_sitter_typescript as tstypescript
-from tree_sitter import Language as TSLanguage, Parser
+from tree_sitter import Language as TSLanguage
+from tree_sitter import Parser
 
 from varuna.extractors.base import (
     BaseASTExtractor,
@@ -27,8 +29,8 @@ from varuna.models.graph_schema import (
 class TypeScriptASTExtractor(BaseASTExtractor):
     """Extracts ESM/CJS imports, classes, functions, Express routes, and NestJS decorators from TS/JS files."""
 
-    language = Language.TYPESCRIPT
-    extensions: Set[str] = {".ts", ".tsx", ".js", ".jsx", ".mjs"}
+    language: ClassVar[Language] = Language.TYPESCRIPT
+    extensions: ClassVar[set[str]] = {".ts", ".tsx", ".js", ".jsx", ".mjs"}
 
     def __init__(self) -> None:
         self._ts_lang = TSLanguage(tstypescript.language_typescript())
@@ -38,7 +40,9 @@ class TypeScriptASTExtractor(BaseASTExtractor):
 
     def extract_file(self, repo_root: Path, file_path: Path) -> CodeNode:
         source_bytes = file_path.read_bytes()
-        parser = self._tsx_parser if file_path.suffix.lower() in (".tsx", ".jsx") else self._ts_parser
+        parser = (
+            self._tsx_parser if file_path.suffix.lower() in (".tsx", ".jsx") else self._ts_parser
+        )
         tree = parser.parse(source_bytes)
         root = tree.root_node
 
@@ -139,7 +143,9 @@ class TypeScriptASTExtractor(BaseASTExtractor):
                         node_model.raw_imports.append(req_match.group(1))
 
                 # Express / Fastify router.get('/orders', handler)
-                express_match = re.match(r"^([A-Za-z0-9_$]+)\.(get|post|put|delete|patch)\b", fn_str)
+                express_match = re.match(
+                    r"^([A-Za-z0-9_$]+)\.(get|post|put|delete|patch)\b", fn_str
+                )
                 if express_match and args_node:
                     caller_obj = express_match.group(1).lower()
                     if caller_obj in ("app", "router", "server", "fastify", "api"):

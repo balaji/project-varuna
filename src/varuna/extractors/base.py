@@ -2,16 +2,17 @@
 
 from __future__ import annotations
 
-from abc import ABC, abstractmethod
-from pathlib import Path
 import re
-from typing import Iterator, List, Set
+from abc import ABC, abstractmethod
+from collections.abc import Iterator
+from pathlib import Path
+from typing import ClassVar
+
 from tree_sitter import Node
 
 from varuna.models.graph_schema import CodeNode, Language
 
-
-WRAPPER_DIRS: Set[str] = {"src", "lib", "app", "packages", "services"}
+WRAPPER_DIRS: set[str] = {"src", "lib", "app", "packages", "services"}
 
 
 def sanitize_boundary_id(raw: str) -> str:
@@ -58,7 +59,7 @@ def infer_directory_namespace(repo_root: Path, file_path: Path) -> str:
 
 def walk_tree(root: Node) -> Iterator[Node]:
     """Depth-first traversal over all Tree-sitter AST nodes."""
-    stack: List[Node] = [root]
+    stack: list[Node] = [root]
     while stack:
         node = stack.pop()
         yield node
@@ -75,8 +76,8 @@ def node_text(node: Node, source_bytes: bytes) -> str:
 class BaseASTExtractor(ABC):
     """Abstract base class for language-specific Tree-sitter extractors."""
 
-    language: Language = Language.UNKNOWN
-    extensions: Set[str] = set()
+    language: ClassVar[Language] = Language.UNKNOWN
+    extensions: ClassVar[set[str]] = set()
 
     def supports_file(self, file_path: Path) -> bool:
         return file_path.suffix.lower() in self.extensions

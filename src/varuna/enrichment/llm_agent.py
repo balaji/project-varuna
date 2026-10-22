@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 import os
-from typing import Dict, List
+
 import httpx
 
 from varuna.enrichment.heuristic_namer import enrich_components_heuristically
@@ -12,8 +12,8 @@ from varuna.models.graph_schema import C3Component, CodeNode
 
 
 def enrich_components_with_llm(
-    components: List[C3Component],
-    nodes: Dict[str, CodeNode],
+    components: list[C3Component],
+    nodes: dict[str, CodeNode],
     use_llm: bool = False,
 ) -> bool:
     """
@@ -46,7 +46,9 @@ def enrich_components_with_llm(
                 "current_name": comp.name,
                 "modules": [n.relative_path for n in member_nodes],
                 "classes": [c for n in member_nodes for c in n.classes][:8],
-                "functions": [f for n in member_nodes for f in n.functions if not f.startswith("_")][:8],
+                "functions": [
+                    f for n in member_nodes for f in n.functions if not f.startswith("_")
+                ][:8],
                 "routes": [f"{r.method} {r.path}" for r in comp.exposed_routes][:5],
                 "entrypoints": [ep.name for ep in comp.entrypoints][:5],
                 "docstrings": [n.docstring for n in member_nodes if n.docstring][:3],
@@ -82,7 +84,7 @@ def enrich_components_with_llm(
         return False
 
 
-def _call_gemini(api_key: str, prompt: str) -> Dict[str, Dict[str, str]]:
+def _call_gemini(api_key: str, prompt: str) -> dict[str, dict[str, str]]:
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
@@ -96,7 +98,7 @@ def _call_gemini(api_key: str, prompt: str) -> Dict[str, Dict[str, str]]:
         return json.loads(text)
 
 
-def _call_openai(api_key: str, prompt: str) -> Dict[str, Dict[str, str]]:
+def _call_openai(api_key: str, prompt: str) -> dict[str, dict[str, str]]:
     url = "https://api.openai.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}"}
     payload = {
@@ -112,7 +114,7 @@ def _call_openai(api_key: str, prompt: str) -> Dict[str, Dict[str, str]]:
         return json.loads(text)
 
 
-def _call_anthropic(api_key: str, prompt: str) -> Dict[str, Dict[str, str]]:
+def _call_anthropic(api_key: str, prompt: str) -> dict[str, dict[str, str]]:
     url = "https://api.anthropic.com/v1/messages"
     headers = {
         "x-api-key": api_key,
