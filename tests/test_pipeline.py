@@ -9,6 +9,7 @@ from typer.testing import CliRunner
 from varuna.cli import app, run_analysis
 from varuna.emitters.likec4_emitter import generate_likec4_string
 from varuna.emitters.report_emitter import generate_markdown_report_string
+from varuna.emitters.structurizr_emitter import generate_structurizr_string
 from varuna.extractors.ruby_extractor import RubyASTExtractor
 from varuna.extractors.ts_extractor import TypeScriptASTExtractor
 from varuna.models.graph_schema import EntrypointKind, Language
@@ -51,16 +52,54 @@ def test_dogfood_self_analysis() -> None:
     assert result.modularity_score > 0.25
     assert result.namespace_alignment_score >= 0.80
 
-    # 5. Verify LikeC4 DSL & Markdown report generation
+    # 5. Verify LikeC4 DSL, Structurizr DSL, & Markdown report generation
     likec4_dsl = generate_likec4_string(result)
     assert "specification {" in likec4_dsl
     assert "view c3_components of" in likec4_dsl
     assert "comp_extractors" in likec4_dsl
     assert "comp_graph" in likec4_dsl
 
+    structurizr_dsl = generate_structurizr_string(result)
+    assert "!identifiers hierarchical" in structurizr_dsl
+    assert "softwareSystem" in structurizr_dsl
+    assert "c3_components" in structurizr_dsl
+    assert "comp_extractors = component" in structurizr_dsl
+    assert "comp_graph = component" in structurizr_dsl
+
     md_report = generate_markdown_report_string(result)
     assert "Newman-Girvan Modularity" in md_report
     assert "src.varuna.models.graph_schema" in md_report
+
+
+def test_cli_output_engines(tmp_path: Path) -> None:
+    """Verify CLI `--engine` flag defaults to LikeC4 and supports Structurizr and both."""
+    runner = CliRunner()
+
+    # Default engine -> likec4 only
+    out_default = tmp_path / "default_out"
+    res_default = runner.invoke(app, ["analyze", str(REPO_ROOT), "-o", str(out_default)])
+    assert res_default.exit_code == 0
+    assert (out_default / "architecture.c4").exists()
+    assert not (out_default / "workspace.dsl").exists()
+    assert (out_default / "varuna-report.md").exists()
+
+    # Structurizr engine -> structurizr only
+    out_structurizr = tmp_path / "structurizr_out"
+    res_structurizr = runner.invoke(
+        app, ["analyze", str(REPO_ROOT), "-o", str(out_structurizr), "--engine", "structurizr"]
+    )
+    assert res_structurizr.exit_code == 0
+    assert not (out_structurizr / "architecture.c4").exists()
+    assert (out_structurizr / "workspace.dsl").exists()
+    assert (out_structurizr / "varuna-report.md").exists()
+
+    # Both engine -> both files
+    out_both = tmp_path / "both_out"
+    res_both = runner.invoke(app, ["analyze", str(REPO_ROOT), "-o", str(out_both), "-e", "both"])
+    assert res_both.exit_code == 0
+    assert (out_both / "architecture.c4").exists()
+    assert (out_both / "workspace.dsl").exists()
+    assert (out_both / "varuna-report.md").exists()
 
 
 def test_verbose_logging_flag_in_terminal() -> None:

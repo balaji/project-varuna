@@ -1,6 +1,6 @@
 # Project Varuna
 
-**Automated C4 Architecture & Modularity Discovery Engine** powered by **Tree-sitter ASTs** (Python, TypeScript/Node, Ruby/Rails), **Network Science** (Centrality utility-sink pruning & Louvain community detection), **3-Tier Entrypoint Discovery** (AST routes/CLIs/workers, topological source nodes, optional OpenAPI), and **LikeC4 DSL** generation.
+**Automated C4 Architecture & Modularity Discovery Engine** powered by **Tree-sitter ASTs** (Python, TypeScript/Node, Ruby/Rails), **Network Science** (Centrality utility-sink pruning & Louvain community detection), **3-Tier Entrypoint Discovery** (AST routes/CLIs/workers, topological source nodes, optional OpenAPI), and **LikeC4 / Structurizr DSL** generation.
 
 ## Quick Start
 
@@ -8,8 +8,12 @@
 # Install with uv
 uv sync --all-extras
 
-# Dogfood: Run Varuna on its own source code (no OpenAPI spec needed)
+# Dogfood: Run Varuna on its own source code (defaults to --engine likec4)
 uv run varuna analyze . --output ./docs/architecture
+
+# Or emit Structurizr DSL (workspace.dsl) or both:
+uv run varuna analyze . --output ./docs/architecture --engine structurizr
+uv run varuna analyze . --output ./docs/architecture --engine both
 
 # Or inspect metrics in the terminal
 uv run varuna inspect .
@@ -34,4 +38,4 @@ npx likec4 start ./docs/architecture
    - **Architecture Drift Analyzer**: Compares physical directory namespaces against Louvain behavioral clusters.
 4. **Semantic Enrichment & Emitters (`src/varuna/enrichment`, `src/varuna/emitters`)**:
    - Deterministic heuristic component naming + optional LLM Agent (`--llm` via Gemini/OpenAI/Anthropic).
-   - Emits zoomable **LikeC4 (`architecture.c4`)** across C1–C4 levels and a **Markdown Drift Report (`varuna-report.md`)**.
+   - Emits zoomable **LikeC4 (`architecture.c4`)** (default) or **Structurizr (`workspace.dsl`)** (`--engine structurizr|both`) across C1–C4 levels and a **Markdown Drift Report (`varuna-report.md`)**.

@@ -107,17 +107,37 @@ def enrich_components_with_llm(
 
 
 def _call_gemini(api_key: str, prompt: str) -> dict[str, dict[str, str]]:
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
+    preferred_model = os.environ.get("GEMINI_MODEL", "gemini-flash-latest")
+    candidate_models = [preferred_model]
+    for fallback in ("gemini-flash-latest", "gemini-3.8-flash", "gemini-2.5-flash"):
+        if fallback not in candidate_models:
+            candidate_models.append(fallback)
+
+    headers = {"x-goog-api-key": api_key}
     payload = {
         "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": 0.1},
     }
-    with httpx.Client(timeout=20.0) as client:
-        resp = client.post(url, json=payload)
-        resp.raise_for_status()
-        data = resp.json()
-        text = data["candidates"][0]["content"]["parts"][0]["text"]
-        return json.loads(text)
+    last_exc: Exception | None = None
+    with httpx.Client(timeout=30.0) as client:
+        for model in candidate_models:
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+            resp = client.post(url, headers=headers, json=payload)
+            if resp.status_code == 404:
+                last_exc = httpx.HTTPStatusError(
+                    f"404 Not Found for model '{model}': {resp.text}",
+                    request=resp.request,
+                    response=resp,
+                )
+                continue
+            resp.raise_for_status()
+            data = resp.json()
+            text = data["candidates"][0]["content"]["parts"][0]["text"]
+            return json.loads(text)
+
+    if last_exc is not None:
+        raise last_exc
+    raise RuntimeError("No Gemini model candidates available.")
 
 
 def _call_openai(api_key: str, prompt: str) -> dict[str, dict[str, str]]:

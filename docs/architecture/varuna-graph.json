@@ -38,10 +38,11 @@
         "rich.panel.Panel",
         "rich.table",
         "rich.table.Table",
-        "varuna.emitters.likec4_emitter",
-        "varuna.emitters.likec4_emitter.emit_likec4_dsl",
-        "varuna.emitters.report_emitter",
-        "varuna.emitters.report_emitter.emit_markdown_report",
+        "varuna.emitters",
+        "varuna.emitters.OutputEngine",
+        "varuna.emitters.emit_likec4_dsl",
+        "varuna.emitters.emit_markdown_report",
+        "varuna.emitters.emit_structurizr_dsl",
         "varuna.enrichment.llm_agent",
         "varuna.enrichment.llm_agent.enrich_components_with_llm",
         "varuna.graph.builder",
@@ -55,8 +56,10 @@
         "RichHandler",
         "Panel",
         "Table",
+        "OutputEngine",
         "emit_likec4_dsl",
         "emit_markdown_report",
+        "emit_structurizr_dsl",
         "enrich_components_with_llm",
         "GraphBuilder",
         "AnalysisResult"
@@ -100,9 +103,12 @@
         "typer.Option",
         "typer.Option",
         "typer.Option",
+        "typer.Option",
         "run_analysis",
         "logger.info",
         "emit_likec4_dsl",
+        "logger.info",
+        "emit_structurizr_dsl",
         "logger.info",
         "emit_markdown_report",
         "logger.info",
@@ -146,8 +152,16 @@
         "str",
         "len",
         "console.print",
-        "console.print",
+        "artifact_lines.append",
+        "artifact_lines.append",
+        "artifact_lines.append",
+        "artifact_lines.append",
         "c4_file.parent.as_posix",
+        "artifact_lines.append",
+        "structurizr_file.parent.resolve().as_posix",
+        "structurizr_file.parent.resolve",
+        "console.print",
+        "\"\\n\".join",
         "app"
       ],
       "mixins_and_parents": [],
@@ -172,24 +186,84 @@
         {
           "kind": "topological_source",
           "name": "root:cli",
-          "detail": "Topological source node (in_degree=0, out_degree=5)"
+          "detail": "Topological source node (in_degree=0, out_degree=4)"
         }
       ],
       "external_packages": [],
       "docstring": "Typer + Rich CLI and pipeline orchestrator for Project Varuna.",
-      "lines_of_code": 301,
+      "lines_of_code": 333,
       "in_degree": 0,
-      "out_degree": 5,
+      "out_degree": 4,
       "weighted_in_degree": 0.0,
-      "weighted_out_degree": 18.95,
+      "weighted_out_degree": 14.69,
       "in_degree_centrality": 0.0,
-      "pagerank": 0.0588,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
       "utility_reason": "",
       "is_topological_entrypoint": true,
       "community_id": "comp_cli"
+    },
+    "src.varuna.emitters": {
+      "id": "src.varuna.emitters",
+      "name": "emitters",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\emitters\\__init__.py",
+      "relative_path": "src/varuna/emitters/__init__.py",
+      "language": "python",
+      "directory_namespace": "emitters",
+      "classes": [
+        "OutputEngine"
+      ],
+      "functions": [],
+      "exported_symbols": [
+        "OutputEngine"
+      ],
+      "raw_imports": [
+        "enum",
+        "enum.Enum",
+        "varuna.emitters.likec4_emitter",
+        "varuna.emitters.likec4_emitter.emit_likec4_dsl",
+        "varuna.emitters.likec4_emitter.generate_likec4_string",
+        "varuna.emitters.report_emitter",
+        "varuna.emitters.report_emitter.emit_markdown_report",
+        "varuna.emitters.report_emitter.generate_markdown_report_string",
+        "varuna.emitters.structurizr_emitter",
+        "varuna.emitters.structurizr_emitter.emit_structurizr_dsl",
+        "varuna.emitters.structurizr_emitter.generate_structurizr_string"
+      ],
+      "referenced_constants": [
+        "Enum",
+        "emit_likec4_dsl",
+        "generate_likec4_string",
+        "emit_markdown_report",
+        "generate_markdown_report_string",
+        "emit_structurizr_dsl",
+        "generate_structurizr_string"
+      ],
+      "called_symbols": [],
+      "mixins_and_parents": [
+        "str",
+        "Enum"
+      ],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "LikeC4 DSL, Structurizr DSL, and Markdown modularity report emitters.",
+      "lines_of_code": 27,
+      "in_degree": 1,
+      "out_degree": 3,
+      "weighted_in_degree": 2.9,
+      "weighted_out_degree": 9.36,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_emitters"
     },
     "src.varuna.emitters.likec4_emitter": {
       "id": "src.varuna.emitters.likec4_emitter",
@@ -319,10 +393,10 @@
       "lines_of_code": 261,
       "in_degree": 1,
       "out_degree": 1,
-      "weighted_in_degree": 3.58,
+      "weighted_in_degree": 3.12,
       "weighted_out_degree": 3.91,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -404,10 +478,132 @@
       "lines_of_code": 156,
       "in_degree": 1,
       "out_degree": 1,
-      "weighted_in_degree": 3.58,
+      "weighted_in_degree": 3.12,
       "weighted_out_degree": 2.34,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_emitters"
+    },
+    "src.varuna.emitters.structurizr_emitter": {
+      "id": "src.varuna.emitters.structurizr_emitter",
+      "name": "structurizr_emitter",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\emitters\\structurizr_emitter.py",
+      "relative_path": "src/varuna/emitters/structurizr_emitter.py",
+      "language": "python",
+      "directory_namespace": "emitters",
+      "classes": [],
+      "functions": [
+        "emit_structurizr_dsl",
+        "generate_structurizr_string",
+        "_safe_id",
+        "_esc"
+      ],
+      "exported_symbols": [
+        "emit_structurizr_dsl",
+        "generate_structurizr_string"
+      ],
+      "raw_imports": [
+        "re",
+        "pathlib",
+        "pathlib.Path",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.AnalysisResult",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.NodeKind"
+      ],
+      "referenced_constants": [
+        "Path",
+        "AnalysisResult",
+        "ExternalBoundary",
+        "NodeKind"
+      ],
+      "called_symbols": [
+        "output_path.parent.mkdir",
+        "generate_structurizr_string",
+        "output_path.write_text",
+        "_safe_id",
+        "\", \".join",
+        "lang.value.title",
+        "result.external_boundaries.values",
+        "c2_stores.append",
+        "c1_externals.append",
+        "_esc",
+        "lines.append",
+        "_esc",
+        "_esc",
+        "lines.append",
+        "lines.extend",
+        "_esc",
+        "_esc",
+        "_esc",
+        "lines.extend",
+        "_esc",
+        "_esc",
+        "_esc",
+        "_esc",
+        "len",
+        "result.nodes.get",
+        "lines.append",
+        "_esc",
+        "_esc",
+        "lines.extend",
+        "lines.append",
+        "lines.append",
+        "_esc",
+        "_esc",
+        "_esc",
+        "lines.append",
+        "lines.append",
+        "lines.append",
+        "\", \".join",
+        "lines.append",
+        "_esc",
+        "lines.append",
+        "lines.append",
+        "sorted",
+        "comp.outbound_component_deps.items",
+        "lines.append",
+        "lines.append",
+        "lines.append",
+        "result.external_boundaries.get",
+        "lines.append",
+        "_esc",
+        "lines.append",
+        "_esc",
+        "lines.append",
+        "lines.append",
+        "lines.extend",
+        "_esc",
+        "_esc",
+        "_esc",
+        "\"\\n\".join",
+        "re.sub(r\"[^a-zA-Z0-9_]+\", \"_\", raw).strip(\"_\").lower",
+        "re.sub(r\"[^a-zA-Z0-9_]+\", \"_\", raw).strip",
+        "re.sub",
+        "cleaned[0].isdigit",
+        "text.replace(\"\\\\\", \"\\\\\\\\\").replace('\"', '\\\\\"').replace(\"\\n\", \" \").strip",
+        "text.replace(\"\\\\\", \"\\\\\\\\\").replace('\"', '\\\\\"').replace",
+        "text.replace(\"\\\\\", \"\\\\\\\\\").replace",
+        "text.replace"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Generates valid, hierarchical Structurizr DSL (workspace.dsl) files across C1, C2, and C3 views with C4 module properties.",
+      "lines_of_code": 205,
+      "in_degree": 1,
+      "out_degree": 1,
+      "weighted_in_degree": 3.12,
+      "weighted_out_degree": 3.91,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -497,8 +693,8 @@
       "out_degree": 1,
       "weighted_in_degree": 3.58,
       "weighted_out_degree": 3.12,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -568,11 +764,15 @@
         "str",
         "logger.info",
         "logger.debug",
+        "os.environ.get",
+        "candidate_models.append",
         "httpx.Client",
         "client.post",
+        "httpx.HTTPStatusError",
         "resp.raise_for_status",
         "resp.json",
         "json.loads",
+        "RuntimeError",
         "httpx.Client",
         "client.post",
         "resp.raise_for_status",
@@ -592,13 +792,13 @@
       "entrypoints": [],
       "external_packages": [],
       "docstring": "Optional LLM Agent for semantic C3 component synthesis (supports Gemini, OpenAI, and Anthropic).",
-      "lines_of_code": 156,
+      "lines_of_code": 176,
       "in_degree": 1,
       "out_degree": 2,
       "weighted_in_degree": 3.58,
       "weighted_out_degree": 6.7,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -696,8 +896,8 @@
       "out_degree": 1,
       "weighted_in_degree": 62.31,
       "weighted_out_degree": 3.12,
-      "in_degree_centrality": 0.375,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.3333,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -803,8 +1003,8 @@
       "out_degree": 2,
       "weighted_in_degree": 4.93,
       "weighted_out_degree": 9.46,
-      "in_degree_centrality": 0.125,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.1111,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -906,8 +1106,8 @@
       "out_degree": 2,
       "weighted_in_degree": 6.08,
       "weighted_out_degree": 7.45,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -1078,8 +1278,8 @@
       "out_degree": 2,
       "weighted_in_degree": 4.63,
       "weighted_out_degree": 30.14,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -1198,8 +1398,8 @@
       "out_degree": 7,
       "weighted_in_degree": 4.63,
       "weighted_out_degree": 32.09,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -1363,8 +1563,8 @@
       "out_degree": 2,
       "weighted_in_degree": 4.63,
       "weighted_out_degree": 23.84,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -1527,8 +1727,8 @@
       "out_degree": 2,
       "weighted_in_degree": 4.63,
       "weighted_out_degree": 25.94,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -1719,8 +1919,8 @@
       "out_degree": 6,
       "weighted_in_degree": 4.63,
       "weighted_out_degree": 25.67,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -1817,8 +2017,8 @@
       "out_degree": 1,
       "weighted_in_degree": 3.58,
       "weighted_out_degree": 4.66,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -1975,8 +2175,8 @@
       "out_degree": 1,
       "weighted_in_degree": 3.58,
       "weighted_out_degree": 4.66,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -2056,8 +2256,8 @@
       "out_degree": 1,
       "weighted_in_degree": 3.58,
       "weighted_out_degree": 6.08,
-      "in_degree_centrality": 0.0625,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.0556,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": false,
@@ -2188,16 +2388,16 @@
       "external_packages": [],
       "docstring": "Core Pydantic schema definitions for C1-C4 architectural graphs, metrics, and drift analysis.",
       "lines_of_code": 169,
-      "in_degree": 16,
+      "in_degree": 17,
       "out_degree": 0,
-      "weighted_in_degree": 86.6,
+      "weighted_in_degree": 90.51,
       "weighted_out_degree": 0.0,
-      "in_degree_centrality": 1.0,
-      "pagerank": 0.0588,
+      "in_degree_centrality": 0.9444,
+      "pagerank": 0.0526,
       "hub_score": 0.0,
       "authority_score": 0.0,
       "is_utility_sink": true,
-      "utility_reason": "Cross-cutting sink imported by 16 modules across 6 namespaces (out_degree=0, PageRank=0.059)",
+      "utility_reason": "Cross-cutting sink imported by 17 modules across 6 namespaces (out_degree=0, PageRank=0.053)",
       "is_topological_entrypoint": false,
       "community_id": "comp_models"
     }
@@ -2205,22 +2405,15 @@
   "edges": [
     {
       "source": "src.varuna.cli",
-      "target": "src.varuna.emitters.likec4_emitter",
+      "target": "src.varuna.emitters",
       "kind": "imports",
-      "weight": 1.35,
+      "weight": 2.4000000000000004,
       "symbols": [
-        "varuna.emitters.likec4_emitter",
-        "varuna.emitters.likec4_emitter.emit_likec4_dsl"
-      ]
-    },
-    {
-      "source": "src.varuna.cli",
-      "target": "src.varuna.emitters.report_emitter",
-      "kind": "imports",
-      "weight": 1.35,
-      "symbols": [
-        "varuna.emitters.report_emitter",
-        "varuna.emitters.report_emitter.emit_markdown_report"
+        "varuna.emitters",
+        "varuna.emitters.OutputEngine",
+        "varuna.emitters.emit_likec4_dsl",
+        "varuna.emitters.emit_markdown_report",
+        "varuna.emitters.emit_structurizr_dsl"
       ]
     },
     {
@@ -2255,20 +2448,11 @@
     },
     {
       "source": "src.varuna.cli",
-      "target": "src.varuna.emitters.likec4_emitter",
+      "target": "src.varuna.emitters",
       "kind": "references_constant",
       "weight": 2.0,
       "symbols": [
-        "emit_likec4_dsl"
-      ]
-    },
-    {
-      "source": "src.varuna.cli",
-      "target": "src.varuna.emitters.report_emitter",
-      "kind": "references_constant",
-      "weight": 2.0,
-      "symbols": [
-        "emit_markdown_report"
+        "OutputEngine"
       ]
     },
     {
@@ -2327,21 +2511,66 @@
       ]
     },
     {
-      "source": "src.varuna.cli",
+      "source": "src.varuna.emitters",
       "target": "src.varuna.emitters.likec4_emitter",
-      "kind": "calls",
-      "weight": 3.0,
+      "kind": "imports",
+      "weight": 1.7000000000000002,
       "symbols": [
-        "emit_likec4_dsl"
+        "varuna.emitters.likec4_emitter",
+        "varuna.emitters.likec4_emitter.emit_likec4_dsl",
+        "varuna.emitters.likec4_emitter.generate_likec4_string"
       ]
     },
     {
-      "source": "src.varuna.cli",
+      "source": "src.varuna.emitters",
       "target": "src.varuna.emitters.report_emitter",
-      "kind": "calls",
-      "weight": 3.0,
+      "kind": "imports",
+      "weight": 1.7000000000000002,
       "symbols": [
-        "emit_markdown_report"
+        "varuna.emitters.report_emitter",
+        "varuna.emitters.report_emitter.emit_markdown_report",
+        "varuna.emitters.report_emitter.generate_markdown_report_string"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters",
+      "target": "src.varuna.emitters.structurizr_emitter",
+      "kind": "imports",
+      "weight": 1.7000000000000002,
+      "symbols": [
+        "varuna.emitters.structurizr_emitter",
+        "varuna.emitters.structurizr_emitter.emit_structurizr_dsl",
+        "varuna.emitters.structurizr_emitter.generate_structurizr_string"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters",
+      "target": "src.varuna.emitters.likec4_emitter",
+      "kind": "references_constant",
+      "weight": 2.7,
+      "symbols": [
+        "emit_likec4_dsl",
+        "generate_likec4_string"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters",
+      "target": "src.varuna.emitters.report_emitter",
+      "kind": "references_constant",
+      "weight": 2.7,
+      "symbols": [
+        "emit_markdown_report",
+        "generate_markdown_report_string"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters",
+      "target": "src.varuna.emitters.structurizr_emitter",
+      "kind": "references_constant",
+      "weight": 2.7,
+      "symbols": [
+        "emit_structurizr_dsl",
+        "generate_structurizr_string"
       ]
     },
     {
@@ -2384,6 +2613,29 @@
       "weight": 2.0,
       "symbols": [
         "AnalysisResult"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters.structurizr_emitter",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 2.0500000000000003,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.AnalysisResult",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.NodeKind"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters.structurizr_emitter",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 3.4000000000000004,
+      "symbols": [
+        "AnalysisResult",
+        "ExternalBoundary",
+        "NodeKind"
       ]
     },
     {
@@ -3372,8 +3624,8 @@
   "components": [
     {
       "id": "comp_cli",
-      "name": "CLI & Orchestration Entrypoint",
-      "description": "Typer + Rich CLI and pipeline orchestrator for Project Varuna.",
+      "name": "CLI Pipeline Orchestrator",
+      "description": "Provides command-line entrypoints and coordinates the end-to-end architectural analysis workflow.",
       "technology": "Python · Typer / CLI",
       "community_index": 0,
       "node_ids": [
@@ -3403,11 +3655,11 @@
         {
           "kind": "topological_source",
           "name": "root:cli",
-          "detail": "Topological source node (in_degree=0, out_degree=5)"
+          "detail": "Topological source node (in_degree=0, out_degree=4)"
         }
       ],
       "outbound_component_deps": {
-        "comp_emitters": 7.16,
+        "comp_emitters": 2.9,
         "comp_enrichment": 3.58,
         "comp_graph": 4.63,
         "comp_models": 3.58
@@ -3421,8 +3673,8 @@
     },
     {
       "id": "comp_extractors",
-      "name": "AST & Spec Extractors",
-      "description": "Base Tree-sitter AST extractor interface and path normalization helpers (7 modules).",
+      "name": "Source and Spec Extractors",
+      "description": "Parses source code ASTs, API specifications, and infrastructure configurations into architectural symbols and dependencies.",
       "technology": "Python",
       "community_index": 1,
       "node_ids": [
@@ -3453,11 +3705,39 @@
       "is_entrypoint_component": false
     },
     {
-      "id": "comp_graph",
-      "name": "Network Science & Graph Engine",
-      "description": "NetworkX dependency graph builder and unified graph-science pipeline coordinator (4 modules).",
+      "id": "comp_emitters",
+      "name": "Architecture DSL Emitters",
+      "description": "Generates LikeC4, Structurizr DSL, and Markdown drift reports from the analyzed architectural graph.",
       "technology": "Python",
       "community_index": 2,
+      "node_ids": [
+        "src.varuna.emitters",
+        "src.varuna.emitters.likec4_emitter",
+        "src.varuna.emitters.report_emitter",
+        "src.varuna.emitters.structurizr_emitter"
+      ],
+      "directory_namespaces": [
+        "emitters"
+      ],
+      "dominant_namespace": "emitters",
+      "exposed_routes": [],
+      "entrypoints": [],
+      "outbound_component_deps": {
+        "comp_models": 10.16
+      },
+      "external_boundary_ids": [],
+      "utility_sink_ids": [
+        "src.varuna.models.graph_schema"
+      ],
+      "internal_cohesion": 1.0,
+      "is_entrypoint_component": false
+    },
+    {
+      "id": "comp_graph",
+      "name": "Dependency Graph Engine",
+      "description": "Constructs dependency networks and applies graph algorithms to compute centrality, detect communities, and measure drift.",
+      "technology": "Python",
+      "community_index": 3,
       "node_ids": [
         "src.varuna.graph.builder",
         "src.varuna.graph.centrality",
@@ -3484,35 +3764,9 @@
       "is_entrypoint_component": false
     },
     {
-      "id": "comp_emitters",
-      "name": "LikeC4 & Report Emitters",
-      "description": "Generates valid, hierarchical LikeC4 DSL (.c4) files across C1, C2, C3, and C4 zoom levels (2 modules).",
-      "technology": "Python",
-      "community_index": 3,
-      "node_ids": [
-        "src.varuna.emitters.likec4_emitter",
-        "src.varuna.emitters.report_emitter"
-      ],
-      "directory_namespaces": [
-        "emitters"
-      ],
-      "dominant_namespace": "emitters",
-      "exposed_routes": [],
-      "entrypoints": [],
-      "outbound_component_deps": {
-        "comp_models": 6.25
-      },
-      "external_boundary_ids": [],
-      "utility_sink_ids": [
-        "src.varuna.models.graph_schema"
-      ],
-      "internal_cohesion": 1.0,
-      "is_entrypoint_component": false
-    },
-    {
       "id": "comp_enrichment",
-      "name": "Semantic Enrichment & Naming",
-      "description": "Deterministic TF-IDF, docstring, and symbol-based C3 component namer (zero-API-key default) (2 modules).",
+      "name": "Semantic Component Enricher",
+      "description": "Infers meaningful names and descriptions for discovered components using heuristic metrics and LLM synthesis.",
       "technology": "Python",
       "community_index": 4,
       "node_ids": [
@@ -3539,8 +3793,8 @@
     },
     {
       "id": "comp_models",
-      "name": "Core Graph Schema & Models",
-      "description": "Core Pydantic schema definitions for C1-C4 architectural graphs, metrics, and drift analysis.",
+      "name": "Graph Data Models",
+      "description": "Defines domain schemas, node representations, and edge classifications for the architectural knowledge graph.",
       "technology": "Python · Shared Schema / Sink",
       "community_index": 5,
       "node_ids": [
@@ -3560,7 +3814,7 @@
     }
   ],
   "unmatched_openapi_routes": [],
-  "modularity_score": 0.2813,
+  "modularity_score": 0.4012,
   "namespace_alignment_score": 1.0,
   "drift_issues": []
 }

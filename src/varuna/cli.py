@@ -11,15 +11,19 @@ from rich.logging import RichHandler
 from rich.panel import Panel
 from rich.table import Table
 
-from varuna.emitters.likec4_emitter import emit_likec4_dsl
-from varuna.emitters.report_emitter import emit_markdown_report
+from varuna.emitters import (
+    OutputEngine,
+    emit_likec4_dsl,
+    emit_markdown_report,
+    emit_structurizr_dsl,
+)
 from varuna.enrichment.llm_agent import enrich_components_with_llm
 from varuna.graph.builder import GraphBuilder
 from varuna.models.graph_schema import AnalysisResult
 
 app = typer.Typer(
     name="varuna",
-    help="Project Varuna: Automated C4 Architecture & Modularity Discovery Engine (AST + Louvain + LikeC4).",
+    help="Project Varuna: Automated C4 Architecture & Modularity Discovery Engine (AST + Louvain + LikeC4 / Structurizr).",
     add_completion=False,
 )
 console = Console()
@@ -139,7 +143,14 @@ def analyze_command(
         Path("./docs/architecture"),
         "--output",
         "-o",
-        help="Directory where LikeC4 (.c4) and Markdown modularity reports will be written.",
+        help="Directory where C4 DSL (.c4 / .dsl) and Markdown modularity reports will be written.",
+    ),
+    engine: OutputEngine = typer.Option(
+        OutputEngine.LIKEC4,
+        "--engine",
+        "-e",
+        case_sensitive=False,
+        help="C4 DSL output engine to generate ('likec4', 'structurizr', or 'both').",
     ),
     openapi_path: Path | None = typer.Option(
         None,
@@ -174,7 +185,7 @@ def analyze_command(
         help="Enable verbose terminal logging of all analysis pipeline steps.",
     ),
 ) -> None:
-    """Analyze a repository and generate LikeC4 (.c4) diagrams and an Architecture Drift report."""
+    """Analyze a repository and generate LikeC4 (.c4) or Structurizr (.dsl) diagrams and an Architecture Drift report."""
     result = run_analysis(
         repo_path=repo_path,
         openapi_path=openapi_path,
@@ -184,8 +195,17 @@ def analyze_command(
         verbose=verbose,
     )
 
-    logger.info("[Stage 5/5] Emitting LikeC4 DSL to %s...", output_dir / "architecture.c4")
-    c4_file = emit_likec4_dsl(result, output_dir / "architecture.c4")
+    c4_file: Path | None = None
+    structurizr_file: Path | None = None
+
+    if engine in (OutputEngine.LIKEC4, OutputEngine.BOTH):
+        logger.info("[Stage 5/5] Emitting LikeC4 DSL to %s...", output_dir / "architecture.c4")
+        c4_file = emit_likec4_dsl(result, output_dir / "architecture.c4")
+
+    if engine in (OutputEngine.STRUCTURIZR, OutputEngine.BOTH):
+        logger.info("[Stage 5/5] Emitting Structurizr DSL to %s...", output_dir / "workspace.dsl")
+        structurizr_file = emit_structurizr_dsl(result, output_dir / "workspace.dsl")
+
     logger.info(
         "[Stage 5/5] Emitting Markdown drift report to %s...", output_dir / "varuna-report.md"
     )
@@ -196,7 +216,7 @@ def analyze_command(
         logger.info("[Stage 5/5] Writing raw graph JSON to %s...", json_file)
         json_file.write_text(result.model_dump_json(indent=2), encoding="utf-8")
 
-    _print_console_summary(result, c4_file, report_file)
+    _print_console_summary(result, c4_file, report_file, structurizr_file)
 
 
 @app.command("inspect")
@@ -230,6 +250,7 @@ def _print_console_summary(
     result: AnalysisResult,
     c4_file: Path | None,
     report_file: Path | None,
+    structurizr_file: Path | None = None,
 ) -> None:
     langs = ", ".join(lang.value.title() for lang in result.languages_detected) or "None"
     console.print(
@@ -288,13 +309,22 @@ def _print_console_summary(
         )
     console.print(comp_table)
 
-    if c4_file and report_file:
-        console.print(
-            f"\n[bold green]Generated Artifacts:[/bold green]\n"
-            f"  • LikeC4 DSL:      [underline]{c4_file}[/underline]\n"
-            f"  • Drift Report:    [underline]{report_file}[/underline]\n"
-            f"  • Interactive UI:  [dim]npx likec4 start {c4_file.parent.as_posix()}[/dim]"
-        )
+    if report_file and (c4_file or structurizr_file):
+        artifact_lines = ["\n[bold green]Generated Artifacts:[/bold green]"]
+        if c4_file:
+            artifact_lines.append(f"  • LikeC4 DSL:      [underline]{c4_file}[/underline]")
+        if structurizr_file:
+            artifact_lines.append(f"  • Structurizr DSL: [underline]{structurizr_file}[/underline]")
+        artifact_lines.append(f"  • Drift Report:    [underline]{report_file}[/underline]")
+        if c4_file:
+            artifact_lines.append(
+                f"  • LikeC4 UI:       [dim]npx likec4 start {c4_file.parent.as_posix()}[/dim]"
+            )
+        if structurizr_file:
+            artifact_lines.append(
+                f'  • Structurizr UI:  [dim]docker run -it --rm -p 8080:8080 -v "{structurizr_file.parent.resolve().as_posix()}:/usr/local/structurizr" structurizr/stucturizr local[/dim]'
+            )
+        console.print("\n".join(artifact_lines))
 
 
 if __name__ == "__main__":

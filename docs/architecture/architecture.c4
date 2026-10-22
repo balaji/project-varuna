@@ -58,18 +58,18 @@ model {
       technology 'Python'
       description 'Primary application runtime containing Louvain-discovered C3 components'
 
-      comp_cli = component 'CLI & Orchestration Entrypoint' {
+      comp_cli = component 'CLI Pipeline Orchestrator' {
         technology 'Python · Typer / CLI'
-        description 'Typer + Rich CLI and pipeline orchestrator for Project Varuna.'
+        description 'Orchestrates static analysis and inspection workflows via a command-line interface.'
         mod_cli_src_varuna_cli = module 'cli' {
           technology 'src/varuna/cli.py'
           description 'Typer + Rich CLI and pipeline orchestrator for Project Varuna.'
         }
       }
 
-      comp_extractors = component 'AST & Spec Extractors' {
+      comp_extractors = component 'AST and Spec Extractors' {
         technology 'Python'
-        description 'Base Tree-sitter AST extractor interface and path normalization helpers (7 modules).'
+        description 'Parses source code ASTs, OpenAPI specifications, and infrastructure manifests to extract architectural symbols and dependencies.'
         mod_base_src_varuna_extractors_base = module 'base' {
           technology 'src/varuna/extractors/base.py'
           description 'Base Tree-sitter AST extractor interface and path normalization helpers.'
@@ -100,9 +100,9 @@ model {
         }
       }
 
-      comp_graph = component 'Network Science & Graph Engine' {
+      comp_graph = component 'Graph Analytics Engine' {
         technology 'Python'
-        description 'NetworkX dependency graph builder and unified graph-science pipeline coordinator (4 modules).'
+        description 'Constructs dependency graphs and executes network science algorithms to detect components, centrality, and drift.'
         mod_builder_src_varuna_graph_builder = module 'builder' {
           technology 'src/varuna/graph/builder.py'
           description 'NetworkX dependency graph builder and unified graph-science pipeline coordinator.'
@@ -121,9 +121,9 @@ model {
         }
       }
 
-      comp_emitters = component 'LikeC4 & Report Emitters' {
+      comp_emitters = component 'Architecture Report Emitter' {
         technology 'Python'
-        description 'Generates valid, hierarchical LikeC4 DSL (.c4) files across C1, C2, C3, and C4 zoom levels (2 modules).'
+        description 'Generates LikeC4 architecture definitions and comprehensive Markdown drift reports from graph analysis results.'
         mod_likec4_emitter_src_varuna_emitters_likec4_emitter = module 'likec4_emitter' {
           technology 'src/varuna/emitters/likec4_emitter.py'
           description 'Generates valid, hierarchical LikeC4 DSL (.c4) files across C1, C2, C3, and C4 zoom levels.'
@@ -134,9 +134,9 @@ model {
         }
       }
 
-      comp_enrichment = component 'Semantic Enrichment & Naming' {
+      comp_enrichment = component 'Semantic Component Enricher' {
         technology 'Python'
-        description 'Deterministic TF-IDF, docstring, and symbol-based C3 component namer (zero-API-key default) (2 modules).'
+        description 'Infers human-readable names and descriptions for detected components using heuristic analysis and language models.'
         mod_heuristic_namer_src_varuna_enrichment_heuristic_namer = module 'heuristic_namer' {
           technology 'src/varuna/enrichment/heuristic_namer.py'
           description 'Deterministic TF-IDF, docstring, and symbol-based C3 component namer (zero-API-key default).'
@@ -147,9 +147,9 @@ model {
         }
       }
 
-      comp_models = component 'Core Graph Schema & Models' {
+      comp_models = component 'Core Domain Models' {
         technology 'Python · Shared Schema / Sink'
-        description 'Core Pydantic schema definitions for C1-C4 architectural graphs, metrics, and drift analysis.'
+        description 'Defines Pydantic schemas and entity types representing architectural nodes, edges, and graph metadata.'
         mod_graph_schema_src_varuna_models_graph_schema = module 'graph_schema' {
           technology 'src/varuna/models/graph_schema.py'
           description 'Core Pydantic schema definitions for C1-C4 architectural graphs, metrics, and drift analysis.'
@@ -312,32 +312,32 @@ views {
   }
 
   view c4_comp_cli of project_varuna.core_app.comp_cli {
-    title 'C4 - Code Modules: CLI & Orchestration Entrypoint'
+    title 'C4 - Code Modules: CLI Pipeline Orchestrator'
     include *
   }
 
   view c4_comp_extractors of project_varuna.core_app.comp_extractors {
-    title 'C4 - Code Modules: AST & Spec Extractors'
+    title 'C4 - Code Modules: AST and Spec Extractors'
     include *
   }
 
   view c4_comp_graph of project_varuna.core_app.comp_graph {
-    title 'C4 - Code Modules: Network Science & Graph Engine'
+    title 'C4 - Code Modules: Graph Analytics Engine'
     include *
   }
 
   view c4_comp_emitters of project_varuna.core_app.comp_emitters {
-    title 'C4 - Code Modules: LikeC4 & Report Emitters'
+    title 'C4 - Code Modules: Architecture Report Emitter'
     include *
   }
 
   view c4_comp_enrichment of project_varuna.core_app.comp_enrichment {
-    title 'C4 - Code Modules: Semantic Enrichment & Naming'
+    title 'C4 - Code Modules: Semantic Component Enricher'
     include *
   }
 
   view c4_comp_models of project_varuna.core_app.comp_models {
-    title 'C4 - Code Modules: Core Graph Schema & Models'
+    title 'C4 - Code Modules: Core Domain Models'
     include *
   }
 }
