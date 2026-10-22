@@ -1,0 +1,523 @@
+{
+  "configuration" : { },
+  "description" : "Automated C4 Architecture Model (Modularity Q=0.40, Alignment=100%)",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedDate" : "2026-10-22T22:26:29Z",
+  "model" : {
+    "people" : [ {
+      "description" : "Invokes CLI commands, HTTP endpoints, or public entrypoints",
+      "id" : "1",
+      "name" : "Developer / API Consumer",
+      "properties" : {
+        "structurizr.dsl.identifier" : "consumer"
+      },
+      "relationships" : [ {
+        "description" : "cli:analyze, cli:inspect",
+        "destinationId" : "7",
+        "id" : "13",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      }, {
+        "description" : "cli:analyze, cli:inspect",
+        "destinationId" : "6",
+        "id" : "14",
+        "linkedRelationshipId" : "13",
+        "sourceId" : "1"
+      }, {
+        "description" : "cli:analyze, cli:inspect",
+        "destinationId" : "5",
+        "id" : "15",
+        "linkedRelationshipId" : "13",
+        "sourceId" : "1"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "description" : "External API & LLM gateway client",
+      "documentation" : { },
+      "id" : "2",
+      "name" : "External HTTP / LLM APIs",
+      "properties" : {
+        "structurizr.dsl.identifier" : "external_http_llm_apis"
+      },
+      "tags" : "Element,Software System,External"
+    }, {
+      "description" : "Multi-language incremental AST parser",
+      "documentation" : { },
+      "id" : "3",
+      "name" : "Tree-sitter AST Runtime",
+      "properties" : {
+        "structurizr.dsl.identifier" : "tree_sitter_ast_runtime"
+      },
+      "tags" : "Element,Software System,External"
+    }, {
+      "description" : "Graph topology & Louvain community engine",
+      "documentation" : { },
+      "id" : "4",
+      "name" : "NetworkX Graph Runtime",
+      "properties" : {
+        "structurizr.dsl.identifier" : "networkx_graph_runtime"
+      },
+      "tags" : "Element,Software System,External"
+    }, {
+      "containers" : [ {
+        "components" : [ {
+          "description" : "Typer + Rich CLI and pipeline orchestrator for Project Varuna.",
+          "documentation" : { },
+          "id" : "7",
+          "name" : "CLI & Orchestration Entrypoint",
+          "properties" : {
+            "structurizr.dsl.identifier" : "project_varuna.core_app.comp_cli",
+            "c4.module.cli" : "src/varuna/cli.py (in=0, out=4, PR=0.053)",
+            "varuna.cohesion" : "0%",
+            "varuna.dominant_namespace" : "cli",
+            "varuna.module_count" : "1"
+          },
+          "relationships" : [ {
+            "description" : "Depends on (w=2.9)",
+            "destinationId" : "9",
+            "id" : "16",
+            "sourceId" : "7",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Depends on (w=3.6)",
+            "destinationId" : "11",
+            "id" : "17",
+            "sourceId" : "7",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Depends on (w=4.6)",
+            "destinationId" : "10",
+            "id" : "18",
+            "sourceId" : "7",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Depends on (w=3.6)",
+            "destinationId" : "12",
+            "id" : "19",
+            "sourceId" : "7",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Python · Typer / CLI"
+        }, {
+          "description" : "Base Tree-sitter AST extractor interface and path normalization helpers (7 modules).",
+          "documentation" : { },
+          "id" : "8",
+          "name" : "AST & Spec Extractors",
+          "properties" : {
+            "structurizr.dsl.identifier" : "project_varuna.core_app.comp_extractors",
+            "c4.module.infra_scanner" : "src/varuna/extractors/infra_scanner.py (in=2, out=2, PR=0.053)",
+            "c4.module.openapi_parser" : "src/varuna/extractors/openapi_parser.py (in=1, out=2, PR=0.053)",
+            "varuna.cohesion" : "100%",
+            "c4.module.python_extractor" : "src/varuna/extractors/python_extractor.py (in=1, out=2, PR=0.053)",
+            "c4.module.registry" : "src/varuna/extractors/registry.py (in=1, out=7, PR=0.053)",
+            "c4.module.ruby_extractor" : "src/varuna/extractors/ruby_extractor.py (in=1, out=2, PR=0.053)",
+            "varuna.dominant_namespace" : "extractors",
+            "c4.module.ts_extractor" : "src/varuna/extractors/ts_extractor.py (in=1, out=2, PR=0.053)",
+            "c4.module.base" : "src/varuna/extractors/base.py (in=6, out=1, PR=0.053)",
+            "varuna.module_count" : "7"
+          },
+          "relationships" : [ {
+            "description" : "Depends on (w=46.2)",
+            "destinationId" : "12",
+            "id" : "20",
+            "sourceId" : "8",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Uses",
+            "destinationId" : "3",
+            "id" : "25",
+            "sourceId" : "8",
+            "tags" : "Relationship",
+            "technology" : "Native C / Tree-sitter"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Python"
+        }, {
+          "description" : "LikeC4 DSL, Structurizr DSL, and Markdown modularity report emitters (4 modules).",
+          "documentation" : { },
+          "id" : "9",
+          "name" : "LikeC4 & Report Emitters",
+          "properties" : {
+            "structurizr.dsl.identifier" : "project_varuna.core_app.comp_emitters",
+            "c4.module.structurizr_emitter" : "src/varuna/emitters/structurizr_emitter.py (in=1, out=1, PR=0.053)",
+            "c4.module.emitters" : "src/varuna/emitters/__init__.py (in=1, out=3, PR=0.053)",
+            "varuna.cohesion" : "100%",
+            "c4.module.likec4_emitter" : "src/varuna/emitters/likec4_emitter.py (in=1, out=1, PR=0.053)",
+            "c4.module.report_emitter" : "src/varuna/emitters/report_emitter.py (in=1, out=1, PR=0.053)",
+            "varuna.dominant_namespace" : "emitters",
+            "varuna.module_count" : "4"
+          },
+          "relationships" : [ {
+            "description" : "Depends on (w=10.2)",
+            "destinationId" : "12",
+            "id" : "21",
+            "sourceId" : "9",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Python"
+        }, {
+          "description" : "NetworkX dependency graph builder and unified graph-science pipeline coordinator (4 modules).",
+          "documentation" : { },
+          "id" : "10",
+          "name" : "Network Science & Graph Engine",
+          "properties" : {
+            "structurizr.dsl.identifier" : "project_varuna.core_app.comp_graph",
+            "c4.module.centrality" : "src/varuna/graph/centrality.py (in=1, out=1, PR=0.053)",
+            "varuna.cohesion" : "60%",
+            "c4.module.clustering" : "src/varuna/graph/clustering.py (in=1, out=1, PR=0.053)",
+            "varuna.dominant_namespace" : "graph",
+            "c4.module.builder" : "src/varuna/graph/builder.py (in=1, out=6, PR=0.053)",
+            "c4.module.drift" : "src/varuna/graph/drift.py (in=1, out=1, PR=0.053)",
+            "varuna.module_count" : "4"
+          },
+          "relationships" : [ {
+            "description" : "Depends on (w=6.0)",
+            "destinationId" : "8",
+            "id" : "22",
+            "sourceId" : "10",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Depends on (w=24.4)",
+            "destinationId" : "12",
+            "id" : "23",
+            "sourceId" : "10",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Uses",
+            "destinationId" : "4",
+            "id" : "28",
+            "sourceId" : "10",
+            "tags" : "Relationship",
+            "technology" : "NetworkX / SciPy"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Python"
+        }, {
+          "description" : "Deterministic TF-IDF, docstring, and symbol-based C3 component namer (zero-API-key default) (2 modules).",
+          "documentation" : { },
+          "id" : "11",
+          "name" : "Semantic Enrichment & Naming",
+          "properties" : {
+            "structurizr.dsl.identifier" : "project_varuna.core_app.comp_enrichment",
+            "varuna.cohesion" : "100%",
+            "c4.module.llm_agent" : "src/varuna/enrichment/llm_agent.py (in=1, out=2, PR=0.053)",
+            "varuna.dominant_namespace" : "enrichment",
+            "varuna.module_count" : "2",
+            "c4.module.heuristic_namer" : "src/varuna/enrichment/heuristic_namer.py (in=1, out=1, PR=0.053)"
+          },
+          "relationships" : [ {
+            "description" : "Depends on (w=6.2)",
+            "destinationId" : "12",
+            "id" : "24",
+            "sourceId" : "11",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Uses",
+            "destinationId" : "2",
+            "id" : "31",
+            "sourceId" : "11",
+            "tags" : "Relationship",
+            "technology" : "HTTPS / REST"
+          } ],
+          "tags" : "Element,Component",
+          "technology" : "Python"
+        }, {
+          "description" : "Core Pydantic schema definitions for C1-C4 architectural graphs, metrics, and drift analysis.",
+          "documentation" : { },
+          "id" : "12",
+          "name" : "Core Graph Schema & Models",
+          "properties" : {
+            "structurizr.dsl.identifier" : "project_varuna.core_app.comp_models",
+            "varuna.cohesion" : "100%",
+            "varuna.dominant_namespace" : "models",
+            "c4.module.graph_schema" : "src/varuna/models/graph_schema.py (in=17, out=0, PR=0.053)",
+            "varuna.module_count" : "1"
+          },
+          "tags" : "Element,Component",
+          "technology" : "Python · Shared Schema / Sink"
+        } ],
+        "description" : "Primary application runtime containing Louvain-discovered C3 components",
+        "documentation" : { },
+        "id" : "6",
+        "name" : "project-varuna Application",
+        "properties" : {
+          "structurizr.dsl.identifier" : "project_varuna.core_app"
+        },
+        "relationships" : [ {
+          "description" : "Uses",
+          "destinationId" : "3",
+          "id" : "26",
+          "linkedRelationshipId" : "25",
+          "sourceId" : "6",
+          "technology" : "Native C / Tree-sitter"
+        }, {
+          "description" : "Uses",
+          "destinationId" : "4",
+          "id" : "29",
+          "linkedRelationshipId" : "28",
+          "sourceId" : "6",
+          "technology" : "NetworkX / SciPy"
+        }, {
+          "description" : "Uses",
+          "destinationId" : "2",
+          "id" : "32",
+          "linkedRelationshipId" : "31",
+          "sourceId" : "6",
+          "technology" : "HTTPS / REST"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Python"
+      } ],
+      "description" : "Automated C4 model (Modularity Q=0.40, Alignment=100%)",
+      "documentation" : { },
+      "id" : "5",
+      "name" : "project-varuna",
+      "properties" : {
+        "structurizr.dsl.identifier" : "project_varuna"
+      },
+      "relationships" : [ {
+        "description" : "Uses",
+        "destinationId" : "3",
+        "id" : "27",
+        "linkedRelationshipId" : "25",
+        "sourceId" : "5",
+        "technology" : "Native C / Tree-sitter"
+      }, {
+        "description" : "Uses",
+        "destinationId" : "4",
+        "id" : "30",
+        "linkedRelationshipId" : "28",
+        "sourceId" : "5",
+        "technology" : "NetworkX / SciPy"
+      }, {
+        "description" : "Uses",
+        "destinationId" : "2",
+        "id" : "33",
+        "linkedRelationshipId" : "31",
+        "sourceId" : "5",
+        "technology" : "HTTPS / REST"
+      } ],
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "project-varuna",
+  "properties" : {
+    "structurizr.inspection.error" : "15",
+    "structurizr.dsl" : "Ly8gQXV0by1nZW5lcmF0ZWQgYnkgUHJvamVjdCBWYXJ1bmEgKEFTVCArIENlbnRyYWxpdHkgUHJ1bmluZyArIExvdXZhaW4gQ29tbXVuaXR5IERldGVjdGlvbikKd29ya3NwYWNlICJwcm9qZWN0LXZhcnVuYSIgIkF1dG9tYXRlZCBDNCBBcmNoaXRlY3R1cmUgTW9kZWwgKE1vZHVsYXJpdHkgUT0wLjQwLCBBbGlnbm1lbnQ9MTAwJSkiIHsKICAhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogIG1vZGVsIHsKICAgIGNvbnN1bWVyID0gcGVyc29uICJEZXZlbG9wZXIgLyBBUEkgQ29uc3VtZXIiICJJbnZva2VzIENMSSBjb21tYW5kcywgSFRUUCBlbmRwb2ludHMsIG9yIHB1YmxpYyBlbnRyeXBvaW50cyIKCiAgICBleHRlcm5hbF9odHRwX2xsbV9hcGlzID0gc29mdHdhcmVTeXN0ZW0gIkV4dGVybmFsIEhUVFAgLyBMTE0gQVBJcyIgIkV4dGVybmFsIEFQSSAmIExMTSBnYXRld2F5IGNsaWVudCIgIkV4dGVybmFsIgogICAgdHJlZV9zaXR0ZXJfYXN0X3J1bnRpbWUgPSBzb2Z0d2FyZVN5c3RlbSAiVHJlZS1zaXR0ZXIgQVNUIFJ1bnRpbWUiICJNdWx0aS1sYW5ndWFnZSBpbmNyZW1lbnRhbCBBU1QgcGFyc2VyIiAiRXh0ZXJuYWwiCiAgICBuZXR3b3JreF9ncmFwaF9ydW50aW1lID0gc29mdHdhcmVTeXN0ZW0gIk5ldHdvcmtYIEdyYXBoIFJ1bnRpbWUiICJHcmFwaCB0b3BvbG9neSAmIExvdXZhaW4gY29tbXVuaXR5IGVuZ2luZSIgIkV4dGVybmFsIgoKICAgIHByb2plY3RfdmFydW5hID0gc29mdHdhcmVTeXN0ZW0gInByb2plY3QtdmFydW5hIiAiQXV0b21hdGVkIEM0IG1vZGVsIChNb2R1bGFyaXR5IFE9MC40MCwgQWxpZ25tZW50PTEwMCUpIiB7CiAgICAgIGNvcmVfYXBwID0gY29udGFpbmVyICJwcm9qZWN0LXZhcnVuYSBBcHBsaWNhdGlvbiIgIlByaW1hcnkgYXBwbGljYXRpb24gcnVudGltZSBjb250YWluaW5nIExvdXZhaW4tZGlzY292ZXJlZCBDMyBjb21wb25lbnRzIiAiUHl0aG9uIiB7CiAgICAgICAgY29tcF9jbGkgPSBjb21wb25lbnQgIkNMSSAmIE9yY2hlc3RyYXRpb24gRW50cnlwb2ludCIgIlR5cGVyICsgUmljaCBDTEkgYW5kIHBpcGVsaW5lIG9yY2hlc3RyYXRvciBmb3IgUHJvamVjdCBWYXJ1bmEuIiAiUHl0aG9uIMK3IFR5cGVyIC8gQ0xJIiB7CiAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgInZhcnVuYS5jb2hlc2lvbiIgIjAlIgogICAgICAgICAgICAidmFydW5hLmRvbWluYW50X25hbWVzcGFjZSIgImNsaSIKICAgICAgICAgICAgInZhcnVuYS5tb2R1bGVfY291bnQiICIxIgogICAgICAgICAgICAiYzQubW9kdWxlLmNsaSIgInNyYy92YXJ1bmEvY2xpLnB5IChpbj0wLCBvdXQ9NCwgUFI9MC4wNTMpIgogICAgICAgICAgfQogICAgICAgIH0KICAgICAgICBjb21wX2V4dHJhY3RvcnMgPSBjb21wb25lbnQgIkFTVCAmIFNwZWMgRXh0cmFjdG9ycyIgIkJhc2UgVHJlZS1zaXR0ZXIgQVNUIGV4dHJhY3RvciBpbnRlcmZhY2UgYW5kIHBhdGggbm9ybWFsaXphdGlvbiBoZWxwZXJzICg3IG1vZHVsZXMpLiIgIlB5dGhvbiIgewogICAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgICJ2YXJ1bmEuY29oZXNpb24iICIxMDAlIgogICAgICAgICAgICAidmFydW5hLmRvbWluYW50X25hbWVzcGFjZSIgImV4dHJhY3RvcnMiCiAgICAgICAgICAgICJ2YXJ1bmEubW9kdWxlX2NvdW50IiAiNyIKICAgICAgICAgICAgImM0Lm1vZHVsZS5iYXNlIiAic3JjL3ZhcnVuYS9leHRyYWN0b3JzL2Jhc2UucHkgKGluPTYsIG91dD0xLCBQUj0wLjA1MykiCiAgICAgICAgICAgICJjNC5tb2R1bGUuaW5mcmFfc2Nhbm5lciIgInNyYy92YXJ1bmEvZXh0cmFjdG9ycy9pbmZyYV9zY2FubmVyLnB5IChpbj0yLCBvdXQ9MiwgUFI9MC4wNTMpIgogICAgICAgICAgICAiYzQubW9kdWxlLm9wZW5hcGlfcGFyc2VyIiAic3JjL3ZhcnVuYS9leHRyYWN0b3JzL29wZW5hcGlfcGFyc2VyLnB5IChpbj0xLCBvdXQ9MiwgUFI9MC4wNTMpIgogICAgICAgICAgICAiYzQubW9kdWxlLnB5dGhvbl9leHRyYWN0b3IiICJzcmMvdmFydW5hL2V4dHJhY3RvcnMvcHl0aG9uX2V4dHJhY3Rvci5weSAoaW49MSwgb3V0PTIsIFBSPTAuMDUzKSIKICAgICAgICAgICAgImM0Lm1vZHVsZS5yZWdpc3RyeSIgInNyYy92YXJ1bmEvZXh0cmFjdG9ycy9yZWdpc3RyeS5weSAoaW49MSwgb3V0PTcsIFBSPTAuMDUzKSIKICAgICAgICAgICAgImM0Lm1vZHVsZS5ydWJ5X2V4dHJhY3RvciIgInNyYy92YXJ1bmEvZXh0cmFjdG9ycy9ydWJ5X2V4dHJhY3Rvci5weSAoaW49MSwgb3V0PTIsIFBSPTAuMDUzKSIKICAgICAgICAgICAgImM0Lm1vZHVsZS50c19leHRyYWN0b3IiICJzcmMvdmFydW5hL2V4dHJhY3RvcnMvdHNfZXh0cmFjdG9yLnB5IChpbj0xLCBvdXQ9MiwgUFI9MC4wNTMpIgogICAgICAgICAgfQogICAgICAgIH0KICAgICAgICBjb21wX2VtaXR0ZXJzID0gY29tcG9uZW50ICJMaWtlQzQgJiBSZXBvcnQgRW1pdHRlcnMiICJMaWtlQzQgRFNMLCBTdHJ1Y3R1cml6ciBEU0wsIGFuZCBNYXJrZG93biBtb2R1bGFyaXR5IHJlcG9ydCBlbWl0dGVycyAoNCBtb2R1bGVzKS4iICJQeXRob24iIHsKICAgICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAidmFydW5hLmNvaGVzaW9uIiAiMTAwJSIKICAgICAgICAgICAgInZhcnVuYS5kb21pbmFudF9uYW1lc3BhY2UiICJlbWl0dGVycyIKICAgICAgICAgICAgInZhcnVuYS5tb2R1bGVfY291bnQiICI0IgogICAgICAgICAgICAiYzQubW9kdWxlLmVtaXR0ZXJzIiAic3JjL3ZhcnVuYS9lbWl0dGVycy9fX2luaXRfXy5weSAoaW49MSwgb3V0PTMsIFBSPTAuMDUzKSIKICAgICAgICAgICAgImM0Lm1vZHVsZS5saWtlYzRfZW1pdHRlciIgInNyYy92YXJ1bmEvZW1pdHRlcnMvbGlrZWM0X2VtaXR0ZXIucHkgKGluPTEsIG91dD0xLCBQUj0wLjA1MykiCiAgICAgICAgICAgICJjNC5tb2R1bGUucmVwb3J0X2VtaXR0ZXIiICJzcmMvdmFydW5hL2VtaXR0ZXJzL3JlcG9ydF9lbWl0dGVyLnB5IChpbj0xLCBvdXQ9MSwgUFI9MC4wNTMpIgogICAgICAgICAgICAiYzQubW9kdWxlLnN0cnVjdHVyaXpyX2VtaXR0ZXIiICJzcmMvdmFydW5hL2VtaXR0ZXJzL3N0cnVjdHVyaXpyX2VtaXR0ZXIucHkgKGluPTEsIG91dD0xLCBQUj0wLjA1MykiCiAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGNvbXBfZ3JhcGggPSBjb21wb25lbnQgIk5ldHdvcmsgU2NpZW5jZSAmIEdyYXBoIEVuZ2luZSIgIk5ldHdvcmtYIGRlcGVuZGVuY3kgZ3JhcGggYnVpbGRlciBhbmQgdW5pZmllZCBncmFwaC1zY2llbmNlIHBpcGVsaW5lIGNvb3JkaW5hdG9yICg0IG1vZHVsZXMpLiIgIlB5dGhvbiIgewogICAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgICJ2YXJ1bmEuY29oZXNpb24iICI2MCUiCiAgICAgICAgICAgICJ2YXJ1bmEuZG9taW5hbnRfbmFtZXNwYWNlIiAiZ3JhcGgiCiAgICAgICAgICAgICJ2YXJ1bmEubW9kdWxlX2NvdW50IiAiNCIKICAgICAgICAgICAgImM0Lm1vZHVsZS5idWlsZGVyIiAic3JjL3ZhcnVuYS9ncmFwaC9idWlsZGVyLnB5IChpbj0xLCBvdXQ9NiwgUFI9MC4wNTMpIgogICAgICAgICAgICAiYzQubW9kdWxlLmNlbnRyYWxpdHkiICJzcmMvdmFydW5hL2dyYXBoL2NlbnRyYWxpdHkucHkgKGluPTEsIG91dD0xLCBQUj0wLjA1MykiCiAgICAgICAgICAgICJjNC5tb2R1bGUuY2x1c3RlcmluZyIgInNyYy92YXJ1bmEvZ3JhcGgvY2x1c3RlcmluZy5weSAoaW49MSwgb3V0PTEsIFBSPTAuMDUzKSIKICAgICAgICAgICAgImM0Lm1vZHVsZS5kcmlmdCIgInNyYy92YXJ1bmEvZ3JhcGgvZHJpZnQucHkgKGluPTEsIG91dD0xLCBQUj0wLjA1MykiCiAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGNvbXBfZW5yaWNobWVudCA9IGNvbXBvbmVudCAiU2VtYW50aWMgRW5yaWNobWVudCAmIE5hbWluZyIgIkRldGVybWluaXN0aWMgVEYtSURGLCBkb2NzdHJpbmcsIGFuZCBzeW1ib2wtYmFzZWQgQzMgY29tcG9uZW50IG5hbWVyICh6ZXJvLUFQSS1rZXkgZGVmYXVsdCkgKDIgbW9kdWxlcykuIiAiUHl0aG9uIiB7CiAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgInZhcnVuYS5jb2hlc2lvbiIgIjEwMCUiCiAgICAgICAgICAgICJ2YXJ1bmEuZG9taW5hbnRfbmFtZXNwYWNlIiAiZW5yaWNobWVudCIKICAgICAgICAgICAgInZhcnVuYS5tb2R1bGVfY291bnQiICIyIgogICAgICAgICAgICAiYzQubW9kdWxlLmhldXJpc3RpY19uYW1lciIgInNyYy92YXJ1bmEvZW5yaWNobWVudC9oZXVyaXN0aWNfbmFtZXIucHkgKGluPTEsIG91dD0xLCBQUj0wLjA1MykiCiAgICAgICAgICAgICJjNC5tb2R1bGUubGxtX2FnZW50IiAic3JjL3ZhcnVuYS9lbnJpY2htZW50L2xsbV9hZ2VudC5weSAoaW49MSwgb3V0PTIsIFBSPTAuMDUzKSIKICAgICAgICAgIH0KICAgICAgICB9CiAgICAgICAgY29tcF9tb2RlbHMgPSBjb21wb25lbnQgIkNvcmUgR3JhcGggU2NoZW1hICYgTW9kZWxzIiAiQ29yZSBQeWRhbnRpYyBzY2hlbWEgZGVmaW5pdGlvbnMgZm9yIEMxLUM0IGFyY2hpdGVjdHVyYWwgZ3JhcGhzLCBtZXRyaWNzLCBhbmQgZHJpZnQgYW5hbHlzaXMuIiAiUHl0aG9uIMK3IFNoYXJlZCBTY2hlbWEgLyBTaW5rIiB7CiAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgInZhcnVuYS5jb2hlc2lvbiIgIjEwMCUiCiAgICAgICAgICAgICJ2YXJ1bmEuZG9taW5hbnRfbmFtZXNwYWNlIiAibW9kZWxzIgogICAgICAgICAgICAidmFydW5hLm1vZHVsZV9jb3VudCIgIjEiCiAgICAgICAgICAgICJjNC5tb2R1bGUuZ3JhcGhfc2NoZW1hIiAic3JjL3ZhcnVuYS9tb2RlbHMvZ3JhcGhfc2NoZW1hLnB5IChpbj0xNywgb3V0PTAsIFBSPTAuMDUzKSIKICAgICAgICAgIH0KICAgICAgICB9CiAgICAgIH0KICAgIH0KCiAgICAvLyAtLS0gQWN0b3IgdG8gRW50cnlwb2ludCBSZWxhdGlvbnNoaXBzIC0tLQogICAgY29uc3VtZXIgLT4gcHJvamVjdF92YXJ1bmEuY29yZV9hcHAuY29tcF9jbGkgImNsaTphbmFseXplLCBjbGk6aW5zcGVjdCIKCiAgICAvLyAtLS0gQzMgSW50ZXItQ29tcG9uZW50IERlcGVuZGVuY2llcyAoTG91dmFpbiBBZ2dyZWdhdGVkKSAtLS0KICAgIHByb2plY3RfdmFydW5hLmNvcmVfYXBwLmNvbXBfY2xpIC0+IHByb2plY3RfdmFydW5hLmNvcmVfYXBwLmNvbXBfZW1pdHRlcnMgIkRlcGVuZHMgb24gKHc9Mi45KSIKICAgIHByb2plY3RfdmFydW5hLmNvcmVfYXBwLmNvbXBfY2xpIC0+IHByb2plY3RfdmFydW5hLmNvcmVfYXBwLmNvbXBfZW5yaWNobWVudCAiRGVwZW5kcyBvbiAodz0zLjYpIgogICAgcHJvamVjdF92YXJ1bmEuY29yZV9hcHAuY29tcF9jbGkgLT4gcHJvamVjdF92YXJ1bmEuY29yZV9hcHAuY29tcF9ncmFwaCAiRGVwZW5kcyBvbiAodz00LjYpIgogICAgcHJvamVjdF92YXJ1bmEuY29yZV9hcHAuY29tcF9jbGkgLT4gcHJvamVjdF92YXJ1bmEuY29yZV9hcHAuY29tcF9tb2RlbHMgIkRlcGVuZHMgb24gKHc9My42KSIKICAgIHByb2plY3RfdmFydW5hLmNvcmVfYXBwLmNvbXBfZXh0cmFjdG9ycyAtPiBwcm9qZWN0X3ZhcnVuYS5jb3JlX2FwcC5jb21wX21vZGVscyAiRGVwZW5kcyBvbiAodz00Ni4yKSIKICAgIHByb2plY3RfdmFydW5hLmNvcmVfYXBwLmNvbXBfZW1pdHRlcnMgLT4gcHJvamVjdF92YXJ1bmEuY29yZV9hcHAuY29tcF9tb2RlbHMgIkRlcGVuZHMgb24gKHc9MTAuMikiCiAgICBwcm9qZWN0X3ZhcnVuYS5jb3JlX2FwcC5jb21wX2dyYXBoIC0+IHByb2plY3RfdmFydW5hLmNvcmVfYXBwLmNvbXBfZXh0cmFjdG9ycyAiRGVwZW5kcyBvbiAodz02LjApIgogICAgcHJvamVjdF92YXJ1bmEuY29yZV9hcHAuY29tcF9ncmFwaCAtPiBwcm9qZWN0X3ZhcnVuYS5jb3JlX2FwcC5jb21wX21vZGVscyAiRGVwZW5kcyBvbiAodz0yNC40KSIKICAgIHByb2plY3RfdmFydW5hLmNvcmVfYXBwLmNvbXBfZW5yaWNobWVudCAtPiBwcm9qZWN0X3ZhcnVuYS5jb3JlX2FwcC5jb21wX21vZGVscyAiRGVwZW5kcyBvbiAodz02LjIpIgoKICAgIC8vIC0tLSBDMyBDb21wb25lbnQgdG8gRXh0ZXJuYWwgJiBEYXRhc3RvcmUgQm91bmRhcmllcyAtLS0KICAgIHByb2plY3RfdmFydW5hLmNvcmVfYXBwLmNvbXBfZXh0cmFjdG9ycyAtPiB0cmVlX3NpdHRlcl9hc3RfcnVudGltZSAiVXNlcyIgIk5hdGl2ZSBDIC8gVHJlZS1zaXR0ZXIiCiAgICBwcm9qZWN0X3ZhcnVuYS5jb3JlX2FwcC5jb21wX2dyYXBoIC0+IG5ldHdvcmt4X2dyYXBoX3J1bnRpbWUgIlVzZXMiICJOZXR3b3JrWCAvIFNjaVB5IgogICAgcHJvamVjdF92YXJ1bmEuY29yZV9hcHAuY29tcF9lbnJpY2htZW50IC0+IGV4dGVybmFsX2h0dHBfbGxtX2FwaXMgIlVzZXMiICJIVFRQUyAvIFJFU1QiCiAgfQoKICB2aWV3cyB7CiAgICBzeXN0ZW1Db250ZXh0IHByb2plY3RfdmFydW5hICJjMV9jb250ZXh0IiB7CiAgICAgIHRpdGxlICJDMSAtIFN5c3RlbSBDb250ZXh0OiBwcm9qZWN0LXZhcnVuYSIKICAgICAgaW5jbHVkZSAqCiAgICAgIGF1dG9MYXlvdXQKICAgIH0KCiAgICBjb250YWluZXIgcHJvamVjdF92YXJ1bmEgImMyX2NvbnRhaW5lcnMiIHsKICAgICAgdGl0bGUgIkMyIC0gQ29udGFpbmVyIFZpZXc6IHByb2plY3QtdmFydW5hIgogICAgICBpbmNsdWRlICoKICAgICAgYXV0b0xheW91dAogICAgfQoKICAgIGNvbXBvbmVudCBwcm9qZWN0X3ZhcnVuYS5jb3JlX2FwcCAiYzNfY29tcG9uZW50cyIgewogICAgICB0aXRsZSAiQzMgLSBMb3V2YWluIENvbXBvbmVudHM6IHByb2plY3QtdmFydW5hIgogICAgICBpbmNsdWRlICoKICAgICAgYXV0b0xheW91dAogICAgfQoKICAgIHN0eWxlcyB7CiAgICAgIGVsZW1lbnQgIlBlcnNvbiIgewogICAgICAgIHNoYXBlIFBlcnNvbgogICAgICAgIGJhY2tncm91bmQgIzA4NDI3YgogICAgICAgIGNvbG9yICNmZmZmZmYKICAgICAgfQogICAgICBlbGVtZW50ICJTb2Z0d2FyZSBTeXN0ZW0iIHsKICAgICAgICBiYWNrZ3JvdW5kICMxMTY4YmQKICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgIH0KICAgICAgZWxlbWVudCAiRXh0ZXJuYWwiIHsKICAgICAgICBiYWNrZ3JvdW5kICM5OTk5OTkKICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgIH0KICAgICAgZWxlbWVudCAiQ29udGFpbmVyIiB7CiAgICAgICAgYmFja2dyb3VuZCAjNDM4ZGQ1CiAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICB9CiAgICAgIGVsZW1lbnQgIkNvbXBvbmVudCIgewogICAgICAgIGJhY2tncm91bmQgIzg1YmJmMAogICAgICAgIGNvbG9yICMwMDAwMDAKICAgICAgfQogICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgIHNoYXBlIEN5bGluZGVyCiAgICAgIH0KICAgICAgZWxlbWVudCAiUXVldWUiIHsKICAgICAgICBzaGFwZSBQaXBlCiAgICAgIH0KICAgIH0KICB9Cn0=",
+    "structurizr.inspection.info" : "0",
+    "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.warning" : "0"
+  },
+  "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "containerId" : "6",
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "9",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "c3_components",
+      "name" : "Component View: project-varuna - project-varuna Application",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "13"
+      }, {
+        "id" : "16"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "18"
+      }, {
+        "id" : "19"
+      }, {
+        "id" : "20"
+      }, {
+        "id" : "21"
+      }, {
+        "id" : "22"
+      }, {
+        "id" : "23"
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "28"
+      }, {
+        "id" : "31"
+      } ],
+      "title" : "C3 - Louvain Components: project-varuna"
+    } ],
+    "configuration" : {
+      "styles" : {
+        "elements" : [ {
+          "background" : "#85bbf0",
+          "color" : "#000000",
+          "tag" : "Component"
+        }, {
+          "background" : "#438dd5",
+          "color" : "#ffffff",
+          "tag" : "Container"
+        }, {
+          "shape" : "Cylinder",
+          "tag" : "Database"
+        }, {
+          "background" : "#999999",
+          "color" : "#ffffff",
+          "tag" : "External"
+        }, {
+          "background" : "#08427b",
+          "color" : "#ffffff",
+          "shape" : "Person",
+          "tag" : "Person"
+        }, {
+          "shape" : "Pipe",
+          "tag" : "Queue"
+        }, {
+          "background" : "#1168bd",
+          "color" : "#ffffff",
+          "tag" : "Software System"
+        } ]
+      },
+      "terminology" : { }
+    },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "c2_containers",
+      "name" : "Container View: project-varuna",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "14"
+      }, {
+        "id" : "26"
+      }, {
+        "id" : "29"
+      }, {
+        "id" : "32"
+      } ],
+      "softwareSystemId" : "5",
+      "title" : "C2 - Container View: project-varuna"
+    } ],
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "edgeSeparation" : 50,
+        "nodeSeparation" : 50,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 100,
+        "vertices" : true
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "c1_context",
+      "name" : "System Context View: project-varuna",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "15"
+      }, {
+        "id" : "27"
+      }, {
+        "id" : "30"
+      }, {
+        "id" : "33"
+      } ],
+      "softwareSystemId" : "5",
+      "title" : "C1 - System Context: project-varuna"
+    } ]
+  }
+}
