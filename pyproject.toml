@@ -7,7 +7,7 @@ name = "varuna"
 version = "0.1.0"
 description = "Automated C4 Architecture & Modularity Discovery Engine using Tree-sitter ASTs, Network Science (Louvain & Centrality), and LLM Agents"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.14"
 license = { text = "MIT" }
 authors = [
     { name = "Balaji Damodaran" }
