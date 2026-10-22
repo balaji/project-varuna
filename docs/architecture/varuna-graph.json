@@ -1,0 +1,3636 @@
+{
+  "project_name": "project-varuna",
+  "root_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna",
+  "languages_detected": [
+    "python"
+  ],
+  "nodes": {
+    "src.varuna.cli": {
+      "id": "src.varuna.cli",
+      "name": "cli",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\cli.py",
+      "relative_path": "src/varuna/cli.py",
+      "language": "python",
+      "directory_namespace": "varuna",
+      "classes": [],
+      "functions": [
+        "run_analysis",
+        "analyze_command",
+        "inspect_command",
+        "_print_console_summary"
+      ],
+      "exported_symbols": [
+        "run_analysis",
+        "analyze_command",
+        "inspect_command"
+      ],
+      "raw_imports": [
+        "json",
+        "pathlib",
+        "pathlib.Path",
+        "typing",
+        "typing.Optional",
+        "typer",
+        "rich.console",
+        "rich.console.Console",
+        "rich.panel",
+        "rich.panel.Panel",
+        "rich.table",
+        "rich.table.Table",
+        "varuna.emitters.likec4_emitter",
+        "varuna.emitters.likec4_emitter.emit_likec4_dsl",
+        "varuna.emitters.report_emitter",
+        "varuna.emitters.report_emitter.emit_markdown_report",
+        "varuna.enrichment.llm_agent",
+        "varuna.enrichment.llm_agent.enrich_components_with_llm",
+        "varuna.graph.builder",
+        "varuna.graph.builder.GraphBuilder",
+        "varuna.graph.centrality",
+        "varuna.graph.centrality.analyze_centrality_and_topology",
+        "varuna.graph.clustering",
+        "varuna.graph.clustering.discover_c3_components",
+        "varuna.graph.drift",
+        "varuna.graph.drift.analyze_architecture_drift",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.AnalysisResult"
+      ],
+      "referenced_constants": [
+        "Path",
+        "Optional",
+        "Console",
+        "Panel",
+        "Table",
+        "emit_likec4_dsl",
+        "emit_markdown_report",
+        "enrich_components_with_llm",
+        "GraphBuilder",
+        "analyze_centrality_and_topology",
+        "discover_c3_components",
+        "analyze_architecture_drift",
+        "AnalysisResult"
+      ],
+      "called_symbols": [
+        "typer.Typer",
+        "Console",
+        "repo_path.resolve",
+        "GraphBuilder",
+        "builder.analyze_graph",
+        "enrich_components_with_llm",
+        "sorted",
+        "list",
+        "nodes.values",
+        "AnalysisResult",
+        "str",
+        "app.command",
+        "typer.Argument",
+        "Path",
+        "typer.Option",
+        "Path",
+        "typer.Option",
+        "typer.Option",
+        "typer.Option",
+        "typer.Option",
+        "typer.Option",
+        "run_analysis",
+        "emit_likec4_dsl",
+        "emit_markdown_report",
+        "json_file.write_text",
+        "result.model_dump_json",
+        "_print_console_summary",
+        "app.command",
+        "typer.Argument",
+        "Path",
+        "typer.Option",
+        "run_analysis",
+        "_print_console_summary",
+        "\", \".join",
+        "l.value.title",
+        "console.print",
+        "Panel.fit",
+        "len",
+        "len",
+        "Table",
+        "sink_table.add_column",
+        "sink_table.add_column",
+        "sink_table.add_column",
+        "sink_table.add_column",
+        "sink_table.add_column",
+        "sink_table.add_row",
+        "str",
+        "str",
+        "console.print",
+        "Table",
+        "comp_table.add_column",
+        "comp_table.add_column",
+        "comp_table.add_column",
+        "comp_table.add_column",
+        "comp_table.add_column",
+        "comp_table.add_column",
+        "\", \".join",
+        "sorted",
+        "comp.outbound_component_deps.items",
+        "comp_table.add_row",
+        "str",
+        "len",
+        "console.print",
+        "console.print",
+        "c4_file.parent.as_posix",
+        "app"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [
+        {
+          "kind": "cli_command",
+          "name": "cli:analyze",
+          "detail": "CLI command handler `analyze_command`"
+        },
+        {
+          "kind": "cli_command",
+          "name": "cli:inspect",
+          "detail": "CLI command handler `inspect_command`"
+        },
+        {
+          "kind": "cli_command",
+          "name": "python -m src.varuna.cli",
+          "detail": "Main module execution block"
+        },
+        {
+          "kind": "topological_source",
+          "name": "root:cli",
+          "detail": "Topological source node (in_degree=0, out_degree=8)"
+        }
+      ],
+      "external_packages": [],
+      "docstring": "Typer + Rich CLI and pipeline orchestrator for Project Varuna.",
+      "lines_of_code": 237,
+      "in_degree": 0,
+      "out_degree": 8,
+      "weighted_in_degree": 0.0,
+      "weighted_out_degree": 25.97,
+      "in_degree_centrality": 0.0,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": true,
+      "community_id": "comp_cli"
+    },
+    "src.varuna.emitters.likec4_emitter": {
+      "id": "src.varuna.emitters.likec4_emitter",
+      "name": "likec4_emitter",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\emitters\\likec4_emitter.py",
+      "relative_path": "src/varuna/emitters/likec4_emitter.py",
+      "language": "python",
+      "directory_namespace": "emitters",
+      "classes": [],
+      "functions": [
+        "emit_likec4_dsl",
+        "generate_likec4_string",
+        "_safe_id",
+        "_esc"
+      ],
+      "exported_symbols": [
+        "emit_likec4_dsl",
+        "generate_likec4_string"
+      ],
+      "raw_imports": [
+        "re",
+        "pathlib",
+        "pathlib.Path",
+        "typing",
+        "typing.Dict",
+        "typing.List",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.AnalysisResult",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.NodeKind"
+      ],
+      "referenced_constants": [
+        "Path",
+        "Dict",
+        "List",
+        "AnalysisResult",
+        "C3Component",
+        "ExternalBoundary",
+        "NodeKind"
+      ],
+      "called_symbols": [
+        "output_path.parent.mkdir",
+        "generate_likec4_string",
+        "output_path.write_text",
+        "_safe_id",
+        "\", \".join",
+        "l.value.title",
+        "result.external_boundaries.values",
+        "c2_stores.append",
+        "c1_externals.append",
+        "lines.extend",
+        "_esc",
+        "_esc",
+        "_esc",
+        "lines.append",
+        "lines.extend",
+        "_esc",
+        "_esc",
+        "_esc",
+        "lines.extend",
+        "_esc",
+        "_esc",
+        "_esc",
+        "result.nodes.get",
+        "_safe_id",
+        "nid.replace",
+        "lines.extend",
+        "_esc",
+        "_esc",
+        "_esc",
+        "lines.append",
+        "lines.append",
+        "lines.append",
+        "lines.extend",
+        "_esc",
+        "_esc",
+        "_esc",
+        "lines.append",
+        "lines.append",
+        "lines.append",
+        "\", \".join",
+        "lines.append",
+        "_esc",
+        "lines.append",
+        "lines.append",
+        "sorted",
+        "comp.outbound_component_deps.items",
+        "lines.append",
+        "lines.append",
+        "lines.append",
+        "result.external_boundaries.get",
+        "lines.append",
+        "_esc",
+        "lines.append",
+        "_esc",
+        "lines.append",
+        "lines.append",
+        "node_fqn.get",
+        "node_fqn.get",
+        "lines.append",
+        "_esc",
+        "lines.append",
+        "lines.append",
+        "lines.extend",
+        "_esc",
+        "_esc",
+        "lines.append",
+        "lines.extend",
+        "_esc",
+        "result.external_boundaries.values",
+        "lines.append",
+        "lines.append",
+        "lines.append",
+        "lines.extend",
+        "_esc",
+        "lines.append",
+        "lines.append",
+        "\"\\n\".join",
+        "re.sub(r\"[^a-zA-Z0-9_]+\", \"_\", raw).strip(\"_\").lower",
+        "re.sub(r\"[^a-zA-Z0-9_]+\", \"_\", raw).strip",
+        "re.sub",
+        "cleaned[0].isdigit",
+        "text.replace(\"'\", \"\\\\'\").replace(\"\\n\", \" \").strip",
+        "text.replace(\"'\", \"\\\\'\").replace",
+        "text.replace"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Generates valid, hierarchical LikeC4 DSL (.c4) files across C1, C2, C3, and C4 zoom levels.",
+      "lines_of_code": 258,
+      "in_degree": 1,
+      "out_degree": 1,
+      "weighted_in_degree": 3.58,
+      "weighted_out_degree": 4.7,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_emitters"
+    },
+    "src.varuna.emitters.report_emitter": {
+      "id": "src.varuna.emitters.report_emitter",
+      "name": "report_emitter",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\emitters\\report_emitter.py",
+      "relative_path": "src/varuna/emitters/report_emitter.py",
+      "language": "python",
+      "directory_namespace": "emitters",
+      "classes": [],
+      "functions": [
+        "emit_markdown_report",
+        "generate_markdown_report_string"
+      ],
+      "exported_symbols": [
+        "emit_markdown_report",
+        "generate_markdown_report_string"
+      ],
+      "raw_imports": [
+        "pathlib",
+        "pathlib.Path",
+        "typing",
+        "typing.List",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.AnalysisResult"
+      ],
+      "referenced_constants": [
+        "Path",
+        "List",
+        "AnalysisResult"
+      ],
+      "called_symbols": [
+        "output_path.parent.mkdir",
+        "generate_markdown_report_string",
+        "output_path.write_text",
+        "\", \".join",
+        "l.value.title",
+        "sum",
+        "result.nodes.values",
+        "len",
+        "len",
+        "len",
+        "len",
+        "len",
+        "len",
+        "lines.append",
+        "result.external_boundaries.items",
+        "lines.append",
+        "lines.append",
+        "sorted",
+        "comp.outbound_component_deps.items",
+        "lines.append",
+        "lines.append",
+        "lines.extend",
+        "\", \".join",
+        "lines.append",
+        "len",
+        "lines.extend",
+        "lines.extend",
+        "lines.append",
+        "lines.append",
+        "lines.extend",
+        "lines.append",
+        "lines.extend",
+        "lines.extend",
+        "lines.append",
+        "lines.append",
+        "lines.append",
+        "\"\\n\".join"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Generates a Markdown Architecture & Modularity Drift Report with embedded Mermaid C3 diagrams.",
+      "lines_of_code": 159,
+      "in_degree": 1,
+      "out_degree": 1,
+      "weighted_in_degree": 3.58,
+      "weighted_out_degree": 2.34,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_emitters"
+    },
+    "src.varuna.enrichment.heuristic_namer": {
+      "id": "src.varuna.enrichment.heuristic_namer",
+      "name": "heuristic_namer",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\enrichment\\heuristic_namer.py",
+      "relative_path": "src/varuna/enrichment/heuristic_namer.py",
+      "language": "python",
+      "directory_namespace": "enrichment",
+      "classes": [],
+      "functions": [
+        "enrich_components_heuristically",
+        "_extract_top_domain_tokens"
+      ],
+      "exported_symbols": [
+        "enrich_components_heuristically"
+      ],
+      "raw_imports": [
+        "collections",
+        "collections.Counter",
+        "re",
+        "typing",
+        "typing.Dict",
+        "typing.List",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode"
+      ],
+      "referenced_constants": [
+        "Counter",
+        "Dict",
+        "List",
+        "C3Component",
+        "CodeNode"
+      ],
+      "called_symbols": [
+        "comp.dominant_namespace.lower",
+        "len",
+        "len",
+        "single.name.upper",
+        "len",
+        "single.name.title",
+        "single.name.replace('_', ' ').title",
+        "single.name.replace",
+        "_extract_top_domain_tokens",
+        "dom_ns.replace(\"_\", \" \").title",
+        "dom_ns.replace",
+        "', '.join",
+        "sorted",
+        "n.language.value.title",
+        "list",
+        "any",
+        "tech_parts.append",
+        "tech_parts.append",
+        "any",
+        "tech_parts.append",
+        "any",
+        "tech_parts.append",
+        "\" · \".join",
+        "len",
+        "any",
+        "', '.join",
+        "len",
+        "len",
+        "', '.join",
+        "', '.join",
+        "docstrings[0].rstrip",
+        "len",
+        "\", \".join",
+        "len",
+        "Counter",
+        "re.sub(r\"([a-z0-9])([A-Z])\", r\"\\1_\\2\", sym).lower().split",
+        "re.sub(r\"([a-z0-9])([A-Z])\", r\"\\1_\\2\", sym).lower",
+        "re.sub",
+        "len",
+        "w.title",
+        "counts.most_common"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Deterministic TF-IDF, docstring, and symbol-based C3 component namer (zero-API-key default).",
+      "lines_of_code": 130,
+      "in_degree": 1,
+      "out_degree": 1,
+      "weighted_in_degree": 3.58,
+      "weighted_out_degree": 3.12,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_enrichment"
+    },
+    "src.varuna.enrichment.llm_agent": {
+      "id": "src.varuna.enrichment.llm_agent",
+      "name": "llm_agent",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\enrichment\\llm_agent.py",
+      "relative_path": "src/varuna/enrichment/llm_agent.py",
+      "language": "python",
+      "directory_namespace": "enrichment",
+      "classes": [],
+      "functions": [
+        "enrich_components_with_llm",
+        "_call_gemini",
+        "_call_openai",
+        "_call_anthropic"
+      ],
+      "exported_symbols": [
+        "enrich_components_with_llm"
+      ],
+      "raw_imports": [
+        "json",
+        "os",
+        "typing",
+        "typing.Dict",
+        "typing.List",
+        "httpx",
+        "varuna.enrichment.heuristic_namer",
+        "varuna.enrichment.heuristic_namer.enrich_components_heuristically",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode"
+      ],
+      "referenced_constants": [
+        "Dict",
+        "List",
+        "enrich_components_heuristically",
+        "C3Component",
+        "CodeNode"
+      ],
+      "called_symbols": [
+        "enrich_components_heuristically",
+        "os.environ.get",
+        "os.environ.get",
+        "os.environ.get",
+        "os.environ.get",
+        "digest.append",
+        "f.startswith",
+        "json.dumps",
+        "_call_gemini",
+        "_call_openai",
+        "_call_anthropic",
+        "isinstance",
+        "item.get",
+        "str(item[\"name\"]).strip",
+        "str",
+        "item.get",
+        "str(item[\"description\"]).strip",
+        "str",
+        "httpx.Client",
+        "client.post",
+        "resp.raise_for_status",
+        "resp.json",
+        "json.loads",
+        "httpx.Client",
+        "client.post",
+        "resp.raise_for_status",
+        "resp.json",
+        "json.loads",
+        "httpx.Client",
+        "client.post",
+        "resp.raise_for_status",
+        "resp.json",
+        "text.find",
+        "text.rfind",
+        "json.loads"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Optional LLM Agent for semantic C3 component synthesis (supports Gemini, OpenAI, and Anthropic).",
+      "lines_of_code": 132,
+      "in_degree": 1,
+      "out_degree": 2,
+      "weighted_in_degree": 3.58,
+      "weighted_out_degree": 6.7,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_enrichment"
+    },
+    "src.varuna.extractors.base": {
+      "id": "src.varuna.extractors.base",
+      "name": "base",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\extractors\\base.py",
+      "relative_path": "src/varuna/extractors/base.py",
+      "language": "python",
+      "directory_namespace": "extractors",
+      "classes": [
+        "BaseASTExtractor"
+      ],
+      "functions": [
+        "sanitize_boundary_id",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "walk_tree",
+        "node_text",
+        "supports_file",
+        "extract_file"
+      ],
+      "exported_symbols": [
+        "sanitize_boundary_id",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "walk_tree",
+        "node_text",
+        "BaseASTExtractor",
+        "supports_file",
+        "extract_file"
+      ],
+      "raw_imports": [
+        "abc",
+        "abc.ABC",
+        "abc.abstractmethod",
+        "pathlib",
+        "pathlib.Path",
+        "re",
+        "typing",
+        "typing.Iterator",
+        "typing.List",
+        "typing.Set",
+        "tree_sitter",
+        "tree_sitter.Node",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.Language"
+      ],
+      "referenced_constants": [
+        "ABC",
+        "abstractmethod",
+        "Path",
+        "Iterator",
+        "List",
+        "Set",
+        "Node",
+        "CodeNode",
+        "Language"
+      ],
+      "called_symbols": [
+        "re.sub(r\"[^a-z0-9_]+\", \"_\", raw.lower()).strip",
+        "re.sub",
+        "raw.lower",
+        "file_path.relative_to(repo_root).with_suffix",
+        "file_path.relative_to",
+        "list",
+        "\".\".join",
+        "list",
+        "file_path.relative_to",
+        "len",
+        "rel_parts[idx].lower",
+        "rel_parts[0].lower",
+        "len",
+        "stack.pop",
+        "reversed",
+        "stack.append",
+        "source_bytes[node.start_byte : node.end_byte].decode",
+        "set",
+        "file_path.suffix.lower"
+      ],
+      "mixins_and_parents": [
+        "ABC"
+      ],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Base Tree-sitter AST extractor interface and path normalization helpers.",
+      "lines_of_code": 87,
+      "in_degree": 6,
+      "out_degree": 1,
+      "weighted_in_degree": 62.31,
+      "weighted_out_degree": 3.12,
+      "in_degree_centrality": 0.375,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_extractors"
+    },
+    "src.varuna.extractors.infra_scanner": {
+      "id": "src.varuna.extractors.infra_scanner",
+      "name": "infra_scanner",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\extractors\\infra_scanner.py",
+      "relative_path": "src/varuna/extractors/infra_scanner.py",
+      "language": "python",
+      "directory_namespace": "extractors",
+      "classes": [],
+      "functions": [
+        "scan_infrastructure_and_manifests",
+        "_match_known_packages",
+        "_parse_docker_compose",
+        "_safe_id"
+      ],
+      "exported_symbols": [
+        "scan_infrastructure_and_manifests"
+      ],
+      "raw_imports": [
+        "json",
+        "re",
+        "pathlib",
+        "pathlib.Path",
+        "typing",
+        "typing.Dict",
+        "typing.Tuple",
+        "yaml",
+        "varuna.extractors.base",
+        "varuna.extractors.base.sanitize_boundary_id",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.NodeKind"
+      ],
+      "referenced_constants": [
+        "Path",
+        "Dict",
+        "Tuple",
+        "sanitize_boundary_id",
+        "ExternalBoundary",
+        "NodeKind"
+      ],
+      "called_symbols": [
+        "compose_path.is_file",
+        "_parse_docker_compose",
+        "pyproject.is_file",
+        "pyproject.read_text(encoding=\"utf-8\", errors=\"replace\").lower",
+        "pyproject.read_text",
+        "_match_known_packages",
+        "req_txt.is_file",
+        "req_txt.read_text(encoding=\"utf-8\", errors=\"replace\").lower",
+        "req_txt.read_text",
+        "_match_known_packages",
+        "pkg_json.is_file",
+        "json.loads",
+        "pkg_json.read_text",
+        "list",
+        "data.get(\"dependencies\", {}).keys",
+        "data.get",
+        "list",
+        "data.get(\"devDependencies\", {}).keys",
+        "data.get",
+        "_match_known_packages",
+        "\"\\n\".join(deps).lower",
+        "\"\\n\".join",
+        "gemfile.is_file",
+        "gemfile.read_text(encoding=\"utf-8\", errors=\"replace\").lower",
+        "gemfile.read_text",
+        "_match_known_packages",
+        "KNOWN_EXTERNAL_DEPENDENCIES.items",
+        "re.escape",
+        "re.search",
+        "_safe_id",
+        "ExternalBoundary",
+        "yaml.safe_load",
+        "compose_path.read_text",
+        "isinstance",
+        "data.get",
+        "isinstance",
+        "services.items",
+        "isinstance",
+        "str(svc_cfg.get(\"image\", \"\")).lower",
+        "str",
+        "svc_cfg.get",
+        "any",
+        "_safe_id",
+        "ExternalBoundary",
+        "svc_name.title",
+        "any",
+        "_safe_id",
+        "ExternalBoundary",
+        "svc_name.title",
+        "sanitize_boundary_id"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Scans infrastructure files and dependency manifests to identify C2 datastores, queues, and C1 external systems.",
+      "lines_of_code": 144,
+      "in_degree": 2,
+      "out_degree": 2,
+      "weighted_in_degree": 4.93,
+      "weighted_out_degree": 9.46,
+      "in_degree_centrality": 0.125,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_extractors"
+    },
+    "src.varuna.extractors.openapi_parser": {
+      "id": "src.varuna.extractors.openapi_parser",
+      "name": "openapi_parser",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\extractors\\openapi_parser.py",
+      "relative_path": "src/varuna/extractors/openapi_parser.py",
+      "language": "python",
+      "directory_namespace": "extractors",
+      "classes": [],
+      "functions": [
+        "discover_openapi_spec",
+        "parse_openapi_spec",
+        "merge_openapi_into_nodes",
+        "_normalize_route_path"
+      ],
+      "exported_symbols": [
+        "discover_openapi_spec",
+        "parse_openapi_spec",
+        "merge_openapi_into_nodes"
+      ],
+      "raw_imports": [
+        "json",
+        "pathlib",
+        "pathlib.Path",
+        "typing",
+        "typing.Dict",
+        "typing.List",
+        "typing.Optional",
+        "yaml",
+        "varuna.extractors.base",
+        "varuna.extractors.base.sanitize_boundary_id",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.RouteEndpoint",
+        "re"
+      ],
+      "referenced_constants": [
+        "Path",
+        "Dict",
+        "List",
+        "Optional",
+        "sanitize_boundary_id",
+        "CodeNode",
+        "RouteEndpoint"
+      ],
+      "called_symbols": [
+        "candidate.is_file",
+        "spec_path.is_file",
+        "spec_path.read_text",
+        "spec_path.suffix.lower",
+        "json.loads",
+        "yaml.safe_load",
+        "isinstance",
+        "data.get",
+        "isinstance",
+        "paths_obj.items",
+        "isinstance",
+        "methods_map.items",
+        "method_key.lower",
+        "isinstance",
+        "str(op_spec.get(\"operationId\", \"\")).strip",
+        "str",
+        "op_spec.get",
+        "str(op_spec.get(\"summary\") or op_spec.get(\"description\") or \"\").strip",
+        "str",
+        "op_spec.get",
+        "op_spec.get",
+        "str",
+        "op_spec.get",
+        "endpoints.append",
+        "RouteEndpoint",
+        "method_key.upper",
+        "str",
+        "_normalize_route_path",
+        "nodes.values",
+        "_normalize_route_path",
+        "list",
+        "dict.fromkeys",
+        "sanitize_boundary_id",
+        "nodes.values",
+        "f.lower",
+        "any",
+        "op_clean.endswith",
+        "node.routes.append",
+        "unmatched.append",
+        "path_str.strip().rstrip",
+        "path_str.strip",
+        "re.sub",
+        "re.sub",
+        "p.lower"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Optional OpenAPI 3.x / Swagger 2.0 parser and route-to-code merger.",
+      "lines_of_code": 128,
+      "in_degree": 1,
+      "out_degree": 2,
+      "weighted_in_degree": 6.08,
+      "weighted_out_degree": 7.45,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_extractors"
+    },
+    "src.varuna.extractors.python_extractor": {
+      "id": "src.varuna.extractors.python_extractor",
+      "name": "python_extractor",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\extractors\\python_extractor.py",
+      "relative_path": "src/varuna/extractors/python_extractor.py",
+      "language": "python",
+      "directory_namespace": "extractors",
+      "classes": [
+        "PythonASTExtractor"
+      ],
+      "functions": [
+        "__init__",
+        "extract_file",
+        "_inspect_decorated_definition"
+      ],
+      "exported_symbols": [
+        "PythonASTExtractor",
+        "extract_file"
+      ],
+      "raw_imports": [
+        "re",
+        "pathlib",
+        "pathlib.Path",
+        "typing",
+        "typing.List",
+        "typing.Set",
+        "tree_sitter_python",
+        "tree_sitter",
+        "tree_sitter.Language",
+        "tree_sitter.Parser",
+        "varuna.extractors.base",
+        "varuna.extractors.base.BaseASTExtractor",
+        "varuna.extractors.base.compute_module_id",
+        "varuna.extractors.base.infer_directory_namespace",
+        "varuna.extractors.base.node_text",
+        "varuna.extractors.base.walk_tree",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.EntrypointInfo",
+        "varuna.models.graph_schema.EntrypointKind",
+        "varuna.models.graph_schema.Language",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ],
+      "referenced_constants": [
+        "Path",
+        "List",
+        "Set",
+        "Language",
+        "Parser",
+        "BaseASTExtractor",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "node_text",
+        "walk_tree",
+        "CodeNode",
+        "EntrypointInfo",
+        "EntrypointKind",
+        "Language",
+        "RouteEndpoint"
+      ],
+      "called_symbols": [
+        "TSLanguage",
+        "tspython.language",
+        "Parser",
+        "file_path.read_bytes",
+        "self._parser.parse",
+        "file_path.relative_to(repo_root).as_posix",
+        "file_path.relative_to",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "len",
+        "source_bytes.splitlines",
+        "CodeNode",
+        "str",
+        "file_path.resolve",
+        "node_text(expr, source_bytes).strip",
+        "node_text",
+        "raw_doc.splitlines",
+        "walk_tree",
+        "node_text(child, source_bytes).strip",
+        "node_text",
+        "node_model.raw_imports.append",
+        "child.child_by_field_name",
+        "node_model.raw_imports.append",
+        "node_text(name_node, source_bytes).strip",
+        "node_text",
+        "ts_node.child_by_field_name",
+        "node_text(module_name_node, source_bytes).strip",
+        "node_text",
+        "node_model.raw_imports.append",
+        "node_text(child, source_bytes).strip",
+        "node_text",
+        "node_model.raw_imports.append",
+        "node_model.referenced_constants.append",
+        "child.child_by_field_name",
+        "node_text(orig, source_bytes).strip",
+        "node_text",
+        "node_model.raw_imports.append",
+        "node_model.referenced_constants.append",
+        "ts_node.child_by_field_name",
+        "node_text",
+        "node_model.classes.append",
+        "cls_name.startswith",
+        "node_model.exported_symbols.append",
+        "ts_node.child_by_field_name",
+        "node_text",
+        "node_model.mixins_and_parents.append",
+        "ts_node.child_by_field_name",
+        "node_text",
+        "node_model.functions.append",
+        "fn_name.startswith",
+        "node_model.exported_symbols.append",
+        "self._inspect_decorated_definition",
+        "ts_node.child_by_field_name",
+        "node_text(fn_node, source_bytes).strip",
+        "node_text",
+        "len",
+        "node_model.called_symbols.append",
+        "ts_node.child_by_field_name",
+        "re.match",
+        "node_text(cond, source_bytes).strip",
+        "node_text",
+        "node_model.entrypoints.append",
+        "EntrypointInfo",
+        "decorated_node.child_by_field_name",
+        "definition.child_by_field_name",
+        "node_text",
+        "node_text(child, source_bytes).lstrip(\"@\").strip",
+        "node_text(child, source_bytes).lstrip",
+        "node_text",
+        "re.match",
+        "route_match.group(2).upper",
+        "route_match.group",
+        "route_match.group",
+        "re.search",
+        "path_match.group",
+        "node_model.routes.append",
+        "RouteEndpoint",
+        "node_model.entrypoints.append",
+        "EntrypointInfo",
+        "re.match",
+        "dec_text.startswith",
+        "fn_name.replace",
+        "re.search",
+        "str_arg.group",
+        "node_model.entrypoints.append",
+        "EntrypointInfo",
+        "re.search",
+        "node_model.entrypoints.append",
+        "EntrypointInfo"
+      ],
+      "mixins_and_parents": [
+        "BaseASTExtractor"
+      ],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Tree-sitter AST extractor for Python source code, FastAPI/Flask/Django routes, and Typer/Click CLIs.",
+      "lines_of_code": 224,
+      "in_degree": 1,
+      "out_degree": 2,
+      "weighted_in_degree": 4.63,
+      "weighted_out_degree": 30.14,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_extractors"
+    },
+    "src.varuna.extractors.registry": {
+      "id": "src.varuna.extractors.registry",
+      "name": "registry",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\extractors\\registry.py",
+      "relative_path": "src/varuna/extractors/registry.py",
+      "language": "python",
+      "directory_namespace": "extractors",
+      "classes": [
+        "ExtractorRegistry"
+      ],
+      "functions": [
+        "__init__",
+        "extract_all",
+        "_iter_source_files"
+      ],
+      "exported_symbols": [
+        "ExtractorRegistry",
+        "extract_all"
+      ],
+      "raw_imports": [
+        "pathlib",
+        "pathlib.Path",
+        "typing",
+        "typing.Dict",
+        "typing.Iterable",
+        "typing.List",
+        "typing.Optional",
+        "typing.Set",
+        "typing.Tuple",
+        "varuna.extractors.base",
+        "varuna.extractors.base.BaseASTExtractor",
+        "varuna.extractors.infra_scanner",
+        "varuna.extractors.infra_scanner.scan_infrastructure_and_manifests",
+        "varuna.extractors.openapi_parser",
+        "varuna.extractors.openapi_parser.discover_openapi_spec",
+        "varuna.extractors.openapi_parser.merge_openapi_into_nodes",
+        "varuna.extractors.openapi_parser.parse_openapi_spec",
+        "varuna.extractors.python_extractor",
+        "varuna.extractors.python_extractor.PythonASTExtractor",
+        "varuna.extractors.ruby_extractor",
+        "varuna.extractors.ruby_extractor.RubyASTExtractor",
+        "varuna.extractors.ts_extractor",
+        "varuna.extractors.ts_extractor.TypeScriptASTExtractor",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ],
+      "referenced_constants": [
+        "Path",
+        "Dict",
+        "Iterable",
+        "List",
+        "Optional",
+        "Set",
+        "Tuple",
+        "BaseASTExtractor",
+        "scan_infrastructure_and_manifests",
+        "discover_openapi_spec",
+        "merge_openapi_into_nodes",
+        "parse_openapi_spec",
+        "PythonASTExtractor",
+        "RubyASTExtractor",
+        "TypeScriptASTExtractor",
+        "CodeNode",
+        "ExternalBoundary",
+        "RouteEndpoint"
+      ],
+      "called_symbols": [
+        "PythonASTExtractor",
+        "TypeScriptASTExtractor",
+        "RubyASTExtractor",
+        "self._iter_source_files",
+        "extractor.supports_file",
+        "extractor.extract_file",
+        "scan_infrastructure_and_manifests",
+        "discover_openapi_spec",
+        "parse_openapi_spec",
+        "merge_openapi_into_nodes",
+        "sorted",
+        "repo_root.rglob",
+        "path.is_file",
+        "path.relative_to",
+        "any",
+        "part.startswith",
+        "any",
+        "part.lower",
+        "path.name.startswith",
+        "path.name.endswith"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Unified Extractor Registry that coordinates AST, OpenAPI, and Infrastructure extraction.",
+      "lines_of_code": 98,
+      "in_degree": 1,
+      "out_degree": 7,
+      "weighted_in_degree": 4.63,
+      "weighted_out_degree": 32.09,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_extractors"
+    },
+    "src.varuna.extractors.ruby_extractor": {
+      "id": "src.varuna.extractors.ruby_extractor",
+      "name": "ruby_extractor",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\extractors\\ruby_extractor.py",
+      "relative_path": "src/varuna/extractors/ruby_extractor.py",
+      "language": "python",
+      "directory_namespace": "extractors",
+      "classes": [
+        "RubyASTExtractor"
+      ],
+      "functions": [
+        "__init__",
+        "extract_file",
+        "_inspect_ruby_call"
+      ],
+      "exported_symbols": [
+        "RubyASTExtractor",
+        "extract_file"
+      ],
+      "raw_imports": [
+        "re",
+        "pathlib",
+        "pathlib.Path",
+        "typing",
+        "typing.List",
+        "typing.Set",
+        "tree_sitter_ruby",
+        "tree_sitter",
+        "tree_sitter.Language",
+        "tree_sitter.Parser",
+        "varuna.extractors.base",
+        "varuna.extractors.base.BaseASTExtractor",
+        "varuna.extractors.base.compute_module_id",
+        "varuna.extractors.base.infer_directory_namespace",
+        "varuna.extractors.base.node_text",
+        "varuna.extractors.base.walk_tree",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.EntrypointInfo",
+        "varuna.models.graph_schema.EntrypointKind",
+        "varuna.models.graph_schema.Language",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ],
+      "referenced_constants": [
+        "Path",
+        "List",
+        "Set",
+        "Language",
+        "Parser",
+        "BaseASTExtractor",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "node_text",
+        "walk_tree",
+        "CodeNode",
+        "EntrypointInfo",
+        "EntrypointKind",
+        "Language",
+        "RouteEndpoint"
+      ],
+      "called_symbols": [
+        "TSLanguage",
+        "tsruby.language",
+        "Parser",
+        "file_path.read_bytes",
+        "self._parser.parse",
+        "file_path.relative_to(repo_root).as_posix",
+        "file_path.relative_to",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "len",
+        "source_bytes.splitlines",
+        "CodeNode",
+        "str",
+        "file_path.resolve",
+        "set",
+        "rel_posix.endswith",
+        "walk_tree",
+        "ts_node.child_by_field_name",
+        "node_text(name_node, source_bytes).strip",
+        "node_text",
+        "defined_constants.add",
+        "defined_constants.add",
+        "const_name.split",
+        "node_model.classes.append",
+        "node_model.exported_symbols.append",
+        "ts_node.child_by_field_name",
+        "node_text(superclass_node, source_bytes).lstrip(\"<\").strip",
+        "node_text(superclass_node, source_bytes).lstrip",
+        "node_text",
+        "node_model.mixins_and_parents.append",
+        "node_model.entrypoints.append",
+        "EntrypointInfo",
+        "node_model.entrypoints.append",
+        "EntrypointInfo",
+        "ts_node.child_by_field_name",
+        "node_text",
+        "node_model.functions.append",
+        "node_model.exported_symbols.append",
+        "node_text(ts_node, source_bytes).strip().lstrip",
+        "node_text(ts_node, source_bytes).strip",
+        "node_text",
+        "const_ref.split",
+        "const_ref.isupper",
+        "node_model.referenced_constants.append",
+        "self._inspect_ruby_call",
+        "list",
+        "dict.fromkeys",
+        "call_node.child_by_field_name",
+        "call_node.child_by_field_name",
+        "node_text(method_node, source_bytes).strip",
+        "node_text",
+        "node_text(args_node, source_bytes).strip",
+        "node_text",
+        "re.search",
+        "node_model.raw_imports.append",
+        "req_match.group",
+        "args_text.strip",
+        "node_model.mixins_and_parents.append",
+        "node_model.referenced_constants.append",
+        "node_model.entrypoints.append",
+        "EntrypointInfo",
+        "re.search",
+        "sym_match.group",
+        "node_model.associations.append",
+        "re.search",
+        "res_match.group",
+        "node_model.routes.append",
+        "RouteEndpoint",
+        "node_model.referenced_constants.append",
+        "re.search",
+        "re.search",
+        "path_match.group",
+        "to_match.group",
+        "node_model.routes.append",
+        "RouteEndpoint",
+        "method_name.upper",
+        "node_model.referenced_constants.append",
+        "call_node.child_by_field_name",
+        "node_text(receiver_node, source_bytes).strip",
+        "node_text",
+        "node_model.called_symbols.append",
+        "node_model.called_symbols.append"
+      ],
+      "mixins_and_parents": [
+        "BaseASTExtractor"
+      ],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Tree-sitter AST extractor for Ruby/Rails, including Zeitwerk constant resolution, associations, and routes.",
+      "lines_of_code": 239,
+      "in_degree": 1,
+      "out_degree": 2,
+      "weighted_in_degree": 4.63,
+      "weighted_out_degree": 23.84,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_extractors"
+    },
+    "src.varuna.extractors.ts_extractor": {
+      "id": "src.varuna.extractors.ts_extractor",
+      "name": "ts_extractor",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\extractors\\ts_extractor.py",
+      "relative_path": "src/varuna/extractors/ts_extractor.py",
+      "language": "python",
+      "directory_namespace": "extractors",
+      "classes": [
+        "TypeScriptASTExtractor"
+      ],
+      "functions": [
+        "__init__",
+        "extract_file"
+      ],
+      "exported_symbols": [
+        "TypeScriptASTExtractor",
+        "extract_file"
+      ],
+      "raw_imports": [
+        "re",
+        "pathlib",
+        "pathlib.Path",
+        "typing",
+        "typing.Set",
+        "tree_sitter_typescript",
+        "tree_sitter",
+        "tree_sitter.Language",
+        "tree_sitter.Parser",
+        "varuna.extractors.base",
+        "varuna.extractors.base.BaseASTExtractor",
+        "varuna.extractors.base.compute_module_id",
+        "varuna.extractors.base.infer_directory_namespace",
+        "varuna.extractors.base.node_text",
+        "varuna.extractors.base.walk_tree",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.EntrypointInfo",
+        "varuna.models.graph_schema.EntrypointKind",
+        "varuna.models.graph_schema.Language",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ],
+      "referenced_constants": [
+        "Path",
+        "Set",
+        "Language",
+        "Parser",
+        "BaseASTExtractor",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "node_text",
+        "walk_tree",
+        "CodeNode",
+        "EntrypointInfo",
+        "EntrypointKind",
+        "Language",
+        "RouteEndpoint"
+      ],
+      "called_symbols": [
+        "TSLanguage",
+        "tstypescript.language_typescript",
+        "TSLanguage",
+        "tstypescript.language_tsx",
+        "Parser",
+        "Parser",
+        "file_path.read_bytes",
+        "file_path.suffix.lower",
+        "parser.parse",
+        "file_path.relative_to(repo_root).as_posix",
+        "file_path.relative_to",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "len",
+        "source_bytes.splitlines",
+        "CodeNode",
+        "str",
+        "file_path.resolve",
+        "walk_tree",
+        "ts_node.child_by_field_name",
+        "node_text(source_node, source_bytes).strip",
+        "node_text",
+        "node_model.raw_imports.append",
+        "node_text",
+        "re.findall",
+        "ident.split",
+        "part.strip().split(\" as \")[0].strip",
+        "part.strip().split",
+        "part.strip",
+        "clean_sym.isidentifier",
+        "node_model.referenced_constants.append",
+        "ts_node.child_by_field_name",
+        "node_text",
+        "node_model.classes.append",
+        "node_model.exported_symbols.append",
+        "ts_node.child_by_field_name",
+        "node_text",
+        "node_model.functions.append",
+        "node_model.exported_symbols.append",
+        "node_text(ts_node, source_bytes).lstrip(\"@\").strip",
+        "node_text(ts_node, source_bytes).lstrip",
+        "node_text",
+        "re.match",
+        "ctrl_match.group(1).strip",
+        "ctrl_match.group",
+        "re.match",
+        "verb_match.group(1).upper",
+        "verb_match.group",
+        "verb_match.group(2).strip",
+        "verb_match.group",
+        "f\"{controller_prefix}/{sub_path}\".rstrip",
+        "node_model.routes.append",
+        "RouteEndpoint",
+        "node_model.entrypoints.append",
+        "EntrypointInfo",
+        "ts_node.child_by_field_name",
+        "ts_node.child_by_field_name",
+        "node_text(fn_node, source_bytes).strip",
+        "node_text",
+        "node_model.called_symbols.append",
+        "node_text",
+        "re.search",
+        "node_model.raw_imports.append",
+        "req_match.group",
+        "re.match",
+        "express_match.group(1).lower",
+        "express_match.group",
+        "express_match.group(2).upper",
+        "express_match.group",
+        "node_text",
+        "re.search",
+        "path_match.group",
+        "node_model.routes.append",
+        "RouteEndpoint",
+        "node_model.entrypoints.append",
+        "EntrypointInfo",
+        "ts_node.child_by_field_name",
+        "node_text(ctor_node, source_bytes).strip",
+        "node_text",
+        "node_model.referenced_constants.append",
+        "node_model.entrypoints.append",
+        "EntrypointInfo"
+      ],
+      "mixins_and_parents": [
+        "BaseASTExtractor"
+      ],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Tree-sitter AST extractor for TypeScript/JavaScript, Express/Fastify routes, and NestJS decorators.",
+      "lines_of_code": 181,
+      "in_degree": 1,
+      "out_degree": 2,
+      "weighted_in_degree": 4.63,
+      "weighted_out_degree": 25.94,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_extractors"
+    },
+    "src.varuna.graph.builder": {
+      "id": "src.varuna.graph.builder",
+      "name": "builder",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\graph\\builder.py",
+      "relative_path": "src/varuna/graph/builder.py",
+      "language": "python",
+      "directory_namespace": "graph",
+      "classes": [
+        "GraphBuilder"
+      ],
+      "functions": [
+        "__init__",
+        "build",
+        "analyze_graph",
+        "_resolve_edges",
+        "add_edge",
+        "_resolve_import_string",
+        "_match_external_boundary",
+        "_camel_to_snake_dotted"
+      ],
+      "exported_symbols": [
+        "GraphBuilder",
+        "build",
+        "analyze_graph",
+        "add_edge"
+      ],
+      "raw_imports": [
+        "pathlib",
+        "pathlib.Path",
+        "re",
+        "typing",
+        "typing.Dict",
+        "typing.List",
+        "typing.Optional",
+        "typing.Set",
+        "typing.Tuple",
+        "networkx",
+        "varuna.extractors.infra_scanner",
+        "varuna.extractors.infra_scanner.KNOWN_EXTERNAL_DEPENDENCIES",
+        "varuna.extractors.registry",
+        "varuna.extractors.registry.ExtractorRegistry",
+        "varuna.graph.centrality",
+        "varuna.graph.centrality.analyze_centrality_and_topology",
+        "varuna.graph.clustering",
+        "varuna.graph.clustering.discover_c3_components",
+        "varuna.graph.drift",
+        "varuna.graph.drift.analyze_architecture_drift",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.DependencyEdge",
+        "varuna.models.graph_schema.DriftIssue",
+        "varuna.models.graph_schema.EDGE_BASE_WEIGHTS",
+        "varuna.models.graph_schema.EdgeKind",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.Language",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ],
+      "referenced_constants": [
+        "Path",
+        "Dict",
+        "List",
+        "Optional",
+        "Set",
+        "Tuple",
+        "KNOWN_EXTERNAL_DEPENDENCIES",
+        "ExtractorRegistry",
+        "analyze_centrality_and_topology",
+        "discover_c3_components",
+        "analyze_architecture_drift",
+        "C3Component",
+        "CodeNode",
+        "DependencyEdge",
+        "DriftIssue",
+        "EDGE_BASE_WEIGHTS",
+        "EdgeKind",
+        "ExternalBoundary",
+        "Language",
+        "RouteEndpoint"
+      ],
+      "called_symbols": [
+        "repo_root.resolve",
+        "ExtractorRegistry",
+        "self.registry.extract_all",
+        "self._resolve_edges",
+        "nx.DiGraph",
+        "nodes.items",
+        "graph.add_node",
+        "graph.has_edge",
+        "round",
+        "max",
+        "min",
+        "graph[edge.source][edge.target][\"kinds\"].add",
+        "graph[edge.source][edge.target][\"symbols\"].update",
+        "graph.add_edge",
+        "round",
+        "set",
+        "self.build",
+        "analyze_centrality_and_topology",
+        "discover_c3_components",
+        "analyze_architecture_drift",
+        "sorted",
+        "nodes.items",
+        "item[1].relative_path.endswith",
+        "node_id.split",
+        "range",
+        "len",
+        "\".\".join",
+        "node.name.lower",
+        "sym.startswith",
+        "symbol_to_ids.setdefault(sym, []).append",
+        "symbol_to_ids.setdefault",
+        "sym.split",
+        "symbol_to_ids.setdefault(short_sym, []).append",
+        "symbol_to_ids.setdefault",
+        "nodes[dst].relative_path.endswith",
+        "src.startswith",
+        "DependencyEdge",
+        "pair_edges[key].symbols.append",
+        "nodes.items",
+        "set",
+        "self._resolve_import_string",
+        "imported_targets.add",
+        "add_edge",
+        "self._match_external_boundary",
+        "symbol_to_ids.get",
+        "imported_targets.add",
+        "add_edge",
+        "self._camel_to_snake_dotted",
+        "imported_targets.add",
+        "add_edge",
+        "parent_sym.split(\".\")[-1].split",
+        "parent_sym.split",
+        "symbol_to_ids.get",
+        "add_edge",
+        "assoc.endswith",
+        "assoc.lower",
+        "singular.lower",
+        "add_edge",
+        "called.split",
+        "short_call.startswith",
+        "called[0].isupper",
+        "add_edge",
+        "list",
+        "pair_edges.values",
+        "raw_imp.strip",
+        "cleaned.startswith",
+        "Path",
+        "(src_dir / cleaned).as_posix",
+        "resolved_rel.split",
+        "norm_parts.pop",
+        "norm_parts.append",
+        "\".\".join",
+        "cleaned.lstrip",
+        "cleaned.startswith",
+        "cleaned[2:].replace",
+        "cleaned.replace(\"/\", \".\").lstrip",
+        "cleaned.replace",
+        "\".\".join",
+        "dotted_imp.split",
+        "raw_imp.split(\".\")[0].split(\"/\")[0].lower().replace",
+        "raw_imp.split(\".\")[0].split(\"/\")[0].lower",
+        "raw_imp.split(\".\")[0].split",
+        "raw_imp.split",
+        "root_pkg.startswith",
+        "re.sub(r\"[^a-z0-9_]+\", \"_\", name.lower()).strip",
+        "re.sub",
+        "name.lower",
+        "ExternalBoundary",
+        "external_boundaries[b_id].referenced_by_modules.append",
+        "const_str.split",
+        "re.sub(r\"(?<!^)(?=[A-Z])\", \"_\", p).lower",
+        "re.sub",
+        "\".\".join"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "NetworkX dependency graph builder and unified graph-science pipeline coordinator.",
+      "lines_of_code": 300,
+      "in_degree": 1,
+      "out_degree": 6,
+      "weighted_in_degree": 4.63,
+      "weighted_out_degree": 25.67,
+      "in_degree_centrality": 0.0625,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_graph"
+    },
+    "src.varuna.graph.centrality": {
+      "id": "src.varuna.graph.centrality",
+      "name": "centrality",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\graph\\centrality.py",
+      "relative_path": "src/varuna/graph/centrality.py",
+      "language": "python",
+      "directory_namespace": "graph",
+      "classes": [],
+      "functions": [
+        "analyze_centrality_and_topology"
+      ],
+      "exported_symbols": [
+        "analyze_centrality_and_topology"
+      ],
+      "raw_imports": [
+        "typing",
+        "typing.Dict",
+        "typing.List",
+        "typing.Set",
+        "typing.Tuple",
+        "networkx",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.EntrypointInfo",
+        "varuna.models.graph_schema.EntrypointKind"
+      ],
+      "referenced_constants": [
+        "Dict",
+        "List",
+        "Set",
+        "Tuple",
+        "CodeNode",
+        "EntrypointInfo",
+        "EntrypointKind"
+      ],
+      "called_symbols": [
+        "len",
+        "nx.in_degree_centrality",
+        "nx.pagerank",
+        "len",
+        "nx.hits",
+        "graph.in_degree",
+        "graph.out_degree",
+        "float",
+        "graph.in_degree",
+        "float",
+        "graph.out_degree",
+        "round",
+        "round",
+        "round",
+        "float",
+        "in_deg_cent.get",
+        "round",
+        "float",
+        "pagerank_scores.get",
+        "round",
+        "float",
+        "hubs.get",
+        "round",
+        "float",
+        "authorities.get",
+        "node.relative_path.endswith",
+        "topological_entrypoints.append",
+        "any",
+        "node.entrypoints.append",
+        "EntrypointInfo",
+        "topological_entrypoints.append",
+        "list",
+        "graph.predecessors",
+        "len",
+        "len",
+        "float",
+        "len",
+        "utility_sinks.append",
+        "sorted",
+        "sorted"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Network science centrality metrics, topological entrypoint inference, and utility sink detection.",
+      "lines_of_code": 96,
+      "in_degree": 2,
+      "out_degree": 1,
+      "weighted_in_degree": 5.92,
+      "weighted_out_degree": 4.66,
+      "in_degree_centrality": 0.125,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_graph"
+    },
+    "src.varuna.graph.clustering": {
+      "id": "src.varuna.graph.clustering",
+      "name": "clustering",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\graph\\clustering.py",
+      "relative_path": "src/varuna/graph/clustering.py",
+      "language": "python",
+      "directory_namespace": "graph",
+      "classes": [],
+      "functions": [
+        "discover_c3_components",
+        "_build_component_from_members",
+        "_make_comp_id"
+      ],
+      "exported_symbols": [
+        "discover_c3_components"
+      ],
+      "raw_imports": [
+        "collections",
+        "collections.Counter",
+        "itertools",
+        "itertools.combinations",
+        "re",
+        "typing",
+        "typing.Dict",
+        "typing.List",
+        "typing.Set",
+        "typing.Tuple",
+        "networkx",
+        "networkx.algorithms.community",
+        "networkx.algorithms.community.louvain_communities",
+        "networkx.algorithms.community.modularity",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.ExternalBoundary"
+      ],
+      "referenced_constants": [
+        "Counter",
+        "combinations",
+        "Dict",
+        "List",
+        "Set",
+        "Tuple",
+        "louvain_communities",
+        "modularity",
+        "C3Component",
+        "CodeNode",
+        "ExternalBoundary"
+      ],
+      "called_symbols": [
+        "set",
+        "graph.out_edges",
+        "len",
+        "composition_roots.append",
+        "set",
+        "nx.Graph",
+        "undirected.add_node",
+        "graph.edges",
+        "float",
+        "data.get",
+        "undirected.has_edge",
+        "undirected.add_edge",
+        "by_namespace.setdefault(ns, []).append",
+        "by_namespace.setdefault",
+        "by_namespace.items",
+        "len",
+        "combinations",
+        "undirected.has_edge",
+        "undirected.add_edge",
+        "undirected.number_of_edges",
+        "louvain_communities",
+        "float",
+        "modularity",
+        "sorted",
+        "sorted",
+        "list",
+        "len",
+        "set",
+        "Counter",
+        "len",
+        "root_ns_counts.most_common",
+        "_make_comp_id",
+        "used_comp_ids.add",
+        "_build_component_from_members",
+        "sorted",
+        "components.append",
+        "enumerate",
+        "len",
+        "Counter",
+        "ns_counts.most_common",
+        "_make_comp_id",
+        "used_comp_ids.add",
+        "_build_component_from_members",
+        "components.append",
+        "Counter",
+        "sink_ns_counts.most_common",
+        "_make_comp_id",
+        "len",
+        "used_comp_ids.add",
+        "_build_component_from_members",
+        "len",
+        "sorted",
+        "components.append",
+        "graph.out_edges",
+        "node_to_comp_id.get",
+        "float",
+        "edge_data.get",
+        "round",
+        "outbound_weights.get",
+        "external_boundaries.items",
+        "any",
+        "comp.external_boundary_ids.append",
+        "boundary.referenced_by_components.append",
+        "round",
+        "Counter",
+        "languages.most_common(1)[0][0].title",
+        "languages.most_common",
+        "set",
+        "set",
+        "routes.extend",
+        "entrypoints.extend",
+        "graph.out_edges",
+        "used_sinks.add",
+        "round",
+        "float",
+        "any",
+        "C3Component",
+        "dominant_ns.replace(\"_\", \" \").title",
+        "dominant_ns.replace",
+        "list",
+        "ns_counts.keys",
+        "sorted",
+        "re.sub(r\"[^a-z0-9_]+\", \"_\", dominant_ns.lower()).strip",
+        "re.sub",
+        "dominant_ns.lower"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Louvain community detection engine for discovering C3 architectural components.",
+      "lines_of_code": 269,
+      "in_degree": 2,
+      "out_degree": 1,
+      "weighted_in_degree": 5.92,
+      "weighted_out_degree": 4.66,
+      "in_degree_centrality": 0.125,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_graph"
+    },
+    "src.varuna.graph.drift": {
+      "id": "src.varuna.graph.drift",
+      "name": "drift",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\graph\\drift.py",
+      "relative_path": "src/varuna/graph/drift.py",
+      "language": "python",
+      "directory_namespace": "graph",
+      "classes": [],
+      "functions": [
+        "analyze_architecture_drift"
+      ],
+      "exported_symbols": [
+        "analyze_architecture_drift"
+      ],
+      "raw_imports": [
+        "collections",
+        "collections.Counter",
+        "typing",
+        "typing.Dict",
+        "typing.List",
+        "typing.Tuple",
+        "networkx",
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.DriftIssue"
+      ],
+      "referenced_constants": [
+        "Counter",
+        "Dict",
+        "List",
+        "Tuple",
+        "C3Component",
+        "CodeNode",
+        "DriftIssue"
+      ],
+      "called_symbols": [
+        "Counter",
+        "ns_counts.most_common",
+        "len",
+        "len",
+        "issues.append",
+        "DriftIssue",
+        "', '.join",
+        "ns_to_comps.setdefault",
+        "ns_to_comps[ns].append",
+        "ns_to_comps.items",
+        "len",
+        "issues.append",
+        "DriftIssue",
+        "len",
+        "', '.join",
+        "nodes.items",
+        "graph.out_edges",
+        "len",
+        "issues.append",
+        "DriftIssue",
+        "len",
+        "', '.join",
+        "sorted",
+        "round",
+        "float"
+      ],
+      "mixins_and_parents": [],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Architecture Drift Analyzer: compares folder boundaries against Louvain communities.",
+      "lines_of_code": 112,
+      "in_degree": 2,
+      "out_degree": 1,
+      "weighted_in_degree": 5.92,
+      "weighted_out_degree": 6.08,
+      "in_degree_centrality": 0.125,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": false,
+      "utility_reason": "",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_graph"
+    },
+    "src.varuna.models.graph_schema": {
+      "id": "src.varuna.models.graph_schema",
+      "name": "graph_schema",
+      "file_path": "C:\\Users\\Balaji Damodaran\\projects\\project-varuna\\src\\varuna\\models\\graph_schema.py",
+      "relative_path": "src/varuna/models/graph_schema.py",
+      "language": "python",
+      "directory_namespace": "models",
+      "classes": [
+        "Language",
+        "NodeKind",
+        "EntrypointKind",
+        "EdgeKind",
+        "RouteEndpoint",
+        "EntrypointInfo",
+        "CodeNode",
+        "DependencyEdge",
+        "ExternalBoundary",
+        "C3Component",
+        "DriftIssue",
+        "AnalysisResult"
+      ],
+      "functions": [],
+      "exported_symbols": [
+        "Language",
+        "NodeKind",
+        "EntrypointKind",
+        "EdgeKind",
+        "RouteEndpoint",
+        "EntrypointInfo",
+        "CodeNode",
+        "DependencyEdge",
+        "ExternalBoundary",
+        "C3Component",
+        "DriftIssue",
+        "AnalysisResult"
+      ],
+      "raw_imports": [
+        "enum",
+        "enum.Enum",
+        "typing",
+        "typing.Dict",
+        "typing.List",
+        "typing.Optional",
+        "typing.Set",
+        "pydantic",
+        "pydantic.BaseModel",
+        "pydantic.Field"
+      ],
+      "referenced_constants": [
+        "Enum",
+        "Dict",
+        "List",
+        "Optional",
+        "Set",
+        "BaseModel",
+        "Field"
+      ],
+      "called_symbols": [
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field",
+        "Field"
+      ],
+      "mixins_and_parents": [
+        "str",
+        "Enum",
+        "str",
+        "Enum",
+        "str",
+        "Enum",
+        "str",
+        "Enum",
+        "BaseModel",
+        "BaseModel",
+        "BaseModel",
+        "BaseModel",
+        "BaseModel",
+        "BaseModel",
+        "BaseModel",
+        "BaseModel"
+      ],
+      "associations": [],
+      "routes": [],
+      "entrypoints": [],
+      "external_packages": [],
+      "docstring": "Core Pydantic schema definitions for C1-C4 architectural graphs, metrics, and drift analysis.",
+      "lines_of_code": 169,
+      "in_degree": 16,
+      "out_degree": 0,
+      "weighted_in_degree": 87.39,
+      "weighted_out_degree": 0.0,
+      "in_degree_centrality": 1.0,
+      "pagerank": 0.0588,
+      "hub_score": 0.0,
+      "authority_score": 0.0,
+      "is_utility_sink": true,
+      "utility_reason": "Cross-cutting sink imported by 16 modules across 6 namespaces (out_degree=0, PageRank=0.059)",
+      "is_topological_entrypoint": false,
+      "community_id": "comp_models"
+    }
+  },
+  "edges": [
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.emitters.likec4_emitter",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.emitters.likec4_emitter",
+        "varuna.emitters.likec4_emitter.emit_likec4_dsl"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.emitters.report_emitter",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.emitters.report_emitter",
+        "varuna.emitters.report_emitter.emit_markdown_report"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.enrichment.llm_agent",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.enrichment.llm_agent",
+        "varuna.enrichment.llm_agent.enrich_components_with_llm"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.graph.builder",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.graph.builder",
+        "varuna.graph.builder.GraphBuilder"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.graph.centrality",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.graph.centrality",
+        "varuna.graph.centrality.analyze_centrality_and_topology"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.graph.clustering",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.graph.clustering",
+        "varuna.graph.clustering.discover_c3_components"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.graph.drift",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.graph.drift",
+        "varuna.graph.drift.analyze_architecture_drift"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.AnalysisResult"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.emitters.likec4_emitter",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "emit_likec4_dsl"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.emitters.report_emitter",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "emit_markdown_report"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.enrichment.llm_agent",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "enrich_components_with_llm"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.graph.builder",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "GraphBuilder"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.graph.centrality",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "analyze_centrality_and_topology"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.graph.clustering",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "discover_c3_components"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.graph.drift",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "analyze_architecture_drift"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "AnalysisResult"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.graph.builder",
+      "kind": "calls",
+      "weight": 4.05,
+      "symbols": [
+        "GraphBuilder",
+        "builder.analyze_graph"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.enrichment.llm_agent",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "enrich_components_with_llm"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "AnalysisResult"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.emitters.likec4_emitter",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "emit_likec4_dsl"
+      ]
+    },
+    {
+      "source": "src.varuna.cli",
+      "target": "src.varuna.emitters.report_emitter",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "emit_markdown_report"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters.likec4_emitter",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 2.4000000000000004,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.AnalysisResult",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.NodeKind"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters.likec4_emitter",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 4.1000000000000005,
+      "symbols": [
+        "AnalysisResult",
+        "C3Component",
+        "ExternalBoundary",
+        "NodeKind"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters.report_emitter",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.AnalysisResult"
+      ]
+    },
+    {
+      "source": "src.varuna.emitters.report_emitter",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "AnalysisResult"
+      ]
+    },
+    {
+      "source": "src.varuna.enrichment.heuristic_namer",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 1.7000000000000002,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode"
+      ]
+    },
+    {
+      "source": "src.varuna.enrichment.heuristic_namer",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 2.7,
+      "symbols": [
+        "C3Component",
+        "CodeNode"
+      ]
+    },
+    {
+      "source": "src.varuna.enrichment.llm_agent",
+      "target": "src.varuna.enrichment.heuristic_namer",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.enrichment.heuristic_namer",
+        "varuna.enrichment.heuristic_namer.enrich_components_heuristically"
+      ]
+    },
+    {
+      "source": "src.varuna.enrichment.llm_agent",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 1.7000000000000002,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode"
+      ]
+    },
+    {
+      "source": "src.varuna.enrichment.llm_agent",
+      "target": "src.varuna.enrichment.heuristic_namer",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "enrich_components_heuristically"
+      ]
+    },
+    {
+      "source": "src.varuna.enrichment.llm_agent",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 2.7,
+      "symbols": [
+        "C3Component",
+        "CodeNode"
+      ]
+    },
+    {
+      "source": "src.varuna.enrichment.llm_agent",
+      "target": "src.varuna.enrichment.heuristic_namer",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "enrich_components_heuristically"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.base",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 1.7000000000000002,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.Language"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.base",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 2.7,
+      "symbols": [
+        "CodeNode",
+        "Language"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.infra_scanner",
+      "target": "src.varuna.extractors.base",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.extractors.base",
+        "varuna.extractors.base.sanitize_boundary_id"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.infra_scanner",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 1.7000000000000002,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.NodeKind"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.infra_scanner",
+      "target": "src.varuna.extractors.base",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "sanitize_boundary_id"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.infra_scanner",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 2.7,
+      "symbols": [
+        "ExternalBoundary",
+        "NodeKind"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.infra_scanner",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 5.1,
+      "symbols": [
+        "ExternalBoundary"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.infra_scanner",
+      "target": "src.varuna.extractors.base",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "sanitize_boundary_id"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.openapi_parser",
+      "target": "src.varuna.extractors.base",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.extractors.base",
+        "varuna.extractors.base.sanitize_boundary_id"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.openapi_parser",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 1.7000000000000002,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.openapi_parser",
+      "target": "src.varuna.extractors.base",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "sanitize_boundary_id"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.openapi_parser",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 2.7,
+      "symbols": [
+        "CodeNode",
+        "RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.openapi_parser",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.openapi_parser",
+      "target": "src.varuna.extractors.base",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "sanitize_boundary_id"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.python_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "imports",
+      "weight": 2.7500000000000004,
+      "symbols": [
+        "varuna.extractors.base",
+        "varuna.extractors.base.BaseASTExtractor",
+        "varuna.extractors.base.compute_module_id",
+        "varuna.extractors.base.infer_directory_namespace",
+        "varuna.extractors.base.node_text",
+        "varuna.extractors.base.walk_tree"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.python_extractor",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 2.7500000000000004,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.EntrypointInfo",
+        "varuna.models.graph_schema.EntrypointKind",
+        "varuna.models.graph_schema.Language",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.python_extractor",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 5.500000000000001,
+      "symbols": [
+        "Language",
+        "CodeNode",
+        "EntrypointInfo",
+        "EntrypointKind",
+        "RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.python_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "references_constant",
+      "weight": 4.800000000000001,
+      "symbols": [
+        "BaseASTExtractor",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "node_text",
+        "walk_tree"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.python_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "inherits_or_mixin",
+      "weight": 3.5,
+      "symbols": [
+        "BaseASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.python_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "calls",
+      "weight": 18.750000000000007,
+      "symbols": [
+        "compute_module_id",
+        "infer_directory_namespace",
+        "node_text",
+        "walk_tree"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.python_extractor",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 8.25,
+      "symbols": [
+        "CodeNode",
+        "EntrypointInfo",
+        "RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.base",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.extractors.base",
+        "varuna.extractors.base.BaseASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.infra_scanner",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.extractors.infra_scanner",
+        "varuna.extractors.infra_scanner.scan_infrastructure_and_manifests"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.openapi_parser",
+      "kind": "imports",
+      "weight": 2.0500000000000003,
+      "symbols": [
+        "varuna.extractors.openapi_parser",
+        "varuna.extractors.openapi_parser.discover_openapi_spec",
+        "varuna.extractors.openapi_parser.merge_openapi_into_nodes",
+        "varuna.extractors.openapi_parser.parse_openapi_spec"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.python_extractor",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.extractors.python_extractor",
+        "varuna.extractors.python_extractor.PythonASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.ruby_extractor",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.extractors.ruby_extractor",
+        "varuna.extractors.ruby_extractor.RubyASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.ts_extractor",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.extractors.ts_extractor",
+        "varuna.extractors.ts_extractor.TypeScriptASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 2.0500000000000003,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.base",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "BaseASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.infra_scanner",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "scan_infrastructure_and_manifests"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.openapi_parser",
+      "kind": "references_constant",
+      "weight": 3.4000000000000004,
+      "symbols": [
+        "discover_openapi_spec",
+        "merge_openapi_into_nodes",
+        "parse_openapi_spec"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.python_extractor",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "PythonASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.ruby_extractor",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "RubyASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.ts_extractor",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "TypeScriptASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 3.4000000000000004,
+      "symbols": [
+        "CodeNode",
+        "ExternalBoundary",
+        "RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.python_extractor",
+      "kind": "calls",
+      "weight": 4.05,
+      "symbols": [
+        "PythonASTExtractor",
+        "extractor.extract_file"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.ts_extractor",
+      "kind": "calls",
+      "weight": 4.05,
+      "symbols": [
+        "TypeScriptASTExtractor",
+        "extractor.extract_file"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.ruby_extractor",
+      "kind": "calls",
+      "weight": 4.05,
+      "symbols": [
+        "RubyASTExtractor",
+        "extractor.extract_file"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.base",
+      "kind": "calls",
+      "weight": 4.05,
+      "symbols": [
+        "extractor.supports_file",
+        "extractor.extract_file"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.infra_scanner",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "scan_infrastructure_and_manifests"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.registry",
+      "target": "src.varuna.extractors.openapi_parser",
+      "kind": "calls",
+      "weight": 5.1,
+      "symbols": [
+        "discover_openapi_spec",
+        "parse_openapi_spec",
+        "merge_openapi_into_nodes"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ruby_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "imports",
+      "weight": 2.7500000000000004,
+      "symbols": [
+        "varuna.extractors.base",
+        "varuna.extractors.base.BaseASTExtractor",
+        "varuna.extractors.base.compute_module_id",
+        "varuna.extractors.base.infer_directory_namespace",
+        "varuna.extractors.base.node_text",
+        "varuna.extractors.base.walk_tree"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ruby_extractor",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 2.7500000000000004,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.EntrypointInfo",
+        "varuna.models.graph_schema.EntrypointKind",
+        "varuna.models.graph_schema.Language",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ruby_extractor",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 5.500000000000001,
+      "symbols": [
+        "Language",
+        "CodeNode",
+        "EntrypointInfo",
+        "EntrypointKind",
+        "RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ruby_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "references_constant",
+      "weight": 4.800000000000001,
+      "symbols": [
+        "BaseASTExtractor",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "node_text",
+        "walk_tree"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ruby_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "inherits_or_mixin",
+      "weight": 3.5,
+      "symbols": [
+        "BaseASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ruby_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "calls",
+      "weight": 12.450000000000003,
+      "symbols": [
+        "compute_module_id",
+        "infer_directory_namespace",
+        "walk_tree",
+        "node_text"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ruby_extractor",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 8.25,
+      "symbols": [
+        "CodeNode",
+        "EntrypointInfo",
+        "RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ts_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "imports",
+      "weight": 2.7500000000000004,
+      "symbols": [
+        "varuna.extractors.base",
+        "varuna.extractors.base.BaseASTExtractor",
+        "varuna.extractors.base.compute_module_id",
+        "varuna.extractors.base.infer_directory_namespace",
+        "varuna.extractors.base.node_text",
+        "varuna.extractors.base.walk_tree"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ts_extractor",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 2.7500000000000004,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.EntrypointInfo",
+        "varuna.models.graph_schema.EntrypointKind",
+        "varuna.models.graph_schema.Language",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ts_extractor",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 5.500000000000001,
+      "symbols": [
+        "Language",
+        "CodeNode",
+        "EntrypointInfo",
+        "EntrypointKind",
+        "RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ts_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "references_constant",
+      "weight": 4.800000000000001,
+      "symbols": [
+        "BaseASTExtractor",
+        "compute_module_id",
+        "infer_directory_namespace",
+        "node_text",
+        "walk_tree"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ts_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "inherits_or_mixin",
+      "weight": 3.5,
+      "symbols": [
+        "BaseASTExtractor"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ts_extractor",
+      "target": "src.varuna.extractors.base",
+      "kind": "calls",
+      "weight": 14.550000000000004,
+      "symbols": [
+        "compute_module_id",
+        "infer_directory_namespace",
+        "walk_tree",
+        "node_text"
+      ]
+    },
+    {
+      "source": "src.varuna.extractors.ts_extractor",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 8.25,
+      "symbols": [
+        "CodeNode",
+        "RouteEndpoint",
+        "EntrypointInfo"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.extractors.infra_scanner",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.extractors.infra_scanner",
+        "varuna.extractors.infra_scanner.KNOWN_EXTERNAL_DEPENDENCIES"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.extractors.registry",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.extractors.registry",
+        "varuna.extractors.registry.ExtractorRegistry"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.graph.centrality",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.graph.centrality",
+        "varuna.graph.centrality.analyze_centrality_and_topology"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.graph.clustering",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.graph.clustering",
+        "varuna.graph.clustering.discover_c3_components"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.graph.drift",
+      "kind": "imports",
+      "weight": 1.35,
+      "symbols": [
+        "varuna.graph.drift",
+        "varuna.graph.drift.analyze_architecture_drift"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 4.15,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.DependencyEdge",
+        "varuna.models.graph_schema.DriftIssue",
+        "varuna.models.graph_schema.EDGE_BASE_WEIGHTS",
+        "varuna.models.graph_schema.EdgeKind",
+        "varuna.models.graph_schema.ExternalBoundary",
+        "varuna.models.graph_schema.Language",
+        "varuna.models.graph_schema.RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.extractors.registry",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "ExtractorRegistry"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.graph.centrality",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "analyze_centrality_and_topology"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.graph.clustering",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "discover_c3_components"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.graph.drift",
+      "kind": "references_constant",
+      "weight": 2.0,
+      "symbols": [
+        "analyze_architecture_drift"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 6.900000000000001,
+      "symbols": [
+        "C3Component",
+        "CodeNode",
+        "DependencyEdge",
+        "DriftIssue",
+        "EdgeKind",
+        "ExternalBoundary",
+        "Language",
+        "RouteEndpoint"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.extractors.registry",
+      "kind": "calls",
+      "weight": 4.05,
+      "symbols": [
+        "ExtractorRegistry",
+        "self.registry.extract_all"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.graph.centrality",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "analyze_centrality_and_topology"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.graph.clustering",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "discover_c3_components"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.graph.drift",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "analyze_architecture_drift"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.builder",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 4.05,
+      "symbols": [
+        "DependencyEdge",
+        "ExternalBoundary"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.centrality",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 2.0500000000000003,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.EntrypointInfo",
+        "varuna.models.graph_schema.EntrypointKind"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.centrality",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 3.4000000000000004,
+      "symbols": [
+        "CodeNode",
+        "EntrypointInfo",
+        "EntrypointKind"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.centrality",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "EntrypointInfo"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.clustering",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 2.0500000000000003,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.ExternalBoundary"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.clustering",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 3.4000000000000004,
+      "symbols": [
+        "C3Component",
+        "CodeNode",
+        "ExternalBoundary"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.clustering",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 3.0,
+      "symbols": [
+        "C3Component"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.drift",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "imports",
+      "weight": 2.0500000000000003,
+      "symbols": [
+        "varuna.models.graph_schema",
+        "varuna.models.graph_schema.C3Component",
+        "varuna.models.graph_schema.CodeNode",
+        "varuna.models.graph_schema.DriftIssue"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.drift",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "references_constant",
+      "weight": 3.4000000000000004,
+      "symbols": [
+        "C3Component",
+        "CodeNode",
+        "DriftIssue"
+      ]
+    },
+    {
+      "source": "src.varuna.graph.drift",
+      "target": "src.varuna.models.graph_schema",
+      "kind": "calls",
+      "weight": 5.1,
+      "symbols": [
+        "DriftIssue"
+      ]
+    }
+  ],
+  "external_boundaries": {
+    "external_http_llm_apis": {
+      "id": "external_http_llm_apis",
+      "name": "External HTTP / LLM APIs",
+      "kind": "external_system",
+      "technology": "HTTPS / REST",
+      "description": "External API & LLM gateway client",
+      "referenced_by_modules": [
+        "src.varuna.enrichment.llm_agent"
+      ],
+      "referenced_by_components": [
+        "comp_enrichment"
+      ]
+    },
+    "tree_sitter_ast_runtime": {
+      "id": "tree_sitter_ast_runtime",
+      "name": "Tree-sitter AST Runtime",
+      "kind": "external_system",
+      "technology": "Native C / Tree-sitter",
+      "description": "Multi-language incremental AST parser",
+      "referenced_by_modules": [
+        "src.varuna.extractors.base",
+        "src.varuna.extractors.python_extractor",
+        "src.varuna.extractors.ruby_extractor",
+        "src.varuna.extractors.ts_extractor"
+      ],
+      "referenced_by_components": [
+        "comp_extractors"
+      ]
+    },
+    "networkx_graph_runtime": {
+      "id": "networkx_graph_runtime",
+      "name": "NetworkX Graph Runtime",
+      "kind": "external_system",
+      "technology": "NetworkX / SciPy",
+      "description": "Graph topology & Louvain community engine",
+      "referenced_by_modules": [
+        "src.varuna.graph.builder",
+        "src.varuna.graph.centrality",
+        "src.varuna.graph.clustering",
+        "src.varuna.graph.drift"
+      ],
+      "referenced_by_components": [
+        "comp_graph"
+      ]
+    }
+  },
+  "utility_sinks": [
+    "src.varuna.models.graph_schema"
+  ],
+  "topological_entrypoints": [
+    "src.varuna.cli"
+  ],
+  "components": [
+    {
+      "id": "comp_cli",
+      "name": "CLI & Orchestration Entrypoint",
+      "description": "Typer + Rich CLI and pipeline orchestrator for Project Varuna.",
+      "technology": "Python · Typer / CLI",
+      "community_index": 0,
+      "node_ids": [
+        "src.varuna.cli"
+      ],
+      "directory_namespaces": [
+        "varuna"
+      ],
+      "dominant_namespace": "cli",
+      "exposed_routes": [],
+      "entrypoints": [
+        {
+          "kind": "cli_command",
+          "name": "cli:analyze",
+          "detail": "CLI command handler `analyze_command`"
+        },
+        {
+          "kind": "cli_command",
+          "name": "cli:inspect",
+          "detail": "CLI command handler `inspect_command`"
+        },
+        {
+          "kind": "cli_command",
+          "name": "python -m src.varuna.cli",
+          "detail": "Main module execution block"
+        },
+        {
+          "kind": "topological_source",
+          "name": "root:cli",
+          "detail": "Topological source node (in_degree=0, out_degree=8)"
+        }
+      ],
+      "outbound_component_deps": {
+        "comp_emitters": 7.16,
+        "comp_enrichment": 3.58,
+        "comp_graph": 11.65,
+        "comp_models": 3.58
+      },
+      "external_boundary_ids": [],
+      "utility_sink_ids": [
+        "src.varuna.models.graph_schema"
+      ],
+      "internal_cohesion": 0.0,
+      "is_entrypoint_component": true
+    },
+    {
+      "id": "comp_extractors",
+      "name": "AST & Spec Extractors",
+      "description": "Base Tree-sitter AST extractor interface and path normalization helpers (7 modules).",
+      "technology": "Python",
+      "community_index": 1,
+      "node_ids": [
+        "src.varuna.extractors.base",
+        "src.varuna.extractors.infra_scanner",
+        "src.varuna.extractors.openapi_parser",
+        "src.varuna.extractors.python_extractor",
+        "src.varuna.extractors.registry",
+        "src.varuna.extractors.ruby_extractor",
+        "src.varuna.extractors.ts_extractor"
+      ],
+      "directory_namespaces": [
+        "extractors"
+      ],
+      "dominant_namespace": "extractors",
+      "exposed_routes": [],
+      "entrypoints": [],
+      "outbound_component_deps": {
+        "comp_models": 46.18
+      },
+      "external_boundary_ids": [
+        "tree_sitter_ast_runtime"
+      ],
+      "utility_sink_ids": [
+        "src.varuna.models.graph_schema"
+      ],
+      "internal_cohesion": 1.0,
+      "is_entrypoint_component": false
+    },
+    {
+      "id": "comp_graph",
+      "name": "Network Science & Graph Engine",
+      "description": "NetworkX dependency graph builder and unified graph-science pipeline coordinator (4 modules).",
+      "technology": "Python",
+      "community_index": 2,
+      "node_ids": [
+        "src.varuna.graph.builder",
+        "src.varuna.graph.centrality",
+        "src.varuna.graph.clustering",
+        "src.varuna.graph.drift"
+      ],
+      "directory_namespaces": [
+        "graph"
+      ],
+      "dominant_namespace": "graph",
+      "exposed_routes": [],
+      "entrypoints": [],
+      "outbound_component_deps": {
+        "comp_extractors": 5.98,
+        "comp_models": 24.35
+      },
+      "external_boundary_ids": [
+        "networkx_graph_runtime"
+      ],
+      "utility_sink_ids": [
+        "src.varuna.models.graph_schema"
+      ],
+      "internal_cohesion": 0.6,
+      "is_entrypoint_component": false
+    },
+    {
+      "id": "comp_emitters",
+      "name": "LikeC4 & Report Emitters",
+      "description": "Generates valid, hierarchical LikeC4 DSL (.c4) files across C1, C2, C3, and C4 zoom levels (2 modules).",
+      "technology": "Python",
+      "community_index": 3,
+      "node_ids": [
+        "src.varuna.emitters.likec4_emitter",
+        "src.varuna.emitters.report_emitter"
+      ],
+      "directory_namespaces": [
+        "emitters"
+      ],
+      "dominant_namespace": "emitters",
+      "exposed_routes": [],
+      "entrypoints": [],
+      "outbound_component_deps": {
+        "comp_models": 7.04
+      },
+      "external_boundary_ids": [],
+      "utility_sink_ids": [
+        "src.varuna.models.graph_schema"
+      ],
+      "internal_cohesion": 1.0,
+      "is_entrypoint_component": false
+    },
+    {
+      "id": "comp_enrichment",
+      "name": "Semantic Enrichment & Naming",
+      "description": "Deterministic TF-IDF, docstring, and symbol-based C3 component namer (zero-API-key default) (2 modules).",
+      "technology": "Python",
+      "community_index": 4,
+      "node_ids": [
+        "src.varuna.enrichment.heuristic_namer",
+        "src.varuna.enrichment.llm_agent"
+      ],
+      "directory_namespaces": [
+        "enrichment"
+      ],
+      "dominant_namespace": "enrichment",
+      "exposed_routes": [],
+      "entrypoints": [],
+      "outbound_component_deps": {
+        "comp_models": 6.24
+      },
+      "external_boundary_ids": [
+        "external_http_llm_apis"
+      ],
+      "utility_sink_ids": [
+        "src.varuna.models.graph_schema"
+      ],
+      "internal_cohesion": 1.0,
+      "is_entrypoint_component": false
+    },
+    {
+      "id": "comp_models",
+      "name": "Core Graph Schema & Models",
+      "description": "Core Pydantic schema definitions for C1-C4 architectural graphs, metrics, and drift analysis.",
+      "technology": "Python · Shared Schema / Sink",
+      "community_index": 5,
+      "node_ids": [
+        "src.varuna.models.graph_schema"
+      ],
+      "directory_namespaces": [
+        "models"
+      ],
+      "dominant_namespace": "models",
+      "exposed_routes": [],
+      "entrypoints": [],
+      "outbound_component_deps": {},
+      "external_boundary_ids": [],
+      "utility_sink_ids": [],
+      "internal_cohesion": 1.0,
+      "is_entrypoint_component": false
+    }
+  ],
+  "unmatched_openapi_routes": [],
+  "modularity_score": 0.2813,
+  "namespace_alignment_score": 1.0,
+  "drift_issues": []
+}
