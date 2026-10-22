@@ -7,7 +7,7 @@ Generated automatically by **Project Varuna** (AST + Centrality Pruning + Louvai
 | Metric | Value |
 | :--- | :--- |
 | **Languages Detected** | Python |
-| **Source Modules Analyzed (C4)** | 17 (3,330 LOC) |
+| **Source Modules Analyzed (C4)** | 17 (3,350 LOC) |
 | **Internal Dependency Edges** | 106 |
 | **Discovered C3 Components (Louvain)** | 6 |
 | **Cross-Cutting Utility Sinks Pruned** | 1 |
@@ -22,12 +22,12 @@ Generated automatically by **Project Varuna** (AST + Centrality Pruning + Louvai
 ```mermaid
 flowchart TD
     Actor["Developer / Consumer"]
-    comp_cli["CLI & Orchestration Entrypoint<br/>(Python · Typer / CLI · 1 modules)"]
-    comp_extractors["AST & Spec Extractors<br/>(Python · 7 modules)"]
-    comp_graph["Network Science & Graph Engine<br/>(Python · 4 modules)"]
-    comp_emitters["LikeC4 & Report Emitters<br/>(Python · 2 modules)"]
-    comp_enrichment["Semantic Enrichment & Naming<br/>(Python · 2 modules)"]
-    comp_models["Core Graph Schema & Models<br/>(Python · Shared Schema / Sink · 1 modules)"]
+    comp_cli["CLI Pipeline Orchestrator<br/>(Python · Typer / CLI · 1 modules)"]
+    comp_extractors["AST and Spec Extractors<br/>(Python · 7 modules)"]
+    comp_graph["Graph Analytics Engine<br/>(Python · 4 modules)"]
+    comp_emitters["Architecture Report Emitter<br/>(Python · 2 modules)"]
+    comp_enrichment["Semantic Component Enricher<br/>(Python · 2 modules)"]
+    comp_models["Core Domain Models<br/>(Python · Shared Schema / Sink · 1 modules)"]
     ext_external_http_llm_apis[("External HTTP / LLM APIs<br/>(HTTPS / REST)")]
     ext_tree_sitter_ast_runtime[("Tree-sitter AST Runtime<br/>(Native C / Tree-sitter)")]
     ext_networkx_graph_runtime[("NetworkX Graph Runtime<br/>(NetworkX / SciPy)")]
@@ -52,12 +52,12 @@ flowchart TD
 
 | Component ID | Name | Technology | Modules | Cohesion | Dominant Folder | Description |
 | :--- | :--- | :--- | :---: | :---: | :--- | :--- |
-| `comp_cli` | **CLI & Orchestration Entrypoint** | Python · Typer / CLI | 1 (`cli`) | `0%` | `cli` | Typer + Rich CLI and pipeline orchestrator for Project Varuna. |
-| `comp_extractors` | **AST & Spec Extractors** | Python | 7 (`base`, `infra_scanner`, `openapi_parser`, `python_extractor`, `registry`, `ruby_extractor`, `ts_extractor`) | `100%` | `extractors` | Base Tree-sitter AST extractor interface and path normalization helpers (7 modules). |
-| `comp_graph` | **Network Science & Graph Engine** | Python | 4 (`builder`, `centrality`, `clustering`, `drift`) | `60%` | `graph` | NetworkX dependency graph builder and unified graph-science pipeline coordinator (4 modules). |
-| `comp_emitters` | **LikeC4 & Report Emitters** | Python | 2 (`likec4_emitter`, `report_emitter`) | `100%` | `emitters` | Generates valid, hierarchical LikeC4 DSL (.c4) files across C1, C2, C3, and C4 zoom levels (2 modules). |
-| `comp_enrichment` | **Semantic Enrichment & Naming** | Python | 2 (`heuristic_namer`, `llm_agent`) | `100%` | `enrichment` | Deterministic TF-IDF, docstring, and symbol-based C3 component namer (zero-API-key default) (2 modules). |
-| `comp_models` | **Core Graph Schema & Models** | Python · Shared Schema / Sink | 1 (`graph_schema`) | `100%` | `models` | Core Pydantic schema definitions for C1-C4 architectural graphs, metrics, and drift analysis. |
+| `comp_cli` | **CLI Pipeline Orchestrator** | Python · Typer / CLI | 1 (`cli`) | `0%` | `cli` | Orchestrates static analysis and inspection workflows via a command-line interface. |
+| `comp_extractors` | **AST and Spec Extractors** | Python | 7 (`base`, `infra_scanner`, `openapi_parser`, `python_extractor`, `registry`, `ruby_extractor`, `ts_extractor`) | `100%` | `extractors` | Parses source code ASTs, OpenAPI specifications, and infrastructure manifests to extract architectural symbols and dependencies. |
+| `comp_graph` | **Graph Analytics Engine** | Python | 4 (`builder`, `centrality`, `clustering`, `drift`) | `60%` | `graph` | Constructs dependency graphs and executes network science algorithms to detect components, centrality, and drift. |
+| `comp_emitters` | **Architecture Report Emitter** | Python | 2 (`likec4_emitter`, `report_emitter`) | `100%` | `emitters` | Generates LikeC4 architecture definitions and comprehensive Markdown drift reports from graph analysis results. |
+| `comp_enrichment` | **Semantic Component Enricher** | Python | 2 (`heuristic_namer`, `llm_agent`) | `100%` | `enrichment` | Infers human-readable names and descriptions for detected components using heuristic analysis and language models. |
+| `comp_models` | **Core Domain Models** | Python · Shared Schema / Sink | 1 (`graph_schema`) | `100%` | `models` | Defines Pydantic schemas and entity types representing architectural nodes, edges, and graph metadata. |
 
 ---
 
